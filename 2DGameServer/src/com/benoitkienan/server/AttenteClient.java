@@ -24,9 +24,12 @@ public class AttenteClient {
 
             System.out.println( "Socket serveur: " + s );
 
-            soc = s.accept();
+            while ( true ) {
 
-            System.out.println( "Serveur a accepte connexion: " + soc );
+                soc = s.accept();
+                clients.add( new Client( soc ) );
+
+            }
 
         } catch ( IOException e ) {
             // TODO Auto-generated catch block
