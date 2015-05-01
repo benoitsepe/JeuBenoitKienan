@@ -36,7 +36,7 @@ public class Fenetre extends JFrame{
 
 
 		this.setTitle(title);
-		this.setSize(1280+16,720);
+		this.setSize(1280+16,720+109);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setLocationRelativeTo(null);
 		mainPan.setLayout(bl);
@@ -53,8 +53,7 @@ public class Fenetre extends JFrame{
 		this.setVisible(true);
 		
 
-		panGame.cellSizeX=1280/mot.lvl.getArraySizeX();
-		panGame.cellSizeY=(panGame.getHeight()+menuBar.getHeight())/mot.lvl.getArraySizeY();
+
 
 		
 		this.requestFocus();
@@ -77,13 +76,12 @@ public class Fenetre extends JFrame{
 
 	private void runFen(){
 		while(true){
-			//panGame.cellSizeX=this.getWidth()/mot.lvl.getArraySizeX();
-			//panGame.cellSizeY=this.getHeight()/mot.lvl.getArraySizeY();
 			this.requestFocus();
 			mot.setToolSelected(toolBar.getToolSelected());
 			mot.setSliderValue(toolBar.getSliderValue());
 			mot.setPanneau(panGame);
-			
+			//panGame.zoom=toolBar.getSliderValue();
+
 				try {
 					Thread.sleep(5);
 				} catch (InterruptedException e) {
@@ -116,7 +114,7 @@ public class Fenetre extends JFrame{
 
 	class refreshPanel implements Runnable{
 		public void run() {
-			panThread.goPanel();			
+			panThread.goPanel();
 		}
 	}
 

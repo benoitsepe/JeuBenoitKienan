@@ -47,7 +47,8 @@ public class PanneauGame extends JPanel implements MouseListener {
 	Image img;
 	Node node;
 	Graphics2D g2;
-	int sizeToDisplay = 2;
+	int zoom = 1;
+	int xMin,xMax,yMin,yMax;
 
 	public PanneauGame(Color couleur){
 	    
@@ -82,26 +83,30 @@ public class PanneauGame extends JPanel implements MouseListener {
 			}
 
 		});
-
+		
+		cellSizeX=(1280/lvl.getArraySizeX())*zoom;
+		cellSizeY=(720/lvl.getArraySizeY())*zoom;
 	}
 
 	public void paintComponent(Graphics g){
 	    
-	    	
-
+		cellSizeX=(1280/lvl.getArraySizeX())*zoom;
+		cellSizeY=(720/lvl.getArraySizeY())*zoom;
+		System.out.println(cellSizeX);
+		System.out.println(PlayerList.get(0).getPosX());
+		
 		Graphics2D g2 = (Graphics2D)g;		
 		g2.setColor(color);
 		g2.fillRect(0, 0, this.getWidth(), this.getHeight());
 		
-//		g2.translate(PlayerList.get(0).getPosX(), PlayerList.get(0).getPosY());
-//		g2.scale(5, 5);
-//		g2.translate(-PlayerList.get(0).getPosX(), -PlayerList.get(0).getPosY());
+		//g2.translate((-PlayerList.get(0).getPosX()+this.getWidth()/2), (-PlayerList.get(0).getPosY()+this.getHeight()/2));
+		
 
 		
 		
 		//Création quadrillage 
 
-
+/*
 		g.setColor(Color.black);
 		for(int y=0; y<this.getHeight(); y=y+(this.getHeight()/lvl.getArraySizeY())){
 			g.drawLine(0, y, this.getWidth(), y);
@@ -110,12 +115,38 @@ public class PanneauGame extends JPanel implements MouseListener {
 		for(int x=0; x<this.getWidth();x=x+(this.getWidth()/lvl.getArraySizeX())){
 			g.drawLine(x,0,x,this.getHeight());
 		}
-
+*/
 		//Fin création quadrillage
 
-
-		for(int x=0;x<lvl.getArraySizeX();x++){
-			for(int y=0;y<lvl.getArraySizeY();y++){
+		int truc = 50;
+		if(((PlayerList.get(0).getPosX()-cellSizeX*truc)/cellSizeX)<0){
+		    xMin=0;
+		}else{
+		    xMin=(int)((PlayerList.get(0).getPosX()-cellSizeX*truc)/cellSizeX);
+		}
+		
+		if(((PlayerList.get(0).getPosX()+cellSizeX*truc)/cellSizeX)>lvl.getArraySizeX()){
+		    xMax=lvl.getArraySizeX();
+		}else{
+		    xMax=(int)((PlayerList.get(0).getPosX()+cellSizeX*truc)/cellSizeX);
+		}
+		
+		if(((PlayerList.get(0).getPosY()-cellSizeY*truc)/cellSizeY)<0){
+		    yMin=0;
+		}else{
+		    yMin=(int)((PlayerList.get(0).getPosY()-cellSizeY*truc)/cellSizeY);
+		}
+		
+		if(((PlayerList.get(0).getPosY()+cellSizeY*truc)/cellSizeY)>lvl.getArraySizeY()){
+		    yMax=lvl.getArraySizeY();
+		}else{
+		    yMax=(int)((PlayerList.get(0).getPosY()+cellSizeY*truc)/cellSizeY);
+		}
+		
+		
+		
+		for(int x=xMin;x<xMax;x++){
+			for(int y=yMin;y<yMax;y++){
 				if(lvl.getArray()[x][y]==0){
 					g2.setColor(Color.gray);
 					g2.fillRect(x*(int)cellSizeX, y*(int)cellSizeY,(int)cellSizeX,(int)cellSizeY);
@@ -171,13 +202,10 @@ public class PanneauGame extends JPanel implements MouseListener {
 		g2.setColor(Color.RED);
 		g2.setStroke(new BasicStroke(2));
 		g2.drawRect(pointeurX*(int)cellSizeX, pointeurY*(int)cellSizeY, (int)cellSizeX, (int)cellSizeY);
-		
 
-	}
-	
-	public void zoomOn(int x, int y, int zoom){
-	    
-	    
+
+
+
 	}
 	
 	public static BufferedImage rotate(BufferedImage img, int cellSizeX, int cellSizeY, double rotation) {  

@@ -108,29 +108,27 @@ public class Entity {
 
   	public void collide(){
 		try{
-			//En bas et en haut à gauche, axe X
-			if(niveau.getArray()[(int)(posX+vectorX)/(int)panGame.cellSizeX][(int)((posY-marge)/panGame.cellSizeY)+1]!=0 || niveau.getArray()[(int)(posX+vectorX)/(int)panGame.cellSizeX][(int)posY/(int)panGame.cellSizeY]!=0){
+		    int downLeft = niveau.getArray()[(int)(posX+vectorX)/(int)panGame.cellSizeX][(int)((posY-marge)/panGame.cellSizeY)+1];
+		    int upLeft 	 = niveau.getArray()[(int)(posX+vectorX)/(int)panGame.cellSizeX][(int)posY/(int)panGame.cellSizeY];
+		    int downRight =niveau.getArray()[(int)((posX+vectorX-marge)/panGame.cellSizeX)+1][(int)((posY-marge)/panGame.cellSizeY)+1];
+		    int upRight = niveau.getArray()[(int)((posX+vectorX-marge)/panGame.cellSizeX)+1][(int)posY/(int)panGame.cellSizeY];
+		    int rightUp = niveau.getArray()[(int)((posX-marge)/panGame.cellSizeX)+1][(int)((posY+vectorY)/panGame.cellSizeY)];
+		    int leftUp = niveau.getArray()[(int)(posX)/(int)panGame.cellSizeX][(int)((posY+vectorY)/(int)panGame.cellSizeY)];
+		    int rightDown = niveau.getArray()[(int)((posX-marge)/panGame.cellSizeX)+1][(int)((posY+vectorY-marge)/panGame.cellSizeY)+1];
+		    int leftDown = niveau.getArray()[(int)(posX)/(int)panGame.cellSizeX][(int)((posY+vectorY-marge)/(int)panGame.cellSizeY)+1];
+		    
+			//En bas et en haut à gauche, axe X + En bas et en haut à droite, axe X
+			if(downLeft!=0 || upLeft!=0 || downRight!=0  || upRight !=0){
 				vectorX=0;
 				couleur=Color.red;
 			}
 			
-			//En bas et en haut à droite, axe X
-			if(niveau.getArray()[(int)((posX+vectorX-marge)/panGame.cellSizeX)+1][(int)((posY-marge)/panGame.cellSizeY)+1]!=0  || niveau.getArray()[(int)((posX+vectorX-marge)/panGame.cellSizeX)+1][(int)posY/(int)panGame.cellSizeY]!=0){
-				vectorX=0;
-				couleur=Color.red;
-			}
-			
-			//A droite et à gauche, en haut, axe Y
-			if(niveau.getArray()[(int)((posX-marge)/panGame.cellSizeX)+1][(int)((posY+vectorY)/panGame.cellSizeY)]!=0  || niveau.getArray()[(int)(posX)/(int)panGame.cellSizeX][(int)((posY+vectorY)/(int)panGame.cellSizeY)]!=0){
+			//A droite et à gauche, en haut, axe Y + A droite et à gauche, en bas, axe Y
+			if(rightUp !=0  || leftUp !=0 || rightDown!=0 || leftDown !=0){
 				vectorY=0;
 				couleur=Color.red;
 			}
 			
-			//A droite et à gauche, en bas, axe Y
-			if(niveau.getArray()[(int)((posX-marge)/panGame.cellSizeX)+1][(int)((posY+vectorY-marge)/panGame.cellSizeY)+1]!=0 || niveau.getArray()[(int)(posX)/(int)panGame.cellSizeX][(int)((posY+vectorY-marge)/(int)panGame.cellSizeY)+1]!=0){
-				vectorY=0;
-				couleur=Color.red;
-			}
 			
 		}catch(ArrayIndexOutOfBoundsException e){
 			e.printStackTrace();
