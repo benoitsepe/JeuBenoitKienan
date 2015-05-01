@@ -5,8 +5,8 @@ import java.util.Random;
 
 public class Niveau implements Serializable{
 	
-	public int arraySizeX=64*1;
-	public int arraySizeY=36*1;
+	public int arraySizeX=64*4;
+	public int arraySizeY=36*4;
 	Random rand= new Random();
 	int arrayLvl[][] = new int[arraySizeX][arraySizeY];
 	
