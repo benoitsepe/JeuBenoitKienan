@@ -25,7 +25,6 @@ public class Player extends Entity implements KeyListener{
 		keyLeft=Left;
 		keyRight=Right;
 	}
-
 	
 	public void runPlayer(){
 			if(keyUpPressed==true){

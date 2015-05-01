@@ -11,7 +11,6 @@ public class Moteur {
 
     Niveau lvl = new Niveau();
     Player player = new Player(lvl);
-    Player player2 = new Player(lvl, '8', '5', '4', '6');
     Mob mob1 = new Mob(lvl);
     Mob mob2 = new Mob(lvl);
     BufferedImage blueBrick, redBrick, blackBrick, goldBrick, sorcier, cage, poulpe, nyan;	
@@ -39,15 +38,14 @@ public class Moteur {
 	}
 
 	player.setImage(nyan);
-	player2.setImage(poulpe);
+	//player2.setImage(poulpe);
 	mob1.setImage(sorcier);
 	mob2.setImage(cage);
 
 	lvl.createRandomLvl();
 	panGame=pan;
-	player.setNiveau(lvl);
 	PlayerList.add(player);
-	PlayerList.add(player2);
+	//PlayerList.add(player2);
 	MobList.add(mob1);
 	MobList.add(mob2);
 
