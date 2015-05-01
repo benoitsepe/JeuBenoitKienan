@@ -29,7 +29,7 @@ public class Entity {
 	
 	public Entity(Niveau niveau){
 		try {
-			image = ImageIO.read(new File("notDefined.png"));
+			image = ImageIO.read(new File("Pictures/notDefined.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
