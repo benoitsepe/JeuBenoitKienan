@@ -32,22 +32,23 @@ public class Mob extends Entity{
     }
 
     public void followPath(){
-	if(shortestPath.size()!=0){
-	    if(shortestPath.get(0).getX() > (int)(posX/panGame.cellSizeX)){
-		addForceX(speed);
-	    }
-	    else if(shortestPath.get(0).getX() < (int)(posX/panGame.cellSizeX)){
-		addForceX(-speed);
-	    }
+	if(shortestPath!=null){	
+	    if(shortestPath.size()!=0){
+		if(shortestPath.get(0).getX() > (int)(posX/panGame.cellSizeX)){
+		    addForceX(speed);
+		}
+		else if(shortestPath.get(0).getX() < (int)(posX/panGame.cellSizeX)){
+		    addForceX(-speed);
+		}
 
-	    if(shortestPath.get(0).getY() < (int)(posY/panGame.cellSizeY)){
-		addForceY(-speed);
-	    }
-	    else if(shortestPath.get(0).getY() > (int)(posY/panGame.cellSizeY)){
-		addForceY(speed);
+		if(shortestPath.get(0).getY() < (int)(posY/panGame.cellSizeY)){
+		    addForceY(-speed);
+		}
+		else if(shortestPath.get(0).getY() > (int)(posY/panGame.cellSizeY)){
+		    addForceY(speed);
+		}
 	    }
 	}
-
 
     }
 
@@ -64,8 +65,8 @@ public class Mob extends Entity{
 		else if(shortestPath.size() > path.size()){
 		    nearestPlayer= pl;
 		}
-		
-		
+
+
 	    }
 	}
 	return nearestPlayer;
