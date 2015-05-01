@@ -13,12 +13,12 @@ import javax.swing.event.ChangeListener;
 
 public class ToolBar extends JToolBar {
 	
-	JButton eraserButton = new JButton(new ImageIcon("eraser.png"));
-	JButton blueBrickButton = new JButton(new ImageIcon("blueBrick.png"));
-	JButton redBrickButton = new JButton(new ImageIcon("redBrick.png"));
-	JButton blackBrickButton = new JButton(new ImageIcon("blackBrick.png"));
-	JButton goldBrickButton = new JButton(new ImageIcon("goldBrick.png"));
-	JButton rainbow = new JButton(new ImageIcon("rainbow.png"));
+	JButton eraserButton = new JButton(new ImageIcon("Pictures/eraser.png"));
+	JButton blueBrickButton = new JButton(new ImageIcon("Pictures/blueBrick.png"));
+	JButton redBrickButton = new JButton(new ImageIcon("Pictures/redBrick.png"));
+	JButton blackBrickButton = new JButton(new ImageIcon("Pictures/blackBrick.png"));
+	JButton goldBrickButton = new JButton(new ImageIcon("Pictures/goldBrick.png"));
+	JButton rainbow = new JButton(new ImageIcon("Pictures/rainbow.png"));
 	JSlider slider = new JSlider();
 
 	int toolSelected;
