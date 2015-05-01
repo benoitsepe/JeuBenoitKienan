@@ -47,9 +47,10 @@ public class PanneauGame extends JPanel implements MouseListener {
 	Image img;
 	Node node;
 	Graphics2D g2;
-
+	int sizeToDisplay = 2;
 
 	public PanneauGame(Color couleur){
+	    
 
 		try {
 			blueBrick = ImageIO.read(new File("Pictures/blueBrick.png"));
@@ -85,12 +86,19 @@ public class PanneauGame extends JPanel implements MouseListener {
 	}
 
 	public void paintComponent(Graphics g){
+	    
+	    	
 
-		Graphics2D g2 = (Graphics2D)g;
+		Graphics2D g2 = (Graphics2D)g;		
 		g2.setColor(color);
 		g2.fillRect(0, 0, this.getWidth(), this.getHeight());
+		
+//		g2.translate(PlayerList.get(0).getPosX(), PlayerList.get(0).getPosY());
+//		g2.scale(5, 5);
+//		g2.translate(-PlayerList.get(0).getPosX(), -PlayerList.get(0).getPosY());
 
-
+		
+		
 		//Création quadrillage 
 
 
@@ -163,12 +171,15 @@ public class PanneauGame extends JPanel implements MouseListener {
 		g2.setColor(Color.RED);
 		g2.setStroke(new BasicStroke(2));
 		g2.drawRect(pointeurX*(int)cellSizeX, pointeurY*(int)cellSizeY, (int)cellSizeX, (int)cellSizeY);
-
+		
 
 	}
 	
-
-
+	public void zoomOn(int x, int y, int zoom){
+	    
+	    
+	}
+	
 	public static BufferedImage rotate(BufferedImage img, int cellSizeX, int cellSizeY, double rotation) {  
 		int w = cellSizeX;  
 		int h = cellSizeY;  
@@ -179,13 +190,9 @@ public class PanneauGame extends JPanel implements MouseListener {
 		return newImage;  
 	}
 
-
-
 	public Dimension getDim(){
 		return dim;
 	}
-
-
 
 	public void setNiveau(Niveau niv){
 		lvl=niv;
@@ -195,11 +202,9 @@ public class PanneauGame extends JPanel implements MouseListener {
 		MobList=mo;
 	}
 	
-
 	public void setPlayerList(ArrayList play){
 		PlayerList = play;
 	}
-
 
 	public double getRealPointeurX(){
 		return realPointeurX;
