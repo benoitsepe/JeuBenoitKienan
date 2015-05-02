@@ -20,7 +20,7 @@ public class Fenetre extends JFrame{
 	IOLevel iolvl = new IOLevel();
 	Math math;
 	Niveau lvl;
-	PanneauGame panGame = new PanneauGame(Color.white);
+	PanneauGame panGame = new PanneauGame();
 	Moteur mot = new Moteur(panGame);
 	PanneauGameThread panThread = new PanneauGameThread(this, panGame);
 	char touche;

@@ -4,7 +4,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 
 public class PanneauGameThread {
-	PanneauGame panGame = new PanneauGame(Color.white);
+	PanneauGame panGame = new PanneauGame();
 	int[][] fenArray = new int[panGame.lvl.getArraySizeX()][panGame.lvl.getArraySizeY()];
 	Fenetre fen;
 	ToolBar toolBar;

@@ -46,8 +46,10 @@ public class PanneauGame extends JPanel implements MouseListener {
 	double zoom=0.5;
 	int width, height;
 	int xMin, xMax, yMin, yMax;
+	
+	Color exterior = Color.gray.darker();
 
-	public PanneauGame(Color couleur){
+	public PanneauGame(){
 	    
 
 		try {
@@ -60,7 +62,6 @@ public class PanneauGame extends JPanel implements MouseListener {
 			e.printStackTrace();
 		}
 
-		color=couleur;
 
 
 		this.addMouseListener(this);
@@ -90,7 +91,7 @@ public class PanneauGame extends JPanel implements MouseListener {
 	    height=this.getHeight();
 
 		Graphics2D g2 = (Graphics2D)g;
-		g2.setColor(color);
+		g2.setColor(exterior);
 		g2.fillRect(0, 0, this.getWidth(), this.getHeight());
 		
 		g2.translate((-PlayerList.get(0).getPosX()*zoom)+this.getWidth()/2, (-PlayerList.get(0).getPosY()*zoom)+this.getHeight()/2);
@@ -118,10 +119,10 @@ public class PanneauGame extends JPanel implements MouseListener {
 	            xMin = (int)((PlayerList.get(0).getPosX()-this.getWidth())/cellSizeX);
 	        }
 
-	        if ( ((PlayerList.get(0).getPosX()+this.getWidth())/cellSizeX) > lvl.getArraySizeX() ) {
+	        if (  ((PlayerList.get(0).getPosX()+this.getWidth())/cellSizeX) > lvl.getArraySizeX() ) {
 	            xMax = lvl.getArraySizeX();
 	        } else {
-	            xMax = (int)((PlayerList.get(0).getPosX()+this.getWidth())/cellSizeX);
+	            xMax = (int)((PlayerList.get(0).getPosX()+this.getWidth())/cellSizeX)+1;
 	        }
 
 	        if ( ((PlayerList.get(0).getPosY()-this.getHeight())/cellSizeY) < 0 ) {
@@ -131,14 +132,13 @@ public class PanneauGame extends JPanel implements MouseListener {
 	        }
 
 	        if ( ((PlayerList.get(0).getPosY()+this.getHeight())/cellSizeY) > lvl.getArraySizeY() ) {
-	            yMax = lvl.getArraySizeY();
+	            yMax = (lvl.getArraySizeY());
 	        } else {
-	            yMax =(int)((PlayerList.get(0).getPosY()+this.getHeight())/cellSizeY);
+	            yMax =(int)((PlayerList.get(0).getPosY()+this.getHeight())/cellSizeY)+1;
 	        }
 		
-		
-		for(int x=xMin;x<xMax+1;x++){
-			for(int y=yMin;y<yMax+1;y++){
+		for(int x=xMin;x<xMax;x++){
+			for(int y=yMin;y<yMax;y++){
 				if(lvl.getArray()[x][y]==0){
 					g2.setColor(Color.gray);
 					g2.fillRect(x*(int)cellSizeX, y*(int)cellSizeY,(int)cellSizeX,(int)cellSizeY);

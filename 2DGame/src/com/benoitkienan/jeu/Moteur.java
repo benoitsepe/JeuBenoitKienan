@@ -42,7 +42,7 @@ public class Moteur {
         mob1.setImage( sorcier );
         mob2.setImage( cage );
 
-        lvl.createRandomLvl();
+        lvl.createEmptyLvl();
         panGame = pan;
         PlayerList.add( player );
         // PlayerList.add(player2);
@@ -105,7 +105,7 @@ public class Moteur {
 
                     if ( toolSelected == 5 ) { // TIR
 
-                        // Récupération des positions
+                        // Rï¿½cupï¿½ration des positions
                         double posXPlayer = player.getPosX();
                         double posYPlayer = player.getPosY();
 

@@ -14,7 +14,7 @@ public class Player extends Entity implements KeyListener{
 	
 	public Player(Niveau niveau) {
 		super(niveau);
-		speed=2;
+		speed=10;
 
 	}
 
