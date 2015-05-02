@@ -77,7 +77,6 @@ public class PanneauGame extends JPanel implements MouseListener {
 				realPointeurY=(((PlayerList.get(0).getPosY()-height)+((e.getY())*2)));
 				pointeurX=(int)((((PlayerList.get(0).getPosX()-width)+((e.getX())*2)))/cellSizeX);
 				pointeurY=(int)((((PlayerList.get(0).getPosY()-height)+((e.getY())*2)))/cellSizeY);
-				System.out.println("realPointeurX:"+realPointeurX);
 			}
 
 		});
@@ -138,8 +137,8 @@ public class PanneauGame extends JPanel implements MouseListener {
 	        }
 		
 		
-		for(int x=xMin;x<xMax;x++){
-			for(int y=yMin;y<yMax;y++){
+		for(int x=xMin;x<xMax+1;x++){
+			for(int y=yMin;y<yMax+1;y++){
 				if(lvl.getArray()[x][y]==0){
 					g2.setColor(Color.gray);
 					g2.fillRect(x*(int)cellSizeX, y*(int)cellSizeY,(int)cellSizeX,(int)cellSizeY);
@@ -196,11 +195,7 @@ public class PanneauGame extends JPanel implements MouseListener {
 		g2.setColor(Color.RED);
 		g2.setStroke(new BasicStroke(2));
 		g2.drawRect((int)(pointeurX*cellSizeX), (int)(pointeurY*cellSizeY), (int)cellSizeX, (int)cellSizeY);
-
-		g2.setColor(Color.blue);
-		g2.fillRect((int)((PlayerList.get(0).getPosX()-this.getWidth())), (int)(PlayerList.get(0).getPosY()-this.getHeight()), 100, 100);
-		g2.fillRect((int)(PlayerList.get(0).getPosX()+this.getWidth()), (int)(PlayerList.get(0).getPosY()+this.getHeight()), 100, 100);
-
+		
 	}
 	
 	public static BufferedImage rotate(BufferedImage img, int cellSizeX, int cellSizeY, double rotation) {  
