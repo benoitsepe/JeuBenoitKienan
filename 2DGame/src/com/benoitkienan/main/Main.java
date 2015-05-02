@@ -18,7 +18,7 @@ public class Main {
             public void actionPerformed( ActionEvent a ) {
                 selection.setVisible( false );
                 selection.dispose();
-                com.benoitkienan.jeu.vue.Fenetre fen = new com.benoitkienan.jeu.vue.Fenetre( "Pouet" );
+                com.benoitkienan.jeu.Fenetre fen = new com.benoitkienan.jeu.Fenetre( "Pouet" );
             }
         } );
 

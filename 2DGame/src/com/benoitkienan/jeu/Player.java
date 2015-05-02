@@ -1,15 +1,16 @@
-package com.benoitkienan.jeu.moteur;
+package com.benoitkienan.jeu;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class Player extends Entity implements KeyListener{
 	KeyListener clavier;
-	boolean keyUpPressed,keyRightPressed,keyLeftPressed,keyDownPressed;
+	boolean keyUpPressed,keyRightPressed,keyLeftPressed,keyDownPressed, keyNukePressed;
 	char keyUp='z';
 	char keyRight='d';
 	char keyLeft='q';
 	char keyDown='s';
+	char keyNuke = ' ';
 	
 	public Player(Niveau niveau) {
 		super(niveau);
@@ -38,6 +39,9 @@ public class Player extends Entity implements KeyListener{
 			}
 			if(keyRightPressed){
 				this.addForceX(speed);
+			}
+			if(keyNukePressed){
+			    this.nuke(niveau.getArray(), 2);
 			}
 			
 			try {
@@ -73,6 +77,10 @@ public class Player extends Entity implements KeyListener{
 		if(e.getKeyChar()==keyRight){
 			keyRightPressed=true;
 		}
+		if(e.getKeyChar()==keyNuke){
+			keyNukePressed=true;
+		}
+		
 	}
 
 	public void keyReleased(KeyEvent e) {
@@ -87,6 +95,9 @@ public class Player extends Entity implements KeyListener{
 		}
 		if(e.getKeyChar()==keyRight){
 			keyRightPressed=false;
+		}
+		if(e.getKeyChar()==keyNuke){
+			keyNukePressed=false;
 		}
 	}
 

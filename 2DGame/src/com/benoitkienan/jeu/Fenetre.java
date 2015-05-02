@@ -1,25 +1,14 @@
-package com.benoitkienan.jeu.vue;
+package com.benoitkienan.jeu;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 
-import javax.swing.AbstractAction;
-import javax.swing.InputMap;
-import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
-import javax.swing.KeyStroke;
-
-import com.benoitkienan.jeu.moteur.IOLevel;
-import com.benoitkienan.jeu.moteur.Moteur;
-import com.benoitkienan.jeu.moteur.Niveau;
-import com.benoitkienan.jeu.moteur.Player;
 
 
 public class Fenetre extends JFrame{
@@ -51,7 +40,7 @@ public class Fenetre extends JFrame{
 		this.setResizable(true);
 		this.setJMenuBar(menuBar);
 		
-		for(Player player : mot.getPlayerList()){
+		for(Player player : mot.PlayerList){
 			this.addKeyListener(player);
 		}
 		
@@ -85,8 +74,6 @@ public class Fenetre extends JFrame{
 			mot.setToolSelected(toolBar.getToolSelected());
 			mot.setSliderValue(toolBar.getSliderValue());
 			mot.setPanneau(panGame);
-			//panGame.zoom=toolBar.getSliderValue();
-
 				try {
 					Thread.sleep(5);
 				} catch (InterruptedException e) {

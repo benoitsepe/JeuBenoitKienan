@@ -1,4 +1,4 @@
-package com.benoitkienan.jeu.moteur;
+package com.benoitkienan.jeu;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;

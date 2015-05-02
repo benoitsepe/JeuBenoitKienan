@@ -1,12 +1,12 @@
-package com.benoitkienan.jeu.moteur;
+package com.benoitkienan.jeu;
 
 import java.io.Serializable;
 import java.util.Random;
 
 public class Niveau implements Serializable{
 	
-	public int arraySizeX=64*1;
-	public int arraySizeY=36*1;
+	public int arraySizeX=64*10;
+	public int arraySizeY=36*10;
 	Random rand= new Random();
 	int arrayLvl[][] = new int[arraySizeX][arraySizeY];
 	
