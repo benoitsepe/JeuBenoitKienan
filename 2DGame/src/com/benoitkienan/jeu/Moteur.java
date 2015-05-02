@@ -9,80 +9,84 @@ import javax.imageio.ImageIO;
 
 public class Moteur {
 
-    Niveau            lvl          = new Niveau();
-    Player            player       = new Player( lvl );
-    Mob               mob1         = new Mob( lvl );
-    Mob               mob2         = new Mob( lvl );
-    BufferedImage     blueBrick, redBrick, blackBrick, goldBrick, sorcier, cage, poulpe, nyan;
+    Niveau lvl = new Niveau();
+    Player player = new Player(lvl);
 
-    PanneauGame       panGame;
-    int               x, y, d;                                                                // Pour
+    Mob mob1 = new Mob(lvl);
+    Mob mob2 = new Mob(lvl);
+
+    BufferedImage blueBrick, redBrick, blackBrick, goldBrick, sorcier, cage,
+	    poulpe, nyan;
+
+    PanneauGame panGame;
+    int x, y, d; // Pour
     // cercle
     // d'Andres
-    int               toolSelected = 2;
-    ArrayList<Mob>    MobList      = new ArrayList<>();
-    ArrayList<Player> PlayerList   = new ArrayList<>();
+    int toolSelected = 2;
+    ArrayList<Mob> MobList = new ArrayList<>();
+    ArrayList<Player> PlayerList = new ArrayList<>();
 
-    public Moteur( PanneauGame pan ) {
+    public Moteur(PanneauGame pan) {
 
 	try {
 
-	    sorcier = ImageIO.read( new File( "Pictures/sorcier.png" ) );
-	    cage = ImageIO.read( new File( "Pictures/CAGE.png" ) );
-	    poulpe = ImageIO.read( new File( "Pictures/poulpe.png" ) );
-	    nyan = ImageIO.read( new File( "Pictures/nyan.png" ) );
+	    sorcier = ImageIO.read(new File("Pictures/sorcier.png"));
+	    cage = ImageIO.read(new File("Pictures/CAGE.png"));
+	    poulpe = ImageIO.read(new File("Pictures/poulpe.png"));
+	    nyan = ImageIO.read(new File("Pictures/nyan.png"));
 
-	} catch ( IOException e ) {
+	} catch (IOException e) {
 	    e.printStackTrace();
 	}
 
-	player.setImage( nyan );
+	player.setImage(nyan);
 	// player2.setImage(poulpe);
-	mob1.setImage( sorcier );
-	mob2.setImage( cage );
+	mob1.setImage(sorcier);
+	mob2.setImage(cage);
 
 	lvl.createEmptyLvl();
 	panGame = pan;
-	PlayerList.add( player );
+	PlayerList.add(player);
 	// PlayerList.add(player2);
-	// MobList.add(mob1);
-	MobList.add( mob2 );
+	MobList.add(mob1);
 
-	for ( Player pl : PlayerList ) {
-	    pl.setNiveau( lvl );
-	    pl.setPanneauGame( panGame );
+
+
+	for (Player pl : PlayerList) {
+	    pl.setNiveau(lvl);
+	    pl.setPanneauGame(panGame);
 	}
 
-	for ( Mob mob : MobList ) {
-	    mob.setNiveau( lvl );
-	    mob.setPanneauGame( panGame );
+	for (Mob mob : MobList) {
+	    mob.setNiveau(lvl);
+	    mob.setPanneauGame(panGame);
 	}
 
     }
 
     public void runIA() {
-	for ( Mob mob : MobList ) {
+	for (Mob mob : MobList) {
 	    mob.spawnRandom();
-	    mob.goToNearestPlayer( PlayerList, lvl.getArray() );
+	    mob.goToNearestPlayer(PlayerList, lvl.getArray());
 	}
 
-	while ( true ) {
-	    for ( Mob mob : MobList ) {
-		mob.setNiveau( lvl );
+	while (true) {
+	    for (Mob mob : MobList) {
+		mob.setNiveau(lvl);
 		mob.applyPhysics();
 
-		mob.getNearestPlayer( PlayerList, lvl.getArray() );
-		if ( mob.shortestPath != null ) {
-		    mob.goToNearestPlayer( PlayerList, lvl.getArray() );
+		mob.getNearestPlayer(PlayerList, lvl.getArray());
+		if (mob.shortestPath != null) {
+		    mob.goToNearestPlayer(PlayerList, lvl.getArray());
 		    mob.followPath();
 		}
 
 	    }
-	    panGame.setMobList( MobList );
+	    panGame.setMobList(MobList);
 
 	    try {
-		Thread.sleep( 20 );
-	    } catch ( InterruptedException e ) {
+		Thread.sleep(20);
+	    } catch (InterruptedException e) {
 		e.printStackTrace();
 	    }
 
@@ -91,18 +95,23 @@ public class Moteur {
 
     public void runGame() {
 
-	while ( true ) {
+	while (true) {
 
-	    if ( panGame.getClicMiddle() == true ) {
-		System.out.println( "[" + panGame.getPointeurX() + "][" + panGame.getPointeurY() + "]:"
-			+ lvl.getArray()[panGame.getPointeurX()][panGame.getPointeurY()] );
+	    if (panGame.getClicMiddle() == true) {
+		System.out.println("["
+			+ panGame.getPointeurX()
+			+ "]["
+			+ panGame.getPointeurY()
+			+ "]:"
+			+ lvl.getArray()[panGame.getPointeurX()][panGame
+				.getPointeurY()]);
 		panGame.clicMiddle = false;
 	    }
 
-	    if ( panGame.getClicGauche() == true ) {
+	    if (panGame.getClicGauche() == true) {
 		try {
 
-		    if ( toolSelected == 5 ) { // TIR
+		    if (toolSelected == 5) { // TIR
 
 			// R�cup�ration des positions
 			double posXPlayer = player.getPosX();
@@ -112,31 +121,33 @@ public class Moteur {
 			double posYTir = panGame.getPointeurY();
 
 		    } else {
-			
-			lvl.getArray()[panGame.getPointeurX()][panGame.getPointeurY()] = toolSelected;
-			panGame.setNiveau( lvl );
+
+			lvl.getArray()[panGame.getPointeurX()][panGame
+				.getPointeurY()] = toolSelected;
+			panGame.setNiveau(lvl);
 		    }
-		} catch ( ArrayIndexOutOfBoundsException e ) {
+		} catch (ArrayIndexOutOfBoundsException e) {
 		    e.printStackTrace();
 		}
 
 	    }
 
-	    if ( panGame.getClicDroit() == true ) {
+	    if (panGame.getClicDroit() == true) {
 		try {
-		    lvl.getArray()[panGame.getPointeurX()][panGame.getPointeurY()] = 0;
+		    lvl.getArray()[panGame.getPointeurX()][panGame
+			    .getPointeurY()] = 0;
 
-		} catch ( ArrayIndexOutOfBoundsException e ) {
+		} catch (ArrayIndexOutOfBoundsException e) {
 		    e.printStackTrace();
 		}
 	    }
 
-	    panGame.setPlayerList( PlayerList );
-	    panGame.setNiveau( lvl );
+	    panGame.setPlayerList(PlayerList);
+	    panGame.setNiveau(lvl);
 
 	    try {
-		Thread.sleep( 5 );
-	    } catch ( InterruptedException e ) {
+		Thread.sleep(5);
+	    } catch (InterruptedException e) {
 		e.printStackTrace();
 	    }
 
@@ -144,35 +155,35 @@ public class Moteur {
     }
 
     public void motApplyPhysics() {
-	panGame.setNiveau( lvl );
-	panGame.setPlayerList( PlayerList );
-	panGame.setMobList( MobList );
+	panGame.setNiveau(lvl);
+	panGame.setPlayerList(PlayerList);
+	panGame.setMobList(MobList);
 
-	for ( Player player : PlayerList ) {
-	    player.setPanneauGame( panGame );
-	    player.setNiveau( lvl );
+	for (Player player : PlayerList) {
+	    player.setPanneauGame(panGame);
+	    player.setNiveau(lvl);
 	    player.spawnRandom();
-	    player.nuke( lvl.getArray(), 10 );
+	    player.nuke(lvl.getArray(), 10);
 
 	}
 
-	while ( true ) {
+	while (true) {
 
 	    try {
-		for ( Player player : PlayerList ) {
+		for (Player player : PlayerList) {
 
 		    player.runPlayer();
 		    player.applyPhysics();
-		    player.setNiveau( lvl );
+		    player.setNiveau(lvl);
 		}
 
-	    } catch ( ArrayIndexOutOfBoundsException e ) {
+	    } catch (ArrayIndexOutOfBoundsException e) {
 		e.printStackTrace();
 	    }
 
 	    try {
-		Thread.sleep( 5 );
-	    } catch ( InterruptedException e ) {
+		Thread.sleep(5);
+	    } catch (InterruptedException e) {
 		e.printStackTrace();
 	    }
 
@@ -180,11 +191,11 @@ public class Moteur {
 
     }
 
-    public void setNiveau( Niveau niv ) {
+    public void setNiveau(Niveau niv) {
 	lvl = niv;
     }
 
-    public void setPanneau( PanneauGame pan ) {
+    public void setPanneau(PanneauGame pan) {
 	panGame = pan;
     }
 
@@ -192,7 +203,7 @@ public class Moteur {
 	return lvl;
     }
 
-    public void setToolSelected( int tool ) {
+    public void setToolSelected(int tool) {
 	toolSelected = tool;
     }
 

@@ -43,7 +43,7 @@ public class PanneauGame extends JPanel implements MouseListener {
 	Image img;
 	Node node;
 	Graphics2D g2;
-	double zoom=0.5;
+	double zoom=0.4;
 	int width, height;
 	int xMin, xMax, yMin, yMax;
 	
