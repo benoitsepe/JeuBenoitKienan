@@ -143,12 +143,13 @@ public class Moteur {
                                 }
                             }
                         }
+                        lvl.getArray()[panGame.getPointeurX()][panGame.getPointeurY()] = toolSelected;
+                        panGame.setNiveau( lvl );
                     }
                 } catch ( ArrayIndexOutOfBoundsException e ) {
                     e.printStackTrace();
                 }
-                lvl.getArray()[panGame.getPointeurX()][panGame.getPointeurY()] = toolSelected;
-                panGame.setNiveau( lvl );
+
             }
 
             if ( panGame.getClicDroit() == true ) {
