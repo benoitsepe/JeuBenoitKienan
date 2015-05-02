@@ -1,4 +1,4 @@
-package com.benoitkienan.jeu;
+package com.benoitkienan.jeu.moteur;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
+
+import com.benoitkienan.jeu.vue.PanneauGame;
 
 public class Moteur {
 
@@ -21,7 +23,7 @@ public class Moteur {
     int toolSelected=2;
     int sliderValue=5;
     ArrayList<Mob> MobList = new ArrayList<>();
-    ArrayList<Player> PlayerList = new ArrayList<>();
+    private ArrayList<Player> PlayerList = new ArrayList<>();
 
     public Moteur(PanneauGame pan){
 
@@ -44,14 +46,14 @@ public class Moteur {
 
 	lvl.createRandomLvl();
 	panGame=pan;
-	PlayerList.add(player);
+	getPlayerList().add(player);
 	//PlayerList.add(player2);
 	MobList.add(mob1);
 	MobList.add(mob2);
 
 
 
-	for(Player pl : PlayerList){
+	for(Player pl : getPlayerList()){
 	    pl.setNiveau(lvl);
 	    pl.setPanneauGame(panGame);
 	}
@@ -70,7 +72,7 @@ public class Moteur {
     public void runIA(){
 	for(Mob mob : MobList){
 	    mob.spawnRandom();
-	    mob.goToNearestPlayer(PlayerList, lvl.getArray());
+	    mob.goToNearestPlayer(getPlayerList(), lvl.getArray());
 	}
 
 
@@ -81,9 +83,9 @@ public class Moteur {
 		    mob.applyPhysics();
 		    
 
-		    mob.getNearestPlayer(PlayerList, lvl.getArray());
-		    if(mob.shortestPath!=null){
-			mob.goToNearestPlayer(PlayerList, lvl.getArray());
+		    mob.getNearestPlayer(getPlayerList(), lvl.getArray());
+		    if(mob.getShortestPath()!=null){
+			mob.goToNearestPlayer(getPlayerList(), lvl.getArray());
 			mob.followPath();
 		    }
 
@@ -106,7 +108,7 @@ public class Moteur {
 
 	    if(panGame.getClicMiddle()==true){
 		System.out.println("["+panGame.getPointeurX()+"]["+panGame.getPointeurY()+"]:"+lvl.getArray()[panGame.getPointeurX()][panGame.getPointeurY()]);
-		panGame.clicMiddle=false;
+		panGame.setClicMiddle( false );
 	    }
 
 	    if(panGame.getClicGauche()==true){
@@ -158,7 +160,7 @@ public class Moteur {
 	    }
 
 
-	    panGame.setPlayerList(PlayerList);
+	    panGame.setPlayerList(getPlayerList());
 	    panGame.setNiveau(lvl);
 
 
@@ -175,10 +177,10 @@ public class Moteur {
 
     public void motApplyPhysics(){
 	panGame.setNiveau(lvl);
-	panGame.setPlayerList(PlayerList);
+	panGame.setPlayerList(getPlayerList());
 	panGame.setMobList(MobList);
 
-	for(Player player : PlayerList){
+	for(Player player : getPlayerList()){
 	    player.setPanneauGame(panGame);
 	    player.setNiveau(lvl);
 	    player.spawnRandom();
@@ -190,7 +192,7 @@ public class Moteur {
 	while(true){
 
 	    try{
-		for(Player player : PlayerList){
+		for(Player player : getPlayerList()){
 
 		    player.runPlayer();
 		    player.applyPhysics();
@@ -229,6 +231,22 @@ public class Moteur {
 
     public void setSliderValue(int value){
 	sliderValue=value;
+    }
+
+
+    /**
+     * @return the playerList
+     */
+    public ArrayList<Player> getPlayerList() {
+        return PlayerList;
+    }
+
+
+    /**
+     * @param playerList the playerList to set
+     */
+    public void setPlayerList( ArrayList<Player> playerList ) {
+        PlayerList = playerList;
     }
 
 }

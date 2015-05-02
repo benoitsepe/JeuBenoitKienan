@@ -1,4 +1,4 @@
-package com.benoitkienan.jeu;
+package com.benoitkienan.jeu.vue;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
@@ -15,6 +15,11 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.KeyStroke;
+
+import com.benoitkienan.jeu.moteur.IOLevel;
+import com.benoitkienan.jeu.moteur.Moteur;
+import com.benoitkienan.jeu.moteur.Niveau;
+import com.benoitkienan.jeu.moteur.Player;
 
 
 public class Fenetre extends JFrame{
@@ -46,7 +51,7 @@ public class Fenetre extends JFrame{
 		this.setResizable(true);
 		this.setJMenuBar(menuBar);
 		
-		for(Player player : mot.PlayerList){
+		for(Player player : mot.getPlayerList()){
 			this.addKeyListener(player);
 		}
 		

@@ -1,4 +1,4 @@
-package com.benoitkienan.jeu;
+package com.benoitkienan.jeu.vue;
 
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;

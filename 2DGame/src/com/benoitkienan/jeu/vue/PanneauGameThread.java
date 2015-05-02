@@ -1,4 +1,4 @@
-package com.benoitkienan.jeu;
+package com.benoitkienan.jeu.vue;
 
 import java.awt.Color;
 import java.awt.Dimension;

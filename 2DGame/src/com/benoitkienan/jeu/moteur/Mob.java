@@ -1,4 +1,4 @@
-package com.benoitkienan.jeu;
+package com.benoitkienan.jeu.moteur;
 
 import java.awt.Point;
 import java.util.ArrayList;
@@ -14,7 +14,7 @@ public class Mob extends Entity{
     AreaMap map;
     AStarHeuristic heuristic = new DiagonalHeuristic();
     AStar aStar;
-    ArrayList<Point> shortestPath;
+    private ArrayList<Point> shortestPath;
     ArrayList<Point> path;
     Node node;
     Player nearestPlayer;
@@ -27,24 +27,24 @@ public class Mob extends Entity{
     public void refreshPath(int bx, int by, int[][] array){
 	map = new AreaMap(array.length, array[0].length, array);
 	aStar = new AStar(map, heuristic);
-	shortestPath = aStar.calcShortestPath((int)(posX/panGame.cellSizeX), (int)(posY/panGame.cellSizeY), bx, by);
+	setShortestPath( aStar.calcShortestPath((int)(posX/panGame.getCellSizeX()), (int)(posY/panGame.getCellSizeY()), bx, by) );
 
     }
 
     public void followPath(){
-	if(shortestPath!=null){	
-	    if(shortestPath.size()!=0){
-		if(shortestPath.get(0).getX() > (int)(posX/panGame.cellSizeX)){
+	if(getShortestPath()!=null){	
+	    if(getShortestPath().size()!=0){
+		if(getShortestPath().get(0).getX() > (int)(posX/panGame.getCellSizeX())){
 		    addForceX(speed);
 		}
-		else if(shortestPath.get(0).getX() < (int)(posX/panGame.cellSizeX)){
+		else if(getShortestPath().get(0).getX() < (int)(posX/panGame.getCellSizeX())){
 		    addForceX(-speed);
 		}
 
-		if(shortestPath.get(0).getY() < (int)(posY/panGame.cellSizeY)){
+		if(getShortestPath().get(0).getY() < (int)(posY/panGame.getCellSizeY())){
 		    addForceY(-speed);
 		}
-		else if(shortestPath.get(0).getY() > (int)(posY/panGame.cellSizeY)){
+		else if(getShortestPath().get(0).getY() > (int)(posY/panGame.getCellSizeY())){
 		    addForceY(speed);
 		}
 	    }
@@ -56,13 +56,13 @@ public class Mob extends Entity{
 	for(Player pl : plist){
 	    map = new AreaMap(array.length, array[0].length, array);
 	    aStar = new AStar(map, heuristic);
-	    path = aStar.calcShortestPath((int)(posX/panGame.cellSizeX), (int)(posY/panGame.cellSizeY), (int)(pl.getPosX()/panGame.cellSizeX), (int)(pl.getPosY()/panGame.cellSizeY));
+	    path = aStar.calcShortestPath((int)(posX/panGame.getCellSizeX()), (int)(posY/panGame.getCellSizeY()), (int)(pl.getPosX()/panGame.getCellSizeX()), (int)(pl.getPosY()/panGame.getCellSizeY()));
 
 	    if(path!=null){
-		if(shortestPath==null){
-		    shortestPath=path;
+		if(getShortestPath()==null){
+		    setShortestPath( path );
 		}
-		else if(shortestPath.size() > path.size()){
+		else if(getShortestPath().size() > path.size()){
 		    nearestPlayer= pl;
 		}
 
@@ -75,15 +75,29 @@ public class Mob extends Entity{
     public void goToNearestPlayer(ArrayList<Player> plist, int[][] array){
 	this.getNearestPlayer(plist, array);
 	if(nearestPlayer!=null)
-	    this.refreshPath((int)(this.nearestPlayer.getPosX()/panGame.cellSizeX), (int)(this.nearestPlayer.getPosY()/panGame.cellSizeY), array);
+	    this.refreshPath((int)(this.nearestPlayer.getPosX()/panGame.getCellSizeX()), (int)(this.nearestPlayer.getPosY()/panGame.getCellSizeY()), array);
     }
 
     public ArrayList<Point> getPath(){
-	return shortestPath;
+	return getShortestPath();
     }
 
     public void setPath(ArrayList<Point> path){
-	shortestPath=path;
+	setShortestPath( path );
+    }
+
+    /**
+     * @return the shortestPath
+     */
+    public ArrayList<Point> getShortestPath() {
+        return shortestPath;
+    }
+
+    /**
+     * @param shortestPath the shortestPath to set
+     */
+    public void setShortestPath( ArrayList<Point> shortestPath ) {
+        this.shortestPath = shortestPath;
     }
 
 }
