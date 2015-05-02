@@ -72,7 +72,6 @@ public class Fenetre extends JFrame{
 		while(true){
 			this.requestFocus();
 			mot.setToolSelected(toolBar.getToolSelected());
-			mot.setSliderValue(toolBar.getSliderValue());
 			mot.setPanneau(panGame);
 				try {
 					Thread.sleep(5);

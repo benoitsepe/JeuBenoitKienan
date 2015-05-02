@@ -20,25 +20,11 @@ public class ToolBar extends JToolBar {
     JButton blackBrickButton = new JButton( new ImageIcon( "Pictures/blackBrick.png" ) );
     JButton goldBrickButton  = new JButton( new ImageIcon( "Pictures/goldBrick.png" ) );
     JButton rainbow          = new JButton( new ImageIcon( "Pictures/rainbow.png" ) );
-    JSlider slider           = new JSlider();
 
     int     toolSelected;
-    int     sliderValue      = 5;
+    int     sliderValue      = 1;
 
     public ToolBar() {
-
-        slider.setMinimum( 1 );
-        slider.setMaximum( 10 );
-        slider.setValue( 5 );
-        slider.setPaintTicks( true );
-        slider.setPaintLabels( true );
-        slider.setMajorTickSpacing( 1 );
-        slider.setMaximumSize( new Dimension( 250, 50 ) );
-        slider.addChangeListener( new ChangeListener() {
-            public void stateChanged( ChangeEvent event ) {
-                sliderValue = ( (JSlider) event.getSource() ).getValue();
-            }
-        } );
 
         eraserButton.addActionListener( new ActionListener() {
             public void actionPerformed( ActionEvent a ) {
@@ -82,7 +68,6 @@ public class ToolBar extends JToolBar {
         this.add( redBrickButton );
         this.add( blackBrickButton );
         this.add( goldBrickButton );
-        this.add( slider );
         this.setFloatable( false );
 
     }
@@ -91,8 +76,5 @@ public class ToolBar extends JToolBar {
         return toolSelected;
     }
 
-    public int getSliderValue() {
-        return sliderValue;
-    }
 
 }
