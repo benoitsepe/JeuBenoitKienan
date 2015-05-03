@@ -49,7 +49,7 @@ public class Moteur {
 	PlayerList.add(player);
 	// PlayerList.add(player2);
 	// MobList.add(mob1);
-	//MobList.add(mob2);
+	// MobList.add(mob2);
 
 	for (Player pl : PlayerList) {
 	    pl.setNiveau(lvl);
@@ -220,14 +220,15 @@ public class Moteur {
 	    double posXPlayer = player.getPosX();
 	    double posYPlayer = player.getPosY();
 
-	    double posXTir = panGame.getPointeurX();
-	    double posYTir = panGame.getPointeurY();
+	    double posXTir = panGame.getRealPointeurX();
+	    double posYTir = panGame.getRealPointeurY();
 
 	    double angle = player.getRotationWithMouse(posXTir, posYTir); // On
 									  // prend
 									  // l'angle
 									  // en
 									  // radian
+	    System.out.println(angle);
 
 	    Balle balle = new Balle(posXPlayer, posYPlayer, 1, 10.0); // Nouvelle
 	    // balle
