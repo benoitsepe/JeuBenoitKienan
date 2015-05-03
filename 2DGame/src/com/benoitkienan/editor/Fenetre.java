@@ -1,6 +1,9 @@
 package com.benoitkienan.editor;
 import java.awt.BorderLayout;
-import java.awt.Color;
+import java.awt.Cursor;
+import java.awt.Image;
+import java.awt.Point;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 

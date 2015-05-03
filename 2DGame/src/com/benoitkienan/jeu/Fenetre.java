@@ -1,6 +1,10 @@
 package com.benoitkienan.jeu;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Cursor;
+import java.awt.Image;
+import java.awt.Point;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -28,7 +32,7 @@ public class Fenetre extends JFrame{
 
 	public Fenetre(String title){
 
-
+	    
 		this.setTitle(title);
 		this.setSize(1280+16,720+109);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -44,6 +48,11 @@ public class Fenetre extends JFrame{
 			this.addKeyListener(player);
 		}
 		
+		    Toolkit tk = Toolkit.getDefaultToolkit();
+		    Image img = tk.getImage("");
+		    Cursor monCurseur = tk.createCustomCursor(img, new Point(10, 10), "Ceci est un pointeur");
+		    this.getContentPane().setCursor(monCurseur);
+		    
 		this.setVisible(true);
 		
 

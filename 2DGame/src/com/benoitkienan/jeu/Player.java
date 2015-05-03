@@ -11,16 +11,15 @@ public class Player extends Entity implements KeyListener{
 	char keyLeft='q';
 	char keyDown='s';
 	char keyNuke = ' ';
+	int speed=10;
 	
 	public Player(Niveau niveau) {
 		super(niveau);
-		speed=10;
 
 	}
 
 	public Player(Niveau niveau, char Up, char Down, char Left, char Right) {
 		super(niveau);
-		speed=2;
 		keyUp=Up;
 		keyDown=Down;
 		keyLeft=Left;
@@ -41,7 +40,7 @@ public class Player extends Entity implements KeyListener{
 				this.addForceX(speed);
 			}
 			if(keyNukePressed){
-			    this.nuke(niveau.getArray(), 2);
+			    this.nuke(niveau.getArray(), 5);
 			}
 			
 			try {

@@ -89,7 +89,7 @@ public class Mob extends Entity{
 	}
 	
 	for(Player pl : plist){
-	    System.out.println((int)Math.abs((posX/panGame.cellSizeX)-(pl.getPosX()/panGame.cellSizeX)) +" "+ (int)Math.abs((posY/panGame.cellSizeY)-(pl.getPosY()/panGame.cellSizeY)));
+	   // System.out.println((int)Math.abs((posX/panGame.cellSizeX)-(pl.getPosX()/panGame.cellSizeX)) +" "+ (int)Math.abs((posY/panGame.cellSizeY)-(pl.getPosY()/panGame.cellSizeY)));
 	    if((int)Math.abs((posX/panGame.cellSizeX)-(pl.getPosX()/panGame.cellSizeX))<100 && (int)Math.abs((posY/panGame.cellSizeY)-(pl.getPosY()/panGame.cellSizeY))<100){
         	    map = new AreaMap(aggroMob.length, aggroMob[0].length, aggroMob);
         	    aStar = new AStar(map, heuristic);

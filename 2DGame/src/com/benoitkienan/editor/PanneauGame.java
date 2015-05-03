@@ -3,13 +3,18 @@ package com.benoitkienan.editor;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.Point;
+import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.awt.event.MouseWheelEvent;
+import java.awt.event.MouseWheelListener;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
@@ -49,7 +54,7 @@ public class PanneauGame extends JPanel implements MouseListener {
 	Camera camera;
 
 	public PanneauGame(){
-	    
+
 
 		try {
 			blueBrick = ImageIO.read(new File("Pictures/blueBrick.png"));
@@ -64,6 +69,21 @@ public class PanneauGame extends JPanel implements MouseListener {
 
 
 		this.addMouseListener(this);
+		this.addMouseWheelListener(new MouseWheelListener(){
+
+		    public void mouseWheelMoved(MouseWheelEvent e) {
+			if(e.getWheelRotation()<0 && zoom<0.95){
+			    zoom=zoom+0.01;
+			}
+			
+			if(e.getWheelRotation()>0 && zoom>0.05){
+			    zoom=zoom-0.01;
+			}
+		    }
+		    
+		    
+		});
+		
 		this.addMouseMotionListener(new MouseMotionListener(){
 			public void mouseDragged(MouseEvent e) {
 				realPointeurX=(((camera.getPosX()-width)+((e.getX())*2)));
@@ -112,28 +132,28 @@ public class PanneauGame extends JPanel implements MouseListener {
 		//Fin création quadrillage
 
 		
-	        if ( ((camera.getPosX()-this.getWidth())/cellSizeX) < 0 ) {
+	        if ( (camera.getPosX()-this.getWidth()/2/zoom)/cellSizeX < 0 ) {
 	            xMin = 0;
 	        } else {
-	            xMin = (int)((camera.getPosX()-this.getWidth())/cellSizeX);
+	            xMin = (int)((camera.getPosX()-this.getWidth()/2/zoom)/cellSizeX);
 	        }
 
-	        if (  ((camera.getPosX()+this.getWidth())/cellSizeX) > lvl.getArraySizeX() ) {
+	        if (  ((camera.getPosX()+this.getWidth()/2/zoom)/cellSizeX) > lvl.getArraySizeX() ) {
 	            xMax = lvl.getArraySizeX();
 	        } else {
-	            xMax = (int)((camera.getPosX()+this.getWidth())/cellSizeX)+1;
+	            xMax = (int)((camera.getPosX()+this.getWidth()/2/zoom)/cellSizeX)+5;
 	        }
 
-	        if ( ((camera.getPosY()-this.getHeight())/cellSizeY) < 0 ) {
+	        if ( (camera.getPosY()-this.getHeight()/2/zoom)/cellSizeY < 0 ) {
 	            yMin = 0;
 	        } else {
-	            yMin =(int)((camera.getPosY()-this.getHeight())/cellSizeY);
+	            yMin = (int)((camera.getPosY()-this.getHeight()/2/zoom)/cellSizeY);
 	        }
 
-	        if ( ((camera.getPosY()+this.getHeight())/cellSizeY) > lvl.getArraySizeY() ) {
+	        if ( (camera.getPosY()+this.getHeight()/2/zoom)/cellSizeY > lvl.getArraySizeY() ) {
 	            yMax = (lvl.getArraySizeY());
 	        } else {
-	            yMax =(int)((camera.getPosY()+this.getHeight())/cellSizeY)+1;
+	            yMax =(int)((camera.getPosY()+this.getHeight()/2/zoom)/cellSizeY)+5;
 	        }
 		
 		for(int x=xMin;x<xMax;x++){
