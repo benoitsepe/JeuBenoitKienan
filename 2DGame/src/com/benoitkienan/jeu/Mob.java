@@ -19,6 +19,7 @@ public class Mob extends Entity{
     Node node;
     Player nearestPlayer;
     int xMin,xMax,yMin,yMax;
+    int distanceX,distanceY;
 
     public Mob(Niveau niveau) {
 	super(niveau);
@@ -59,7 +60,7 @@ public class Mob extends Entity{
 	}else{
 	    xMin = (int) ((posX/panGame.cellSizeX)-100);
 	}
-	
+
 	if((int) ((posX/panGame.cellSizeX)+100) > array.length){
 	    xMax=array.length;
 	}else{
@@ -71,13 +72,13 @@ public class Mob extends Entity{
 	}else{
 	    yMin = (int) ((posY/panGame.cellSizeY)-100);
 	}
-	
+
 	if((int) ((posY/panGame.cellSizeY)+100) > array[0].length){
 	    yMax=array[0].length;
 	}else{
 	    yMax = (int) ((posY/panGame.cellSizeY)+100);
 	}
-	
+
 
 
 	int[][] aggroMob= new int[xMax][yMax];
@@ -87,33 +88,38 @@ public class Mob extends Entity{
 		aggroMob[x][y]=array[x][y];
 	    }
 	}
-	
+
 	for(Player pl : plist){
-	   // System.out.println((int)Math.abs((posX/panGame.cellSizeX)-(pl.getPosX()/panGame.cellSizeX)) +" "+ (int)Math.abs((posY/panGame.cellSizeY)-(pl.getPosY()/panGame.cellSizeY)));
-	    if((int)Math.abs((posX/panGame.cellSizeX)-(pl.getPosX()/panGame.cellSizeX))<100 && (int)Math.abs((posY/panGame.cellSizeY)-(pl.getPosY()/panGame.cellSizeY))<100){
-        	    map = new AreaMap(aggroMob.length, aggroMob[0].length, aggroMob);
-        	    aStar = new AStar(map, heuristic);
-        	    path = aStar.calcShortestPath((int)(posX/panGame.cellSizeX), (int)(posY/panGame.cellSizeY), (int)(pl.getPosX()/panGame.cellSizeX), (int)(pl.getPosY()/panGame.cellSizeY));
-        
-        	    if(path!=null){
-        		if(shortestPath==null){
-        		    shortestPath=path;
-        		}
-        		else if(shortestPath.size() > path.size()){
-        		    nearestPlayer= pl;
-        		}
-        
-        
-        	    }
+	    distanceX = (int)Math.abs((pl.getPosX()/panGame.cellSizeX)-(posX/panGame.cellSizeX));
+	    distanceY = (int)Math.abs((pl.getPosY()/panGame.cellSizeY)-(posY/panGame.cellSizeY));
+	    System.out.println(distanceX);
+	    if(distanceX<100 &&  distanceY<100){
+		map = new AreaMap(aggroMob.length, aggroMob[0].length, aggroMob);
+		aStar = new AStar(map, heuristic);
+		path = aStar.calcShortestPath((int)(posX/panGame.cellSizeX), (int)(posY/panGame.cellSizeY), (int)(pl.getPosX()/panGame.cellSizeX), (int)(pl.getPosY()/panGame.cellSizeY));
+
+		if(path!=null){
+		    if(shortestPath==null){
+			shortestPath=path;
+		    }
+		    else if(shortestPath.size() > path.size()){
+			nearestPlayer= pl;
+		    }
+
+
+		}
 	    }
 	}
 	return nearestPlayer;
     }
 
     public void goToNearestPlayer(ArrayList<Player> plist, int[][] array){
+
 	this.getNearestPlayer(plist, array);
-	if(nearestPlayer!=null)
-	    this.refreshPath((int)(this.nearestPlayer.getPosX()/panGame.cellSizeX), (int)(this.nearestPlayer.getPosY()/panGame.cellSizeY), array);
+	if(distanceX<100 &&  distanceY<100){
+	    if(nearestPlayer!=null)
+		this.refreshPath((int)(this.nearestPlayer.getPosX()/panGame.cellSizeX), (int)(this.nearestPlayer.getPosY()/panGame.cellSizeY), array);
+	}
     }
 
     public ArrayList<Point> getPath(){
