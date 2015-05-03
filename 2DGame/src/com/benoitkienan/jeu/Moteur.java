@@ -110,7 +110,9 @@ public class Moteur {
 
                         long new_temps = System.currentTimeMillis();
 
-                        if ( ( new_temps - temps ) > 1000 ) {
+                        if ( ( new_temps - temps ) > 1000 ) { // Intervalle
+                                                              // entre chaque
+                                                              // tir : 1 sec
 
                             temps = System.currentTimeMillis();
                             Thread tBalle = new Thread( new RunBalle() );
