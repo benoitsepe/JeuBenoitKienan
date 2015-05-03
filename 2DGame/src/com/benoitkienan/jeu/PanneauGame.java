@@ -94,8 +94,8 @@ public class PanneauGame extends JPanel implements MouseListener {
 			public void mouseMoved(MouseEvent e) {
 				realPointeurX=(((PlayerList.get(0).getPosX()-width)+((e.getX())*2)));
 				realPointeurY=(((PlayerList.get(0).getPosY()-height)+((e.getY())*2)));
-				pointeurX=(int)((((PlayerList.get(0).getPosX()-width)+((e.getX())*2)))/cellSizeX);
-				pointeurY=(int)((((PlayerList.get(0).getPosY()-height)+((e.getY())*2)))/cellSizeY);
+				pointeurX= (int)((PlayerList.get(0).getPosX()-width/2/zoom)/cellSizeX)+(int)(((e.getX())/zoom)/cellSizeX);
+				pointeurY= (int)((PlayerList.get(0).getPosY()-height/2/zoom)/cellSizeY)+(int)(((e.getY())/zoom)/cellSizeY);
 			}
 
 		});
@@ -137,7 +137,7 @@ public class PanneauGame extends JPanel implements MouseListener {
 	            xMin = (int)((PlayerList.get(0).getPosX()-this.getWidth()/2/zoom)/cellSizeX);
 	        }
 
-	        if (  ((PlayerList.get(0).getPosX()+this.getWidth()/2/zoom)/cellSizeX) > lvl.getArraySizeX() ) {
+	        if (  ((PlayerList.get(0).getPosX()+this.getWidth()/2/zoom)/cellSizeX)+5 > lvl.getArraySizeX() ) {
 	            xMax = lvl.getArraySizeX();
 	        } else {
 	            xMax = (int)((PlayerList.get(0).getPosX()+this.getWidth()/2/zoom)/cellSizeX)+5;
@@ -149,7 +149,7 @@ public class PanneauGame extends JPanel implements MouseListener {
 	            yMin = (int)((PlayerList.get(0).getPosY()-this.getHeight()/2/zoom)/cellSizeY);
 	        }
 
-	        if ( (PlayerList.get(0).getPosY()+this.getHeight()/2/zoom)/cellSizeY > lvl.getArraySizeY() ) {
+	        if ( ((PlayerList.get(0).getPosY()+this.getHeight()/2/zoom)/cellSizeY)+5 > lvl.getArraySizeY() ) {
 	            yMax = (lvl.getArraySizeY());
 	        } else {
 	            yMax =(int)((PlayerList.get(0).getPosY()+this.getHeight()/2/zoom)/cellSizeY)+5;
@@ -211,7 +211,7 @@ public class PanneauGame extends JPanel implements MouseListener {
 
 
 		g2.setColor(Color.RED);
-		g2.setStroke(new BasicStroke(2));
+		g2.setStroke(new BasicStroke(10));
 		g2.drawRect((int)(pointeurX*cellSizeX), (int)(pointeurY*cellSizeY), (int)cellSizeX, (int)cellSizeY);
 		
 		g2.setColor(Color.BLUE);
