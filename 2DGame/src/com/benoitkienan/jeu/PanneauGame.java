@@ -87,8 +87,8 @@ public class PanneauGame extends JPanel implements MouseListener {
 			public void mouseDragged(MouseEvent e) {
 				realPointeurX=(((PlayerList.get(0).getPosX()-width)+((e.getX())*2)));
 				realPointeurY=(((PlayerList.get(0).getPosY()-height)+((e.getY())*2)));
-				pointeurX=(int)((((PlayerList.get(0).getPosX()-width)+((e.getX())*2)))/cellSizeX);
-				pointeurY=(int)((((PlayerList.get(0).getPosY()-height)+((e.getY())*2)))/cellSizeY);
+				pointeurX= (int)((PlayerList.get(0).getPosX()-width/2/zoom)/cellSizeX)+(int)(((e.getX())/zoom)/cellSizeX);
+				pointeurY= (int)((PlayerList.get(0).getPosY()-height/2/zoom)/cellSizeY)+(int)(((e.getY())/zoom)/cellSizeY);
 			}
 
 			public void mouseMoved(MouseEvent e) {
