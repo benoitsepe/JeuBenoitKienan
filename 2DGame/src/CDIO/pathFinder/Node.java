@@ -28,8 +28,7 @@ public class Node implements Comparable<Node> {
 	this.isGoal = false;
     }
 
-    Node(int x, int y, AreaMap map, boolean visited, int distanceFromStart,
-	    boolean isObstical, boolean isStart, boolean isGoal) {
+    Node(int x, int y, AreaMap map, boolean visited, int distanceFromStart, boolean isObstical, boolean isStart, boolean isGoal) {
 	this.x = x;
 	this.y = y;
 	this.map = map;
@@ -158,11 +157,8 @@ public class Node implements Comparable<Node> {
     }
 
     public int compareTo(Node otherNode) {
-	float thisTotalDistanceFromGoal = heuristicDistanceFromGoal
-		+ distanceFromStart;
-	float otherTotalDistanceFromGoal = otherNode
-		.getHeuristicDistanceFromGoal()
-		+ otherNode.getDistanceFromStart();
+	float thisTotalDistanceFromGoal = heuristicDistanceFromGoal + distanceFromStart;
+	float otherTotalDistanceFromGoal = otherNode.getHeuristicDistanceFromGoal() + otherNode.getDistanceFromStart();
 
 	if (thisTotalDistanceFromGoal < otherTotalDistanceFromGoal) {
 	    return -1;

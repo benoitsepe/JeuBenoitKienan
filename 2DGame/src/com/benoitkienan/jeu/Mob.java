@@ -28,8 +28,7 @@ public class Mob extends Entity {
     public void refreshPath(int bx, int by, int[][] array) {
 	map = new AreaMap(array.length, array[0].length, array);
 	aStar = new AStar(map, heuristic);
-	shortestPath = aStar.calcShortestPath((int) (posX / panGame.cellSizeX),
-		(int) (posY / panGame.cellSizeY), bx, by);
+	shortestPath = aStar.calcShortestPath((int) (posX / panGame.cellSizeX), (int) (posY / panGame.cellSizeY), bx, by);
 
     }
 
@@ -86,17 +85,12 @@ public class Mob extends Entity {
 	}
 
 	for (Player pl : plist) {
-	    distanceX = (int) Math.abs((pl.getPosX() / panGame.cellSizeX)
-		    - (posX / panGame.cellSizeX));
-	    distanceY = (int) Math.abs((pl.getPosY() / panGame.cellSizeY)
-		    - (posY / panGame.cellSizeY));
+	    distanceX = (int) Math.abs((pl.getPosX() / panGame.cellSizeX) - (posX / panGame.cellSizeX));
+	    distanceY = (int) Math.abs((pl.getPosY() / panGame.cellSizeY) - (posY / panGame.cellSizeY));
 	    if (distanceX < 100 && distanceY < 100) {
 		map = new AreaMap(aggroMob.length, aggroMob[0].length, aggroMob);
 		aStar = new AStar(map, heuristic);
-		path = aStar.calcShortestPath((int) (posX / panGame.cellSizeX),
-			(int) (posY / panGame.cellSizeY),
-			(int) (pl.getPosX() / panGame.cellSizeX),
-			(int) (pl.getPosY() / panGame.cellSizeY));
+		path = aStar.calcShortestPath((int) (posX / panGame.cellSizeX), (int) (posY / panGame.cellSizeY), (int) (pl.getPosX() / panGame.cellSizeX), (int) (pl.getPosY() / panGame.cellSizeY));
 
 		if (path != null) {
 		    if (shortestPath == null) {
@@ -116,10 +110,7 @@ public class Mob extends Entity {
 	this.getNearestPlayer(plist, array);
 	if (distanceX < 100 && distanceY < 100) {
 	    if (nearestPlayer != null)
-		this.refreshPath(
-			(int) (this.nearestPlayer.getPosX() / panGame.cellSizeX),
-			(int) (this.nearestPlayer.getPosY() / panGame.cellSizeY),
-			array);
+		this.refreshPath((int) (this.nearestPlayer.getPosX() / panGame.cellSizeX), (int) (this.nearestPlayer.getPosY() / panGame.cellSizeY), array);
 	}
     }
 

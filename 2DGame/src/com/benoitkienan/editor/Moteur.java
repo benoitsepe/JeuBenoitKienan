@@ -12,8 +12,7 @@ import com.benoitkienan.jeu.Player;
 public class Moteur {
 
     Niveau lvl = new Niveau();
-    BufferedImage blueBrick, redBrick, blackBrick, goldBrick, sorcier, cage,
-	    poulpe, nyan;
+    BufferedImage blueBrick, redBrick, blackBrick, goldBrick, sorcier, cage, poulpe, nyan;
     PanneauGame panGame;
     int x, y, d; // Pour cercle d'Andres
     int toolSelected = 2;
@@ -43,13 +42,7 @@ public class Moteur {
 	while (true) {
 
 	    if (panGame.getClicMiddle() == true) {
-		System.out.println("["
-			+ panGame.getPointeurX()
-			+ "]["
-			+ panGame.getPointeurY()
-			+ "]:"
-			+ lvl.getArray()[panGame.getPointeurX()][panGame
-				.getPointeurY()]);
+		System.out.println("[" + panGame.getPointeurX() + "][" + panGame.getPointeurY() + "]:" + lvl.getArray()[panGame.getPointeurX()][panGame.getPointeurY()]);
 		panGame.clicMiddle = false;
 	    }
 
@@ -62,22 +55,14 @@ public class Moteur {
 			y = r;
 			d = r - 1;
 			while (y >= x) {
-			    lvl.getArray()[panGame.getPointeurX() + x][panGame
-				    .getPointeurY() + y] = toolSelected;
-			    lvl.getArray()[panGame.getPointeurX() + y][panGame
-				    .getPointeurY() + x] = toolSelected;
-			    lvl.getArray()[panGame.getPointeurX() - x][panGame
-				    .getPointeurY() + y] = toolSelected;
-			    lvl.getArray()[panGame.getPointeurX() - y][panGame
-				    .getPointeurY() + x] = toolSelected;
-			    lvl.getArray()[panGame.getPointeurX() + x][panGame
-				    .getPointeurY() - y] = toolSelected;
-			    lvl.getArray()[panGame.getPointeurX() + y][panGame
-				    .getPointeurY() - x] = toolSelected;
-			    lvl.getArray()[panGame.getPointeurX() - x][panGame
-				    .getPointeurY() - y] = toolSelected;
-			    lvl.getArray()[panGame.getPointeurX() - y][panGame
-				    .getPointeurY() - x] = toolSelected;
+			    lvl.getArray()[panGame.getPointeurX() + x][panGame.getPointeurY() + y] = toolSelected;
+			    lvl.getArray()[panGame.getPointeurX() + y][panGame.getPointeurY() + x] = toolSelected;
+			    lvl.getArray()[panGame.getPointeurX() - x][panGame.getPointeurY() + y] = toolSelected;
+			    lvl.getArray()[panGame.getPointeurX() - y][panGame.getPointeurY() + x] = toolSelected;
+			    lvl.getArray()[panGame.getPointeurX() + x][panGame.getPointeurY() - y] = toolSelected;
+			    lvl.getArray()[panGame.getPointeurX() + y][panGame.getPointeurY() - x] = toolSelected;
+			    lvl.getArray()[panGame.getPointeurX() - x][panGame.getPointeurY() - y] = toolSelected;
+			    lvl.getArray()[panGame.getPointeurX() - y][panGame.getPointeurY() - x] = toolSelected;
 
 			    if (d >= 2 * x) {
 				d = d - 2 * x - 1;
@@ -92,8 +77,7 @@ public class Moteur {
 			    }
 			}
 		    }
-		    lvl.getArray()[panGame.getPointeurX()][panGame
-			    .getPointeurY()] = toolSelected;
+		    lvl.getArray()[panGame.getPointeurX()][panGame.getPointeurY()] = toolSelected;
 		    panGame.setNiveau(lvl);
 		} catch (ArrayIndexOutOfBoundsException e) {
 		    e.printStackTrace();
@@ -103,8 +87,7 @@ public class Moteur {
 
 	    if (panGame.getClicDroit() == true) {
 		try {
-		    lvl.getArray()[panGame.getPointeurX()][panGame
-			    .getPointeurY()] = 0;
+		    lvl.getArray()[panGame.getPointeurX()][panGame.getPointeurY()] = 0;
 
 		} catch (ArrayIndexOutOfBoundsException e) {
 		    e.printStackTrace();

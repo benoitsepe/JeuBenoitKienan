@@ -37,8 +37,7 @@ public class IOLevel {
 	System.out.println("Enregistrement de: " + path);
 
 	try {
-	    oos = new ObjectOutputStream(new BufferedOutputStream(
-		    new FileOutputStream(new File(path))));
+	    oos = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(new File(path))));
 
 	    oos.writeObject(saveNiv);
 	    oos.close();
@@ -54,8 +53,7 @@ public class IOLevel {
 
     public void saveLvlUnder(Niveau saveNiv) {
 	JFileChooser fc = new JFileChooser(path);
-	FileNameExtensionFilter filter = new FileNameExtensionFilter(".potato",
-		"potato");
+	FileNameExtensionFilter filter = new FileNameExtensionFilter(".potato", "potato");
 	fc.setFileFilter(filter);
 	fc.showSaveDialog(new JFrame());
 	path = (fc.getSelectedFile().toString());
@@ -65,8 +63,7 @@ public class IOLevel {
 	System.out.println("Enregistrement de: " + path);
 
 	try {
-	    oos = new ObjectOutputStream(new BufferedOutputStream(
-		    new FileOutputStream(new File(path))));
+	    oos = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(new File(path))));
 
 	    oos.writeObject(saveNiv);
 	    oos.close();
@@ -82,17 +79,14 @@ public class IOLevel {
 
     public Niveau openLvl(String name) {
 	JFileChooser fc = new JFileChooser(path);
-	FileNameExtensionFilter filter = new FileNameExtensionFilter(".potato",
-		"potato");
+	FileNameExtensionFilter filter = new FileNameExtensionFilter(".potato", "potato");
 	fc.setFileFilter(filter);
 	fc.showOpenDialog(new JFrame());
 	path = (fc.getSelectedFile().toString());
 	System.out.println("Ouverture de: " + path);
 
 	try {
-	    ois = new ObjectInputStream(new BufferedInputStream(
-		    new FileInputStream(new File(fc.getSelectedFile()
-			    .toString()))));
+	    ois = new ObjectInputStream(new BufferedInputStream(new FileInputStream(new File(fc.getSelectedFile().toString()))));
 
 	    niv = (Niveau) ois.readObject();
 	    ois.close();

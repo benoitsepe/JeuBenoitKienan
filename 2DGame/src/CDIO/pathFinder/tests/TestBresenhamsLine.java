@@ -24,8 +24,7 @@ public class TestBresenhamsLine {
 	log.addToLog("Initializing " + mapWith + "x" + mapHeight + " map...");
 	AreaMap map = new AreaMap(mapWith, mapHeight);
 
-	log.addToLog("Generating Bresenham's Line from " + a.x + "," + a.y
-		+ " to " + b.x + "," + b.y + "...");
+	log.addToLog("Generating Bresenham's Line from " + a.x + "," + a.y + " to " + b.x + "," + b.y + "...");
 	s.start();
 	ArrayList<Point> line = BresenhamsLine.getPointsOnLine(a, b);
 	s.stop();

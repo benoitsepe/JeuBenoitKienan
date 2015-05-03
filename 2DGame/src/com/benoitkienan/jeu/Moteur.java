@@ -13,8 +13,7 @@ public class Moteur {
     Player player = new Player(lvl);
     Mob mob1 = new Mob(lvl);
     Mob mob2 = new Mob(lvl);
-    BufferedImage blueBrick, redBrick, blackBrick, goldBrick, sorcier, cage,
-	    poulpe, nyan;
+    BufferedImage blueBrick, redBrick, blackBrick, goldBrick, sorcier, cage, poulpe, nyan;
 
     PanneauGame panGame;
     int x, y, d; // Pour
@@ -105,13 +104,7 @@ public class Moteur {
 	while (true) {
 
 	    if (panGame.getClicMiddle() == true) {
-		System.out.println("["
-			+ panGame.getPointeurX()
-			+ "]["
-			+ panGame.getPointeurY()
-			+ "]:"
-			+ lvl.getArray()[panGame.getPointeurX()][panGame
-				.getPointeurY()]);
+		System.out.println("[" + panGame.getPointeurX() + "][" + panGame.getPointeurY() + "]:" + lvl.getArray()[panGame.getPointeurX()][panGame.getPointeurY()]);
 		panGame.clicMiddle = false;
 	    }
 
@@ -133,8 +126,7 @@ public class Moteur {
 
 		    } else {
 
-			lvl.getArray()[panGame.getPointeurX()][panGame
-				.getPointeurY()] = toolSelected;
+			lvl.getArray()[panGame.getPointeurX()][panGame.getPointeurY()] = toolSelected;
 			panGame.setNiveau(lvl);
 		    }
 		} catch (ArrayIndexOutOfBoundsException e) {
@@ -145,8 +137,7 @@ public class Moteur {
 
 	    if (panGame.getClicDroit() == true) {
 		try {
-		    lvl.getArray()[panGame.getPointeurX()][panGame
-			    .getPointeurY()] = 0;
+		    lvl.getArray()[panGame.getPointeurX()][panGame.getPointeurY()] = 0;
 
 		} catch (ArrayIndexOutOfBoundsException e) {
 		    e.printStackTrace();

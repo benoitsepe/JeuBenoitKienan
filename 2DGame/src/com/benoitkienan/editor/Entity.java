@@ -34,18 +34,15 @@ public class Entity {
     }
 
     public void sayInfos() {
-	System.out
-		.println("--------------------------------------------------------------");
+	System.out.println("--------------------------------------------------------------");
 	System.out.println("posX:" + posX + " posY:" + posY);
 	System.out.println("vectorX:" + vectorX + " vectorY:" + vectorY);
     }
 
     public void spawnRandom() { // Place l'entité aléatoirement
 	do {
-	    posX = (double) rand.nextInt((niveau.getArraySizeX() - 2)
-		    * (int) panGame.cellSizeX);
-	    posY = (double) rand.nextInt((niveau.getArraySizeY() - 2)
-		    * (int) panGame.cellSizeY);
+	    posX = (double) rand.nextInt((niveau.getArraySizeX() - 2) * (int) panGame.cellSizeX);
+	    posY = (double) rand.nextInt((niveau.getArraySizeY() - 2) * (int) panGame.cellSizeY);
 	} while (niveau.getArray()[(int) (posX / panGame.cellSizeX)][(int) (posY / panGame.cellSizeY)] != 0);
 	System.out.println("Spawned at x:" + posX + " y:" + posY);
     }
@@ -58,22 +55,14 @@ public class Entity {
 		y = r;
 		d = r - 1;
 		while (y >= x) {
-		    array[(int) (posX / panGame.cellSizeX) + x][(int) (posY / panGame.cellSizeY)
-			    + y] = 0;
-		    array[(int) (posX / panGame.cellSizeX) + y][(int) (posY / panGame.cellSizeY)
-			    + x] = 0;
-		    array[(int) (posX / panGame.cellSizeX) - x][(int) (posY / panGame.cellSizeY)
-			    + y] = 0;
-		    array[(int) (posX / panGame.cellSizeX) - y][(int) (posY / panGame.cellSizeY)
-			    + x] = 0;
-		    array[(int) (posX / panGame.cellSizeX) + x][(int) (posY / panGame.cellSizeY)
-			    - y] = 0;
-		    array[(int) (posX / panGame.cellSizeX) + y][(int) (posY / panGame.cellSizeY)
-			    - x] = 0;
-		    array[(int) (posX / panGame.cellSizeX) - x][(int) (posY / panGame.cellSizeY)
-			    - y] = 0;
-		    array[(int) (posX / panGame.cellSizeX) - y][(int) (posY / panGame.cellSizeY)
-			    - x] = 0;
+		    array[(int) (posX / panGame.cellSizeX) + x][(int) (posY / panGame.cellSizeY) + y] = 0;
+		    array[(int) (posX / panGame.cellSizeX) + y][(int) (posY / panGame.cellSizeY) + x] = 0;
+		    array[(int) (posX / panGame.cellSizeX) - x][(int) (posY / panGame.cellSizeY) + y] = 0;
+		    array[(int) (posX / panGame.cellSizeX) - y][(int) (posY / panGame.cellSizeY) + x] = 0;
+		    array[(int) (posX / panGame.cellSizeX) + x][(int) (posY / panGame.cellSizeY) - y] = 0;
+		    array[(int) (posX / panGame.cellSizeX) + y][(int) (posY / panGame.cellSizeY) - x] = 0;
+		    array[(int) (posX / panGame.cellSizeX) - x][(int) (posY / panGame.cellSizeY) - y] = 0;
+		    array[(int) (posX / panGame.cellSizeX) - y][(int) (posY / panGame.cellSizeY) - x] = 0;
 
 		    if (d >= 2 * x) {
 			d = d - 2 * x - 1;
@@ -120,21 +109,14 @@ public class Entity {
 	try {
 
 	    // WTF CES NOMS
-	    int downLeft = niveau.getArray()[(int) (posX + vectorX)
-		    / (int) panGame.cellSizeX][(int) ((posY - marge) / panGame.cellSizeY) + 1];
-	    int upLeft = niveau.getArray()[(int) (posX + vectorX)
-		    / (int) panGame.cellSizeX][(int) posY
-		    / (int) panGame.cellSizeY];
+	    int downLeft = niveau.getArray()[(int) (posX + vectorX) / (int) panGame.cellSizeX][(int) ((posY - marge) / panGame.cellSizeY) + 1];
+	    int upLeft = niveau.getArray()[(int) (posX + vectorX) / (int) panGame.cellSizeX][(int) posY / (int) panGame.cellSizeY];
 	    int downRight = niveau.getArray()[(int) ((posX + vectorX - marge) / panGame.cellSizeX) + 1][(int) ((posY - marge) / panGame.cellSizeY) + 1];
-	    int upRight = niveau.getArray()[(int) ((posX + vectorX - marge) / panGame.cellSizeX) + 1][(int) posY
-		    / (int) panGame.cellSizeY];
+	    int upRight = niveau.getArray()[(int) ((posX + vectorX - marge) / panGame.cellSizeX) + 1][(int) posY / (int) panGame.cellSizeY];
 	    int rightUp = niveau.getArray()[(int) ((posX - marge) / panGame.cellSizeX) + 1][(int) ((posY + vectorY) / panGame.cellSizeY)];
-	    int leftUp = niveau.getArray()[(int) (posX)
-		    / (int) panGame.cellSizeX][(int) ((posY + vectorY) / (int) panGame.cellSizeY)];
-	    int rightDown = niveau.getArray()[(int) ((posX - marge) / panGame.cellSizeX) + 1][(int) ((posY
-		    + vectorY - marge) / panGame.cellSizeY) + 1];
-	    int leftDown = niveau.getArray()[(int) (posX)
-		    / (int) panGame.cellSizeX][(int) ((posY + vectorY - marge) / (int) panGame.cellSizeY) + 1];
+	    int leftUp = niveau.getArray()[(int) (posX) / (int) panGame.cellSizeX][(int) ((posY + vectorY) / (int) panGame.cellSizeY)];
+	    int rightDown = niveau.getArray()[(int) ((posX - marge) / panGame.cellSizeX) + 1][(int) ((posY + vectorY - marge) / panGame.cellSizeY) + 1];
+	    int leftDown = niveau.getArray()[(int) (posX) / (int) panGame.cellSizeX][(int) ((posY + vectorY - marge) / (int) panGame.cellSizeY) + 1];
 
 	    // En bas et en haut à gauche, axe X + En bas et en haut à droite,
 	    // axe X
@@ -167,11 +149,11 @@ public class Entity {
     public void applyPhysics() {
 	couleur = Color.black;// WHY
 	collide(); // WTF
-	if (niveau.getArray().length > ((posX + vectorX + panGame.cellSizeX) / panGame.cellSizeX)
-		&& ((posX + vectorX) / panGame.cellSizeX) > 0) // WAT ?
+	if (niveau.getArray().length > ((posX + vectorX + panGame.cellSizeX) / panGame.cellSizeX) && ((posX + vectorX) / panGame.cellSizeX) > 0) // WAT
+																		 // ?
 	    posX = posX + vectorX;
-	if (niveau.getArray()[1].length > ((posY + vectorY + panGame.cellSizeY) / panGame.cellSizeY)
-		&& ((posY + vectorY) / panGame.cellSizeY) > 0) // RE-WHAT ?
+	if (niveau.getArray()[1].length > ((posY + vectorY + panGame.cellSizeY) / panGame.cellSizeY) && ((posY + vectorY) / panGame.cellSizeY) > 0) // RE-WHAT
+																		    // ?
 	    posY = posY + vectorY;
 
 	vectorX = vectorX / 2; // WHY ?

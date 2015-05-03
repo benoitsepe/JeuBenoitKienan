@@ -13,8 +13,7 @@ import javax.imageio.ImageIO;
 
 public class Camera implements KeyListener {
     KeyListener clavier;
-    boolean keyUpPressed, keyRightPressed, keyLeftPressed, keyDownPressed,
-	    keyNukePressed;
+    boolean keyUpPressed, keyRightPressed, keyLeftPressed, keyDownPressed, keyNukePressed;
     char keyUp = 'z';
     char keyRight = 'd';
     char keyLeft = 'q';

@@ -26,8 +26,7 @@ public class AStar2 {
 	openList = new SortedNodeList();
     }
 
-    public ArrayList<Point> calcShortestPath(int startX, int startY, int goalX,
-	    int goalY) {
+    public ArrayList<Point> calcShortestPath(int startX, int startY, int goalX, int goalY) {
 	// this.startX = startX;
 	// this.startY = startY;
 	// this.goalX = goalX;
@@ -57,8 +56,7 @@ public class AStar2 {
 
 	    // check if our current Node location is the goal Node. If it is, we
 	    // are done.
-	    if (current.getX() == map.getGoalLocationX()
-		    && current.getY() == map.getGoalLocationY()) {
+	    if (current.getX() == map.getGoalLocationX() && current.getY() == map.getGoalLocationY()) {
 		return reconstructPath(current);
 	    }
 
@@ -81,9 +79,7 @@ public class AStar2 {
 
 		    // calculate how long the path is if we choose this neighbor
 		    // as the next step in the path
-		    float neighborDistanceFromStart = (current
-			    .getDistanceFromStart() + map.getDistanceBetween(
-			    current, neighbor));
+		    float neighborDistanceFromStart = (current.getDistanceFromStart() + map.getDistanceBetween(current, neighbor));
 
 		    // add neighbor to the open list if it is not there
 		    if (!openList.contains(neighbor)) {
@@ -91,8 +87,7 @@ public class AStar2 {
 			neighborIsBetter = true;
 			// if neighbor is closer to start it could also be
 			// better
-		    } else if (neighborDistanceFromStart < current
-			    .getDistanceFromStart()) {
+		    } else if (neighborDistanceFromStart < current.getDistanceFromStart()) {
 			neighborIsBetter = true;
 		    } else {
 			neighborIsBetter = false;
@@ -101,8 +96,7 @@ public class AStar2 {
 		    if (neighborIsBetter) {
 			neighbor.setPreviousNode(current);
 			neighbor.setDistanceFromStart(neighborDistanceFromStart);
-			neighbor.setHeuristicDistanceFromGoal(heuristic.getEstimatedDistanceToGoal(
-				neighbor.getPoint(), map.getGoalPoint()));
+			neighbor.setHeuristicDistanceFromGoal(heuristic.getEstimatedDistanceToGoal(neighbor.getPoint(), map.getGoalPoint()));
 		    }
 		}
 

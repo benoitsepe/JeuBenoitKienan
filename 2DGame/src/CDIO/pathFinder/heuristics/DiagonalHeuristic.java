@@ -10,10 +10,8 @@ public class DiagonalHeuristic implements AStarHeuristic {
 
     public float getEstimatedDistanceToGoal(Point start, Point goal) {
 
-	float h_diagonal = (float) Math.min(Math.abs(start.x - goal.x),
-		Math.abs(start.y - goal.y));
-	float h_straight = (float) (Math.abs(start.x - goal.x) + Math
-		.abs(start.y - goal.y));
+	float h_diagonal = (float) Math.min(Math.abs(start.x - goal.x), Math.abs(start.y - goal.y));
+	float h_straight = (float) (Math.abs(start.x - goal.x) + Math.abs(start.y - goal.y));
 	float h_result = (float) (Math.sqrt(2) * h_diagonal + (h_straight - 2 * h_diagonal));
 
 	/**

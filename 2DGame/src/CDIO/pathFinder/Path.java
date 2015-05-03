@@ -19,8 +19,7 @@ public class Path {
     }
 
     public Point getWayPoint(int index) {
-	return new Point(waypoints.get(index).getX(), waypoints.get(index)
-		.getY());
+	return new Point(waypoints.get(index).getX(), waypoints.get(index).getY());
     }
 
     /**

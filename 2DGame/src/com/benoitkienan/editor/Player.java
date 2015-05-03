@@ -5,8 +5,7 @@ import java.awt.event.KeyListener;
 
 public class Player extends Entity implements KeyListener {
     KeyListener clavier;
-    boolean keyUpPressed, keyRightPressed, keyLeftPressed, keyDownPressed,
-	    keyNukePressed;
+    boolean keyUpPressed, keyRightPressed, keyLeftPressed, keyDownPressed, keyNukePressed;
     char keyUp = 'z';
     char keyRight = 'd';
     char keyLeft = 'q';

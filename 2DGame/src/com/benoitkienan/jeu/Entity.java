@@ -33,18 +33,15 @@ public class Entity {
     }
 
     public void sayInfos() {
-	System.out
-		.println("--------------------------------------------------------------");
+	System.out.println("--------------------------------------------------------------");
 	System.out.println("posX:" + posX + " posY:" + posY);
 	System.out.println("vectorX:" + vectorX + " vectorY:" + vectorY);
     }
 
     public void spawnRandom() { // Place l'entité aléatoirement
 	do {
-	    posX = (double) rand.nextInt((niveau.getArraySizeX() - 2)
-		    * (int) panGame.cellSizeX);
-	    posY = (double) rand.nextInt((niveau.getArraySizeY() - 2)
-		    * (int) panGame.cellSizeY);
+	    posX = (double) rand.nextInt((niveau.getArraySizeX() - 2) * (int) panGame.cellSizeX);
+	    posY = (double) rand.nextInt((niveau.getArraySizeY() - 2) * (int) panGame.cellSizeY);
 	} while (niveau.getArray()[(int) (posX / panGame.cellSizeX)][(int) (posY / panGame.cellSizeY)] != 0);
 	System.out.println("Spawned at x:" + posX + " y:" + posY);
 
@@ -58,22 +55,14 @@ public class Entity {
 		y = r;
 		d = r - 1;
 		while (y >= x) {
-		    array[(int) (posX / panGame.cellSizeX) + x][(int) (posY / panGame.cellSizeY)
-			    + y] = 0;
-		    array[(int) (posX / panGame.cellSizeX) + y][(int) (posY / panGame.cellSizeY)
-			    + x] = 0;
-		    array[(int) (posX / panGame.cellSizeX) - x][(int) (posY / panGame.cellSizeY)
-			    + y] = 0;
-		    array[(int) (posX / panGame.cellSizeX) - y][(int) (posY / panGame.cellSizeY)
-			    + x] = 0;
-		    array[(int) (posX / panGame.cellSizeX) + x][(int) (posY / panGame.cellSizeY)
-			    - y] = 0;
-		    array[(int) (posX / panGame.cellSizeX) + y][(int) (posY / panGame.cellSizeY)
-			    - x] = 0;
-		    array[(int) (posX / panGame.cellSizeX) - x][(int) (posY / panGame.cellSizeY)
-			    - y] = 0;
-		    array[(int) (posX / panGame.cellSizeX) - y][(int) (posY / panGame.cellSizeY)
-			    - x] = 0;
+		    array[(int) (posX / panGame.cellSizeX) + x][(int) (posY / panGame.cellSizeY) + y] = 0;
+		    array[(int) (posX / panGame.cellSizeX) + y][(int) (posY / panGame.cellSizeY) + x] = 0;
+		    array[(int) (posX / panGame.cellSizeX) - x][(int) (posY / panGame.cellSizeY) + y] = 0;
+		    array[(int) (posX / panGame.cellSizeX) - y][(int) (posY / panGame.cellSizeY) + x] = 0;
+		    array[(int) (posX / panGame.cellSizeX) + x][(int) (posY / panGame.cellSizeY) - y] = 0;
+		    array[(int) (posX / panGame.cellSizeX) + y][(int) (posY / panGame.cellSizeY) - x] = 0;
+		    array[(int) (posX / panGame.cellSizeX) - x][(int) (posY / panGame.cellSizeY) - y] = 0;
+		    array[(int) (posX / panGame.cellSizeX) - y][(int) (posY / panGame.cellSizeY) - x] = 0;
 
 		    if (d >= 2 * x) {
 			d = d - 2 * x - 1;
@@ -135,12 +124,9 @@ public class Entity {
     public void collideEntites(ArrayList<Entity> entList) {
 	for (Entity ent : entList) {
 	    if (ent != this) {
-		if (checkCollision((int) ent.getPosX(), (int) ent.getPosY(),
-			(int) (panGame.cellSizeX), (int) (panGame.cellSizeY))) {
-		    vectorX = (vectorX > 0) ? (vectorX + ent.vectorX + 1)
-			    : (vectorX + ent.vectorX - 1);
-		    vectorY = (vectorY > 0) ? (vectorY + ent.vectorY + 1)
-			    : (vectorY + ent.vectorY - 1);
+		if (checkCollision((int) ent.getPosX(), (int) ent.getPosY(), (int) (panGame.cellSizeX), (int) (panGame.cellSizeY))) {
+		    vectorX = (vectorX > 0) ? (vectorX + ent.vectorX + 1) : (vectorX + ent.vectorX - 1);
+		    vectorY = (vectorY > 0) ? (vectorY + ent.vectorY + 1) : (vectorY + ent.vectorY - 1);
 		}
 	    }
 	}
@@ -153,23 +139,15 @@ public class Entity {
      *            hauteur hitbox
      */
     public boolean checkCollision(int x, int y, int sx, int sy) {
-	Rectangle r1 = new Rectangle((int) (posX - panGame.cellSizeX / 2),
-		(int) (posY - panGame.cellSizeY / 2),
-		(int) (panGame.cellSizeX), (int) (panGame.cellSizeY));
-	Rectangle r2 = new Rectangle((int) (x - panGame.cellSizeX / 2),
-		(int) (y - panGame.cellSizeY), sx, sy);
+	Rectangle r1 = new Rectangle((int) (posX - panGame.cellSizeX / 2), (int) (posY - panGame.cellSizeY / 2), (int) (panGame.cellSizeX), (int) (panGame.cellSizeY));
+	Rectangle r2 = new Rectangle((int) (x - panGame.cellSizeX / 2), (int) (y - panGame.cellSizeY), sx, sy);
 
 	return r1.intersects(r2);
     }
 
     public boolean checkCollisionEntity(Entity ent) {
-	Rectangle r1 = new Rectangle((int) (posX - panGame.cellSizeX / 2),
-		(int) (posY - panGame.cellSizeY / 2),
-		(int) (panGame.cellSizeX), (int) (panGame.cellSizeY));
-	Rectangle r2 = new Rectangle(
-		(int) (ent.getPosX() - panGame.cellSizeX / 2),
-		(int) (ent.getPosY() - panGame.cellSizeY / 2),
-		(int) (panGame.cellSizeX), (int) (panGame.cellSizeY));
+	Rectangle r1 = new Rectangle((int) (posX - panGame.cellSizeX / 2), (int) (posY - panGame.cellSizeY / 2), (int) (panGame.cellSizeX), (int) (panGame.cellSizeY));
+	Rectangle r2 = new Rectangle((int) (ent.getPosX() - panGame.cellSizeX / 2), (int) (ent.getPosY() - panGame.cellSizeY / 2), (int) (panGame.cellSizeX), (int) (panGame.cellSizeY));
 	return r1.intersects(r2);
     }
 
@@ -178,9 +156,7 @@ public class Entity {
     }
 
     public Rectangle getHitbox() {
-	Rectangle r1 = new Rectangle((int) (posX - panGame.cellSizeX / 2),
-		(int) (posY - panGame.cellSizeY / 2),
-		(int) (panGame.cellSizeX), (int) (panGame.cellSizeY));
+	Rectangle r1 = new Rectangle((int) (posX - panGame.cellSizeX / 2), (int) (posY - panGame.cellSizeY / 2), (int) (panGame.cellSizeX), (int) (panGame.cellSizeY));
 	return r1;
     }
 
@@ -190,11 +166,11 @@ public class Entity {
 
     public void applyPhysics() {
 	collide(); // WTF
-	if (niveau.getArray().length > ((posX + vectorX + panGame.cellSizeX) / panGame.cellSizeX)
-		&& ((posX + vectorX) / panGame.cellSizeX) > 0) // WAT ?
+	if (niveau.getArray().length > ((posX + vectorX + panGame.cellSizeX) / panGame.cellSizeX) && ((posX + vectorX) / panGame.cellSizeX) > 0) // WAT
+																		 // ?
 	    posX = posX + vectorX;
-	if (niveau.getArray()[1].length > ((posY + vectorY + panGame.cellSizeY) / panGame.cellSizeY)
-		&& ((posY + vectorY) / panGame.cellSizeY) > 0) // RE-WHAT ?
+	if (niveau.getArray()[1].length > ((posY + vectorY + panGame.cellSizeY) / panGame.cellSizeY) && ((posY + vectorY) / panGame.cellSizeY) > 0) // RE-WHAT
+																		    // ?
 	    posY = posY + vectorY;
 
 	vectorX = vectorX / 2; // WHY ?

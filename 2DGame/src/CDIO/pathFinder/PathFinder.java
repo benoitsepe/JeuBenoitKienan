@@ -26,9 +26,7 @@ public class PathFinder {
 	AStar aStar = new AStar(map, heuristic);
 
 	log.addToLog("Calculating shortest path with AStar...");
-	ArrayList<Point> shortestPath = aStar.calcShortestPath(
-		map.getStartLocationX(), map.getStartLocationY(),
-		map.getGoalLocationX(), map.getGoalLocationY());
+	ArrayList<Point> shortestPath = aStar.calcShortestPath(map.getStartLocationX(), map.getStartLocationY(), map.getGoalLocationX(), map.getGoalLocationY());
 
 	// log.addToLog("Printing map of shortest path...");
 	// new PrintMap(map, shortestPath);
@@ -37,8 +35,7 @@ public class PathFinder {
 	s.start();
 	ArrayList<Point> waypoints = calculateWayPoints(shortestPath);
 	s.stop();
-	log.addToLog("Time to calculate waypoints: " + s.getElapsedTime()
-		+ " ms");
+	log.addToLog("Time to calculate waypoints: " + s.getElapsedTime() + " ms");
 
 	return waypoints;
     }

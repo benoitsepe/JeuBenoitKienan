@@ -15,13 +15,10 @@ public class ToolBar extends JToolBar {
 
     JButton gunButton = new JButton(new ImageIcon("Pictures/gun.png"));
     JButton eraserButton = new JButton(new ImageIcon("Pictures/eraser.png"));
-    JButton blueBrickButton = new JButton(new ImageIcon(
-	    "Pictures/blueBrick.png"));
+    JButton blueBrickButton = new JButton(new ImageIcon("Pictures/blueBrick.png"));
     JButton redBrickButton = new JButton(new ImageIcon("Pictures/redBrick.png"));
-    JButton blackBrickButton = new JButton(new ImageIcon(
-	    "Pictures/blackBrick.png"));
-    JButton goldBrickButton = new JButton(new ImageIcon(
-	    "Pictures/goldBrick.png"));
+    JButton blackBrickButton = new JButton(new ImageIcon("Pictures/blackBrick.png"));
+    JButton goldBrickButton = new JButton(new ImageIcon("Pictures/goldBrick.png"));
     JButton rainbow = new JButton(new ImageIcon("Pictures/rainbow.png"));
     JSlider slider = new JSlider();
 
