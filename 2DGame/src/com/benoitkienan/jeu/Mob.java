@@ -23,7 +23,7 @@ public class Mob extends Entity{
 
     public Mob(Niveau niveau) {
 	super(niveau);
-	speed=2;
+	speed=10;
     }
 
     public void refreshPath(int bx, int by, int[][] array){

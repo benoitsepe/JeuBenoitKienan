@@ -21,8 +21,9 @@ public class Moteur {
     // cercle
     // d'Andres
     int toolSelected = 2;
-    ArrayList<Mob> MobList = new ArrayList<>();
-    ArrayList<Player> PlayerList = new ArrayList<>();
+    ArrayList<Mob> MobList = new ArrayList<Mob>();
+    ArrayList<Player> PlayerList = new ArrayList<Player>();
+    ArrayList<Entity> EntityList = new ArrayList<Entity>();
 
     Thread tBalle;
 
@@ -48,17 +49,21 @@ public class Moteur {
 	panGame = pan;
 	PlayerList.add(player);
 	// PlayerList.add(player2);
-	// MobList.add(mob1);
-	//MobList.add(mob2);
+	MobList.add(mob1);
+	MobList.add(mob2);
 
+	
+	
 	for (Player pl : PlayerList) {
 	    pl.setNiveau(lvl);
 	    pl.setPanneauGame(panGame);
+	    EntityList.add(pl);
 	}
 
 	for (Mob mob : MobList) {
 	    mob.setNiveau(lvl);
 	    mob.setPanneauGame(panGame);
+	    EntityList.add(mob);
 	}
 
     }
@@ -67,11 +72,14 @@ public class Moteur {
 	for (Mob mob : MobList) {
 	    mob.spawnRandom();
 	    mob.goToNearestPlayer(PlayerList, lvl.getArray());
+	    mob.nuke(lvl.getArray(), 50);
+
 	}
 
 	while (true) {
 	    for (Mob mob : MobList) {
 		mob.setNiveau(lvl);
+		mob.collideEntites(EntityList);
 		mob.applyPhysics();
 
 		mob.getNearestPlayer(PlayerList, lvl.getArray());
@@ -151,7 +159,7 @@ public class Moteur {
 	    panGame.setNiveau(lvl);
 
 	    try {
-		Thread.sleep(5);
+		Thread.sleep(20);
 	    } catch (InterruptedException e) {
 		e.printStackTrace();
 	    }
@@ -178,6 +186,7 @@ public class Moteur {
 		for (Player player : PlayerList) {
 
 		    player.runPlayer();
+		    player.collideEntites(EntityList);
 		    player.applyPhysics();
 		    player.setNiveau(lvl);
 		}
@@ -187,7 +196,7 @@ public class Moteur {
 	    }
 
 	    try {
-		Thread.sleep(5);
+		Thread.sleep(20);
 	    } catch (InterruptedException e) {
 		e.printStackTrace();
 	    }

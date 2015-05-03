@@ -7,6 +7,7 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -183,7 +184,8 @@ public class PanneauGame extends JPanel implements MouseListener {
 
 		g2.setColor(Color.green);
 		for(Mob mob : MobList){
-		    
+			g2.draw(mob.getHitbox());
+
 		    //Dessin du path
 			if(mob.getPath()!=null){
 				for(int i=0; i<mob.shortestPath.size();i++){
@@ -191,7 +193,7 @@ public class PanneauGame extends JPanel implements MouseListener {
 				}
 			}
 		    //Fin dessin path
-			g2.drawImage(rotate(mob.getImage(),(int)cellSizeX,(int)cellSizeY, mob.getRotationWithVectors()), (int)mob.getPosX(), (int)mob.getPosY(),(int)cellSizeX,(int)cellSizeY, this);
+			g2.drawImage(rotate(mob.getImage(),(int)cellSizeX,(int)cellSizeY, mob.getRotationWithVectors()), (int)(mob.getPosX()-cellSizeX/2), (int)(mob.getPosY()-cellSizeY/2),(int)cellSizeX,(int)cellSizeY, this);
 
 		}
 
@@ -217,7 +219,9 @@ public class PanneauGame extends JPanel implements MouseListener {
 		g2.drawRect((int)(pointeurX*cellSizeX), (int)(pointeurY*cellSizeY), (int)cellSizeX, (int)cellSizeY);
 		
 		g2.setColor(Color.BLUE);
-		g2.fillRect((int)(((PlayerList.get(0).getPosX()-this.getWidth()/2/zoom))), (int)((PlayerList.get(0).getPosY()-this.getHeight()/2/zoom)/cellSizeY), 100 , 100);
+		g2.draw(PlayerList.get(0).getHitbox());
+		
+
 		
 	}
 	
