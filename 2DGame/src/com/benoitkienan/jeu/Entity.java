@@ -30,17 +30,9 @@ public class Entity {
 	} catch ( IOException e ) {
 	    e.printStackTrace();
 	}
+}
 
 
-
-    public Entity(Niveau niveau) {
-	try {
-	    image = ImageIO.read(new File("Pictures/notDefined.png"));
-	} catch (IOException e) {
-	    e.printStackTrace();
-	}
-
-    }
 
     public void sayInfos() {
 	System.out.println( "--------------------------------------------------------------" );
@@ -175,8 +167,6 @@ public class Entity {
     }
 
     public void setPanneauGame( PanneauGame pan ) {
-	panGame = pan;
-    public void setPanneauGame(PanneauGame pan) {
 	panGame = pan;
     }
 
