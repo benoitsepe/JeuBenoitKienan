@@ -11,16 +11,16 @@ import java.util.Random;
 import javax.imageio.ImageIO;
 
 public class Entity {
-    Niveau        niveau;
-    double        posX, posY;
-    double        vectorX, vectorY;
-    int           speed;
-    Random        rand     = new Random();
-    PanneauGame   panGame;
-    Color         couleur  = Color.blue;
-    double        rotation = 0;           // En radians
-    double        modZ;
-    int           d, x, y, r;
+    Niveau niveau;
+    double posX, posY;
+    double vectorX, vectorY;
+    int speed;
+    Random rand = new Random();
+    PanneauGame panGame;
+    Color couleur = Color.blue;
+    double rotation = 0; // En radians
+    double modZ;
+    int d, x, y, r;
     BufferedImage image;
     int masse = 10;
 
@@ -31,6 +31,14 @@ public class Entity {
 	    e.printStackTrace();
 	}
 
+
+
+    public Entity(Niveau niveau) {
+	try {
+	    image = ImageIO.read(new File("Pictures/notDefined.png"));
+	} catch (IOException e) {
+	    e.printStackTrace();
+	}
 
     }
 
@@ -167,6 +175,8 @@ public class Entity {
     }
 
     public void setPanneauGame( PanneauGame pan ) {
+	panGame = pan;
+    public void setPanneauGame(PanneauGame pan) {
 	panGame = pan;
     }
 

@@ -229,17 +229,18 @@ public class Moteur {
 	    double posXPlayer = player.getPosX();
 	    double posYPlayer = player.getPosY();
 
-	    double posXTir = panGame.getPointeurX();
-	    double posYTir = panGame.getPointeurY();
+	    double posXTir = panGame.getRealPointeurX();
+	    double posYTir = panGame.getRealPointeurY();
 
 	    double angle = player.getRotationWithMouse(posXTir, posYTir); // On
 									  // prend
 									  // l'angle
 									  // en
 									  // radian
+	    System.out.println(angle);
 
 	    Balle balle = new Balle(posXPlayer, posYPlayer, 1, 10.0); // Nouvelle
-								      // balle
+	    // balle
 
 	    int[][] tableau = lvl.getArray();
 
@@ -258,8 +259,9 @@ public class Moteur {
 		    balle.setPosX(balle.getPosX() + Math.cos(angle));
 		    balle.setPosY(balle.getPosY() + Math.sin(angle));
 
-		} catch (Exception e) { // Si on a un outofbound on consid�re
-					// que c'est un mur
+		} catch (Exception e) { // Si on a un outofbound on
+					// consid�re
+		    // que c'est un mur
 		    System.out.println("Impact en x=" + x + " et y=" + y);
 		    break;
 		}
