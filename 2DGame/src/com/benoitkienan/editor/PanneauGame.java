@@ -1,6 +1,5 @@
 package com.benoitkienan.editor;
 
-
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Cursor;
@@ -29,249 +28,260 @@ import CDIO.pathFinder.Node;
 
 public class PanneauGame extends JPanel implements MouseListener {
 
-	Color color=Color.white;
-	Niveau lvl = new Niveau();
-	int pointeurX, pointeurY;
-	double realPointeurX, realPointeurY;
-	double cellSizeX, cellSizeY;
-	boolean clicGauche,clicDroit,clicMiddle;
-	BufferedImage blueBrick, redBrick, blackBrick, goldBrick;
-	Dimension dim = new Dimension(1280,720);
-	
-	double rotation =0;
-	AffineTransform rot = new AffineTransform();
-	AffineTransform tx;
-	AffineTransformOp op;
-	Image img;
-	Node node;
-	Graphics2D g2;
-	double zoom=0.5;
-	int width, height;
-	int xMin, xMax, yMin, yMax;
-	
-	Color exterior = Color.gray.darker();
-	
-	Camera camera;
+    Color color = Color.white;
+    Niveau lvl = new Niveau();
+    int pointeurX, pointeurY;
+    double realPointeurX, realPointeurY;
+    double cellSizeX, cellSizeY;
+    boolean clicGauche, clicDroit, clicMiddle;
+    BufferedImage blueBrick, redBrick, blackBrick, goldBrick;
+    Dimension dim = new Dimension(1280, 720);
 
-	public PanneauGame(){
+    double rotation = 0;
+    AffineTransform rot = new AffineTransform();
+    AffineTransform tx;
+    AffineTransformOp op;
+    Image img;
+    Node node;
+    Graphics2D g2;
+    double zoom = 0.5;
+    int width, height;
+    int xMin, xMax, yMin, yMax;
 
+    Color exterior = Color.gray.darker();
 
-		try {
-			blueBrick = ImageIO.read(new File("Pictures/blueBrick.png"));
-			redBrick = ImageIO.read(new File("Pictures/redBrick.png"));
-			blackBrick = ImageIO.read(new File("Pictures/blackBrick.png"));
-			goldBrick = ImageIO.read(new File("Pictures/goldBrick.png"));
+    Camera camera;
 
-		} catch (IOException e) {
-			e.printStackTrace();
+    public PanneauGame() {
+
+	try {
+	    blueBrick = ImageIO.read(new File("Pictures/blueBrick.png"));
+	    redBrick = ImageIO.read(new File("Pictures/redBrick.png"));
+	    blackBrick = ImageIO.read(new File("Pictures/blackBrick.png"));
+	    goldBrick = ImageIO.read(new File("Pictures/goldBrick.png"));
+
+	} catch (IOException e) {
+	    e.printStackTrace();
+	}
+
+	this.addMouseListener(this);
+	this.addMouseWheelListener(new MouseWheelListener() {
+
+	    public void mouseWheelMoved(MouseWheelEvent e) {
+		if (e.getWheelRotation() < 0 && zoom < 0.95) {
+		    zoom = zoom + 0.01;
 		}
 
+		if (e.getWheelRotation() > 0 && zoom > 0.05) {
+		    zoom = zoom - 0.01;
+		}
+	    }
 
+	});
 
-		this.addMouseListener(this);
-		this.addMouseWheelListener(new MouseWheelListener(){
+	this.addMouseMotionListener(new MouseMotionListener() {
+	    public void mouseDragged(MouseEvent e) {
+		realPointeurX = (((camera.getPosX() - width) + ((e.getX()) * 2)));
+		realPointeurY = (((camera.getPosY() - height) + ((e.getY()) * 2)));
+		pointeurX = (int) ((camera.getPosX() - width / 2 / zoom) / cellSizeX)
+			+ (int) (((e.getX()) / zoom) / cellSizeX);
+		pointeurY = (int) ((camera.getPosY() - height / 2 / zoom) / cellSizeY)
+			+ (int) (((e.getY()) / zoom) / cellSizeY);
+	    }
 
-		    public void mouseWheelMoved(MouseWheelEvent e) {
-			if(e.getWheelRotation()<0 && zoom<0.95){
-			    zoom=zoom+0.01;
-			}
-			
-			if(e.getWheelRotation()>0 && zoom>0.05){
-			    zoom=zoom-0.01;
-			}
-		    }
-		    
-		    
-		});
-		
-		this.addMouseMotionListener(new MouseMotionListener(){
-			public void mouseDragged(MouseEvent e) {
-				realPointeurX=(((camera.getPosX()-width)+((e.getX())*2)));
-				realPointeurY=(((camera.getPosY()-height)+((e.getY())*2)));
-				pointeurX= (int)((camera.getPosX()-width/2/zoom)/cellSizeX)+(int)(((e.getX())/zoom)/cellSizeX);
-				pointeurY= (int)((camera.getPosY()-height/2/zoom)/cellSizeY)+(int)(((e.getY())/zoom)/cellSizeY);
-			}
+	    public void mouseMoved(MouseEvent e) {
+		realPointeurX = (((camera.getPosX() - width) + ((e.getX()) * 2)));
+		realPointeurY = (((camera.getPosY() - height) + ((e.getY()) * 2)));
+		pointeurX = (int) ((camera.getPosX() - width / 2 / zoom) / cellSizeX)
+			+ (int) (((e.getX()) / zoom) / cellSizeX);
+		pointeurY = (int) ((camera.getPosY() - height / 2 / zoom) / cellSizeY)
+			+ (int) (((e.getY()) / zoom) / cellSizeY);
+	    }
 
-			public void mouseMoved(MouseEvent e) {
-				realPointeurX=(((camera.getPosX()-width)+((e.getX())*2)));
-				realPointeurY=(((camera.getPosY()-height)+((e.getY())*2)));
-				pointeurX= (int)((camera.getPosX()-width/2/zoom)/cellSizeX)+(int)(((e.getX())/zoom)/cellSizeX);
-				pointeurY= (int)((camera.getPosY()-height/2/zoom)/cellSizeY)+(int)(((e.getY())/zoom)/cellSizeY);
-			}
+	});
 
-		});
-		
-		cellSizeX=(1280/lvl.getArraySizeX())*20;
-		cellSizeY=(720/lvl.getArraySizeY())*20;
+	cellSizeX = (1280 / lvl.getArraySizeX()) * 20;
+	cellSizeY = (720 / lvl.getArraySizeY()) * 20;
+    }
+
+    public void paintComponent(Graphics g) {
+	width = this.getWidth();
+	height = this.getHeight();
+
+	Graphics2D g2 = (Graphics2D) g;
+	g2.setColor(exterior);
+	g2.fillRect(0, 0, this.getWidth(), this.getHeight());
+
+	g2.translate((-camera.getPosX() * zoom) + this.getWidth() / 2,
+		(-camera.getPosY() * zoom) + this.getHeight() / 2);
+	g2.scale(zoom, zoom);
+
+	// Création quadrillage
+
+	g.setColor(Color.black);
+	for (int y = 0; y < this.getHeight(); y = y
+		+ (this.getHeight() / lvl.getArraySizeY())) {
+	    g.drawLine(0, y, this.getWidth(), y);
 	}
 
-	public void paintComponent(Graphics g){
-	    width=this.getWidth();
-	    height=this.getHeight();
+	for (int x = 0; x < this.getWidth(); x = x
+		+ (this.getWidth() / lvl.getArraySizeX())) {
+	    g.drawLine(x, 0, x, this.getHeight());
+	}
 
-		Graphics2D g2 = (Graphics2D)g;
-		g2.setColor(exterior);
-		g2.fillRect(0, 0, this.getWidth(), this.getHeight());
-		
-		g2.translate((-camera.getPosX()*zoom)+this.getWidth()/2, (-camera.getPosY()*zoom)+this.getHeight()/2);
-		g2.scale(zoom, zoom);
+	// Fin création quadrillage
 
+	if ((camera.getPosX() - this.getWidth() / 2 / zoom) / cellSizeX < 0) {
+	    xMin = 0;
+	} else {
+	    xMin = (int) ((camera.getPosX() - this.getWidth() / 2 / zoom) / cellSizeX);
+	}
 
-		//Création quadrillage 
+	if (((camera.getPosX() + this.getWidth() / 2 / zoom) / cellSizeX) > lvl
+		.getArraySizeX()) {
+	    xMax = lvl.getArraySizeX();
+	} else {
+	    xMax = (int) ((camera.getPosX() + this.getWidth() / 2 / zoom) / cellSizeX) + 5;
+	}
 
+	if ((camera.getPosY() - this.getHeight() / 2 / zoom) / cellSizeY < 0) {
+	    yMin = 0;
+	} else {
+	    yMin = (int) ((camera.getPosY() - this.getHeight() / 2 / zoom) / cellSizeY);
+	}
 
-		g.setColor(Color.black);
-		for(int y=0; y<this.getHeight(); y=y+(this.getHeight()/lvl.getArraySizeY())){
-			g.drawLine(0, y, this.getWidth(), y);
+	if ((camera.getPosY() + this.getHeight() / 2 / zoom) / cellSizeY > lvl
+		.getArraySizeY()) {
+	    yMax = (lvl.getArraySizeY());
+	} else {
+	    yMax = (int) ((camera.getPosY() + this.getHeight() / 2 / zoom) / cellSizeY) + 5;
+	}
+
+	for (int x = xMin; x < xMax; x++) {
+	    for (int y = yMin; y < yMax; y++) {
+		if (lvl.getArray()[x][y] == 0) {
+		    g2.setColor(Color.gray);
+		    g2.fillRect(x * (int) cellSizeX, y * (int) cellSizeY,
+			    (int) cellSizeX, (int) cellSizeY);
+		}
+		if (lvl.getArray()[x][y] == 1) {
+		    g2.drawImage(blueBrick, x * (int) cellSizeX, y
+			    * (int) cellSizeY, (int) cellSizeX,
+			    (int) cellSizeY, this);
 		}
 
-		for(int x=0; x<this.getWidth();x=x+(this.getWidth()/lvl.getArraySizeX())){
-			g.drawLine(x,0,x,this.getHeight());
+		if (lvl.getArray()[x][y] == 2) {
+		    g2.drawImage(redBrick, x * (int) cellSizeX, y
+			    * (int) cellSizeY, (int) cellSizeX,
+			    (int) cellSizeY, this);
+
 		}
 
-		//Fin création quadrillage
+		if (lvl.getArray()[x][y] == 3) {
+		    g2.drawImage(goldBrick, x * (int) cellSizeX, y
+			    * (int) cellSizeY, (int) cellSizeX,
+			    (int) cellSizeY, this);
+		}
 
-		
-	        if ( (camera.getPosX()-this.getWidth()/2/zoom)/cellSizeX < 0 ) {
-	            xMin = 0;
-	        } else {
-	            xMin = (int)((camera.getPosX()-this.getWidth()/2/zoom)/cellSizeX);
-	        }
+		if (lvl.getArray()[x][y] == 4) {
+		    g2.drawImage(blackBrick, x * (int) cellSizeX, y
+			    * (int) cellSizeY, (int) cellSizeX,
+			    (int) cellSizeY, this);
+		}
 
-	        if (  ((camera.getPosX()+this.getWidth()/2/zoom)/cellSizeX) > lvl.getArraySizeX() ) {
-	            xMax = lvl.getArraySizeX();
-	        } else {
-	            xMax = (int)((camera.getPosX()+this.getWidth()/2/zoom)/cellSizeX)+5;
-	        }
-
-	        if ( (camera.getPosY()-this.getHeight()/2/zoom)/cellSizeY < 0 ) {
-	            yMin = 0;
-	        } else {
-	            yMin = (int)((camera.getPosY()-this.getHeight()/2/zoom)/cellSizeY);
-	        }
-
-	        if ( (camera.getPosY()+this.getHeight()/2/zoom)/cellSizeY > lvl.getArraySizeY() ) {
-	            yMax = (lvl.getArraySizeY());
-	        } else {
-	            yMax =(int)((camera.getPosY()+this.getHeight()/2/zoom)/cellSizeY)+5;
-	        }
-		
-		for(int x=xMin;x<xMax;x++){
-			for(int y=yMin;y<yMax;y++){
-				if(lvl.getArray()[x][y]==0){
-					g2.setColor(Color.gray);
-					g2.fillRect(x*(int)cellSizeX, y*(int)cellSizeY,(int)cellSizeX,(int)cellSizeY);
-				}
-				if(lvl.getArray()[x][y]==1){
-					g2.drawImage(blueBrick, x*(int)cellSizeX, y*(int)cellSizeY,(int)cellSizeX,(int)cellSizeY, this);
-				}
-
-				if(lvl.getArray()[x][y]==2){
-					g2.drawImage(redBrick, x*(int)cellSizeX, y*(int)cellSizeY,(int)cellSizeX,(int)cellSizeY, this);
-
-				}
-
-				if(lvl.getArray()[x][y]==3){
-					g2.drawImage(goldBrick, x*(int)cellSizeX, y*(int)cellSizeY,(int)cellSizeX,(int)cellSizeY, this);
-				}
-
-				if(lvl.getArray()[x][y]==4){
-					g2.drawImage(blackBrick, x*(int)cellSizeX, y*(int)cellSizeY,(int)cellSizeX,(int)cellSizeY, this);
-				}
-
-			}}
-
-
-
-		g2.setColor(Color.RED);
-		g2.setStroke(new BasicStroke(2));
-		g2.drawRect((int)(pointeurX*cellSizeX), (int)(pointeurY*cellSizeY), (int)cellSizeX, (int)cellSizeY);
-		
-	}
-	
-	public static BufferedImage rotate(BufferedImage img, int cellSizeX, int cellSizeY, double rotation) {  
-		int w = cellSizeX;  
-		int h = cellSizeY;  
-		BufferedImage newImage = new BufferedImage(cellSizeX, cellSizeY, img.getType());
-		Graphics2D g2 = newImage.createGraphics();
-		g2.rotate(rotation, h/2, w/2); 
-		g2.drawImage(img, 0, 0,cellSizeX,cellSizeY, null);
-		return newImage;  
+	    }
 	}
 
-	public void setCamera(Camera cam){
-	    camera=cam;
-	}
-	
-	public Dimension getDim(){
-		return dim;
-	}
+	g2.setColor(Color.RED);
+	g2.setStroke(new BasicStroke(2));
+	g2.drawRect((int) (pointeurX * cellSizeX),
+		(int) (pointeurY * cellSizeY), (int) cellSizeX, (int) cellSizeY);
 
-	public void setNiveau(Niveau niv){
-		lvl=niv;
-	}
+    }
 
-	public double getRealPointeurX(){
-		return realPointeurX;
-	}
+    public static BufferedImage rotate(BufferedImage img, int cellSizeX,
+	    int cellSizeY, double rotation) {
+	int w = cellSizeX;
+	int h = cellSizeY;
+	BufferedImage newImage = new BufferedImage(cellSizeX, cellSizeY,
+		img.getType());
+	Graphics2D g2 = newImage.createGraphics();
+	g2.rotate(rotation, h / 2, w / 2);
+	g2.drawImage(img, 0, 0, cellSizeX, cellSizeY, null);
+	return newImage;
+    }
 
-	public double getRealPointeurY(){
-		return realPointeurY;
-	}
+    public void setCamera(Camera cam) {
+	camera = cam;
+    }
 
-	public int getPointeurX(){
-		return pointeurX;
-	}
+    public Dimension getDim() {
+	return dim;
+    }
 
-	public int getPointeurY(){
-		return pointeurY;
-	}
+    public void setNiveau(Niveau niv) {
+	lvl = niv;
+    }
 
-	public boolean getClicGauche(){
-		return clicGauche;
-	}
+    public double getRealPointeurX() {
+	return realPointeurX;
+    }
 
-	public boolean getClicDroit(){
-		return clicDroit;
-	}
+    public double getRealPointeurY() {
+	return realPointeurY;
+    }
 
-	public boolean getClicMiddle(){
-		return clicMiddle;
-	}
+    public int getPointeurX() {
+	return pointeurX;
+    }
 
-	public void mouseClicked(MouseEvent e) {
+    public int getPointeurY() {
+	return pointeurY;
+    }
 
-	}
+    public boolean getClicGauche() {
+	return clicGauche;
+    }
 
-	public void mouseEntered(MouseEvent e) {
+    public boolean getClicDroit() {
+	return clicDroit;
+    }
 
-	}
+    public boolean getClicMiddle() {
+	return clicMiddle;
+    }
 
-	public void mouseExited(MouseEvent e) {
-		clicGauche=false;
-		clicDroit=false;
-		clicMiddle=false;
-	}
+    public void mouseClicked(MouseEvent e) {
 
-	public void mousePressed(MouseEvent e) {
+    }
 
-		if(e.getButton()==1)
-			clicGauche=true;
+    public void mouseEntered(MouseEvent e) {
 
-		if(e.getButton()==3)
-			clicDroit=true;
+    }
 
-		if(e.getButton()==2)
-			clicMiddle=true;
+    public void mouseExited(MouseEvent e) {
+	clicGauche = false;
+	clicDroit = false;
+	clicMiddle = false;
+    }
 
-	}
+    public void mousePressed(MouseEvent e) {
 
-	public void mouseReleased(MouseEvent arg0) {
-		clicGauche = false;
-		clicDroit=false;
-		clicMiddle=false;
-	}
+	if (e.getButton() == 1)
+	    clicGauche = true;
 
+	if (e.getButton() == 3)
+	    clicDroit = true;
 
+	if (e.getButton() == 2)
+	    clicMiddle = true;
+
+    }
+
+    public void mouseReleased(MouseEvent arg0) {
+	clicGauche = false;
+	clicDroit = false;
+	clicMiddle = false;
+    }
 
 }

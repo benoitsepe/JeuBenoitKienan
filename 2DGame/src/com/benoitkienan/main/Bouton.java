@@ -10,28 +10,28 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
-public class Bouton extends JButton implements MouseListener{
-     String name;
+public class Bouton extends JButton implements MouseListener {
+    String name;
 
-    public Bouton(String str){
+    public Bouton(String str) {
 	super(str);
-	JLabel label = new JLabel(str, SwingConstants.CENTER); 
+	JLabel label = new JLabel(str, SwingConstants.CENTER);
 	this.add(label);
     }
 
-    public void paintComponent(Graphics g){
-	Graphics2D g2d = (Graphics2D)g;
+    public void paintComponent(Graphics g) {
+	Graphics2D g2d = (Graphics2D) g;
 	g2d.setColor(Color.white);
 	g2d.fillRect(0, 0, this.getWidth(), this.getHeight());
 	g2d.setColor(Color.black);
     }
 
     public void mouseClicked(MouseEvent arg0) {
-	
+
     }
 
     public void mouseEntered(MouseEvent arg0) {
-	
+
     }
 
     public void mouseExited(MouseEvent arg0) {
@@ -39,12 +39,11 @@ public class Bouton extends JButton implements MouseListener{
     }
 
     public void mousePressed(MouseEvent arg0) {
-	
+
     }
 
     public void mouseReleased(MouseEvent arg0) {
-	
-    }        
 
+    }
 
 }

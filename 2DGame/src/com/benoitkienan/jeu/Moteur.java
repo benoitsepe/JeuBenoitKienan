@@ -52,8 +52,6 @@ public class Moteur {
 	MobList.add(mob1);
 	MobList.add(mob2);
 
-	
-	
 	for (Player pl : PlayerList) {
 	    pl.setNiveau(lvl);
 	    pl.setPanneauGame(panGame);
