@@ -49,7 +49,7 @@ public class Fenetre extends JFrame{
 		}
 		
 		    Toolkit tk = Toolkit.getDefaultToolkit();
-		    Image img = tk.getImage("");
+		    Image img = tk.getImage("Pictures/CAGE.png");
 		    Cursor monCurseur = tk.createCustomCursor(img, new Point(10, 10), "Ceci est un pointeur");
 		    this.getContentPane().setCursor(monCurseur);
 		    
