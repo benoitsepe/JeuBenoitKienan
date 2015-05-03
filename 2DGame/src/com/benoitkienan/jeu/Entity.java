@@ -2,9 +2,13 @@ package com.benoitkienan.jeu;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Point;
+import java.awt.geom.Point2D;
+import java.awt.geom.Point2D.Double;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Random;
 
 import javax.imageio.ImageIO;
@@ -13,24 +17,23 @@ public class Entity {
     Niveau        niveau;
     double        posX, posY;
     double        vectorX, vectorY;
-    int           masse    = 20;
     int           speed;
     Random        rand     = new Random();
     PanneauGame   panGame;
     Color         couleur  = Color.blue;
-    int           marge    = 2;
     double        rotation = 0;           // En radians
     double        modZ;
     int           d, x, y, r;
     BufferedImage image;
-    Graphics2D    g2;
-
+    
     public Entity( Niveau niveau ) {
         try {
             image = ImageIO.read( new File( "Pictures/notDefined.png" ) );
         } catch ( IOException e ) {
             e.printStackTrace();
         }
+
+        
     }
 
     public void sayInfos() {
@@ -45,6 +48,7 @@ public class Entity {
             posY = (double) rand.nextInt( ( niveau.getArraySizeY() - 2 ) * (int) panGame.cellSizeY );
         } while ( niveau.getArray()[(int) ( posX / panGame.cellSizeX )][(int) ( posY / panGame.cellSizeY )] != 0 );
         System.out.println( "Spawned at x:" + posX + " y:" + posY );
+        
     }
 
     public int[][] nuke( int[][] array, int rayon ) {
@@ -108,37 +112,18 @@ public class Entity {
         }
     }
 
-    public void collide() {
+    
+    public void collide() {		//Collisions avec les blocs seulement
         try {
-
-            // WTF CES NOMS
-            int downLeft = niveau.getArray()[(int) ( posX + vectorX ) / (int) panGame.cellSizeX][(int) ( ( posY - marge ) / panGame.cellSizeY ) + 1];
-            int upLeft = niveau.getArray()[(int) ( posX + vectorX ) / (int) panGame.cellSizeX][(int) posY
-                    / (int) panGame.cellSizeY];
-            int downRight = niveau.getArray()[(int) ( ( posX + vectorX - marge ) / panGame.cellSizeX ) + 1][(int) ( ( posY - marge ) / panGame.cellSizeY ) + 1];
-            int upRight = niveau.getArray()[(int) ( ( posX + vectorX - marge ) / panGame.cellSizeX ) + 1][(int) posY
-                    / (int) panGame.cellSizeY];
-            int rightUp = niveau.getArray()[(int) ( ( posX - marge ) / panGame.cellSizeX ) + 1][(int) ( ( posY + vectorY ) / panGame.cellSizeY )];
-            int leftUp = niveau.getArray()[(int) ( posX ) / (int) panGame.cellSizeX][(int) ( ( posY + vectorY ) / (int) panGame.cellSizeY )];
-            int rightDown = niveau.getArray()[(int) ( ( posX - marge ) / panGame.cellSizeX ) + 1][(int) ( ( posY
-                    + vectorY - marge ) / panGame.cellSizeY ) + 1];
-            int leftDown = niveau.getArray()[(int) ( posX ) / (int) panGame.cellSizeX][(int) ( ( posY + vectorY - marge ) / (int) panGame.cellSizeY ) + 1];
-
-            // En bas et en haut à gauche, axe X + En bas et en haut à droite,
-            // axe X
-            if ( downLeft != 0 || upLeft != 0 || downRight != 0 || upRight != 0 ) { // PAS
-                                                                                    // COMPRIS
-                vectorX = 0;
-                couleur = Color.red; // WHY
+            if(niveau.getArray()[ (int) ((posX+vectorX)/panGame.cellSizeX) ][ (int) (posY/panGame.cellSizeY)] != 0){
+        	vectorX=0;
             }
+            
+            if(niveau.getArray()[ (int) (posX/panGame.cellSizeX) ][ (int) ((posY+vectorY)/panGame.cellSizeY)] != 0){
+        	vectorY=0;
+            }    
 
-            // A droite et à gauche, en haut, axe Y + A droite et à gauche, en
-            // bas, axe Y
-            if ( rightUp != 0 || leftUp != 0 || rightDown != 0 || leftDown != 0 ) {
-                vectorY = 0;
-                couleur = Color.red;
-            }
-
+            
         } catch ( ArrayIndexOutOfBoundsException e ) {
             e.printStackTrace();
         }
