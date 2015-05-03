@@ -23,177 +23,231 @@ public class Moteur {
     ArrayList<Mob>    MobList      = new ArrayList<>();
     ArrayList<Player> PlayerList   = new ArrayList<>();
 
+    Thread            tBalle;
+
     public Moteur( PanneauGame pan ) {
 
-	try {
+        try {
 
-	    sorcier = ImageIO.read( new File( "Pictures/sorcier.png" ) );
-	    cage = ImageIO.read( new File( "Pictures/CAGE.png" ) );
-	    poulpe = ImageIO.read( new File( "Pictures/poulpe.png" ) );
-	    nyan = ImageIO.read( new File( "Pictures/nyan.png" ) );
+            sorcier = ImageIO.read( new File( "Pictures/sorcier.png" ) );
+            cage = ImageIO.read( new File( "Pictures/CAGE.png" ) );
+            poulpe = ImageIO.read( new File( "Pictures/poulpe.png" ) );
+            nyan = ImageIO.read( new File( "Pictures/nyan.png" ) );
 
-	} catch ( IOException e ) {
-	    e.printStackTrace();
-	}
+        } catch ( IOException e ) {
+            e.printStackTrace();
+        }
 
-	player.setImage( nyan );
-	// player2.setImage(poulpe);
-	mob1.setImage( sorcier );
-	mob2.setImage( cage );
+        player.setImage( nyan );
+        // player2.setImage(poulpe);
+        mob1.setImage( sorcier );
+        mob2.setImage( cage );
 
-	lvl.createEmptyLvl();
-	panGame = pan;
-	PlayerList.add( player );
-	// PlayerList.add(player2);
-	// MobList.add(mob1);
-	MobList.add( mob2 );
+        lvl.createEmptyLvl();
+        panGame = pan;
+        PlayerList.add( player );
+        // PlayerList.add(player2);
+        // MobList.add(mob1);
+        MobList.add( mob2 );
 
-	for ( Player pl : PlayerList ) {
-	    pl.setNiveau( lvl );
-	    pl.setPanneauGame( panGame );
-	}
+        for ( Player pl : PlayerList ) {
+            pl.setNiveau( lvl );
+            pl.setPanneauGame( panGame );
+        }
 
-	for ( Mob mob : MobList ) {
-	    mob.setNiveau( lvl );
-	    mob.setPanneauGame( panGame );
-	}
+        for ( Mob mob : MobList ) {
+            mob.setNiveau( lvl );
+            mob.setPanneauGame( panGame );
+        }
 
     }
 
     public void runIA() {
-	for ( Mob mob : MobList ) {
-	    mob.spawnRandom();
-	    mob.goToNearestPlayer( PlayerList, lvl.getArray() );
-	}
+        for ( Mob mob : MobList ) {
+            mob.spawnRandom();
+            mob.goToNearestPlayer( PlayerList, lvl.getArray() );
+        }
 
-	while ( true ) {
-	    for ( Mob mob : MobList ) {
-		mob.setNiveau( lvl );
-		mob.applyPhysics();
+        while ( true ) {
+            for ( Mob mob : MobList ) {
+                mob.setNiveau( lvl );
+                mob.applyPhysics();
 
-		mob.getNearestPlayer( PlayerList, lvl.getArray() );
-		if ( mob.shortestPath != null ) {
-		    mob.goToNearestPlayer( PlayerList, lvl.getArray() );
-		    mob.followPath();
-		}
+                mob.getNearestPlayer( PlayerList, lvl.getArray() );
+                if ( mob.shortestPath != null ) {
+                    mob.goToNearestPlayer( PlayerList, lvl.getArray() );
+                    mob.followPath();
+                }
 
-	    }
-	    panGame.setMobList( MobList );
+            }
+            panGame.setMobList( MobList );
 
-	    try {
-		Thread.sleep( 20 );
-	    } catch ( InterruptedException e ) {
-		e.printStackTrace();
-	    }
+            try {
+                Thread.sleep( 20 );
+            } catch ( InterruptedException e ) {
+                e.printStackTrace();
+            }
 
-	}
+        }
     }
 
     public void runGame() {
 
-	while ( true ) {
+        long temps = System.currentTimeMillis(); // temps pour le tir
 
-	    if ( panGame.getClicMiddle() == true ) {
-		System.out.println( "[" + panGame.getPointeurX() + "][" + panGame.getPointeurY() + "]:"
-			+ lvl.getArray()[panGame.getPointeurX()][panGame.getPointeurY()] );
-		panGame.clicMiddle = false;
-	    }
+        while ( true ) {
 
-	    if ( panGame.getClicGauche() == true ) {
-		try {
+            if ( panGame.getClicMiddle() == true ) {
+                System.out.println( "[" + panGame.getPointeurX() + "][" + panGame.getPointeurY() + "]:"
+                        + lvl.getArray()[panGame.getPointeurX()][panGame.getPointeurY()] );
+                panGame.clicMiddle = false;
+            }
 
-		    if ( toolSelected == 5 ) { // TIR
+            if ( panGame.getClicGauche() == true ) {
+                try {
 
-			// Rï¿½cupï¿½ration des positions
-			double posXPlayer = player.getPosX();
-			double posYPlayer = player.getPosY();
+                    if ( toolSelected == 5 ) { // TIR
 
-			double posXTir = panGame.getPointeurX();
-			double posYTir = panGame.getPointeurY();
+                        long new_temps = System.currentTimeMillis();
 
-		    } else {
-			
-			lvl.getArray()[panGame.getPointeurX()][panGame.getPointeurY()] = toolSelected;
-			panGame.setNiveau( lvl );
-		    }
-		} catch ( ArrayIndexOutOfBoundsException e ) {
-		    e.printStackTrace();
-		}
+                        if ( ( new_temps - temps ) > 1000 ) {
 
-	    }
+                            temps = System.currentTimeMillis();
+                            Thread tBalle = new Thread( new RunBalle() );
+                            tBalle.start();
+                        }
 
-	    if ( panGame.getClicDroit() == true ) {
-		try {
-		    lvl.getArray()[panGame.getPointeurX()][panGame.getPointeurY()] = 0;
+                    } else {
 
-		} catch ( ArrayIndexOutOfBoundsException e ) {
-		    e.printStackTrace();
-		}
-	    }
+                        lvl.getArray()[panGame.getPointeurX()][panGame.getPointeurY()] = toolSelected;
+                        panGame.setNiveau( lvl );
+                    }
+                } catch ( ArrayIndexOutOfBoundsException e ) {
+                    e.printStackTrace();
+                }
 
-	    panGame.setPlayerList( PlayerList );
-	    panGame.setNiveau( lvl );
+            }
 
-	    try {
-		Thread.sleep( 5 );
-	    } catch ( InterruptedException e ) {
-		e.printStackTrace();
-	    }
+            if ( panGame.getClicDroit() == true ) {
+                try {
+                    lvl.getArray()[panGame.getPointeurX()][panGame.getPointeurY()] = 0;
 
-	}
+                } catch ( ArrayIndexOutOfBoundsException e ) {
+                    e.printStackTrace();
+                }
+            }
+
+            panGame.setPlayerList( PlayerList );
+            panGame.setNiveau( lvl );
+
+            try {
+                Thread.sleep( 5 );
+            } catch ( InterruptedException e ) {
+                e.printStackTrace();
+            }
+
+        }
     }
 
     public void motApplyPhysics() {
-	panGame.setNiveau( lvl );
-	panGame.setPlayerList( PlayerList );
-	panGame.setMobList( MobList );
+        panGame.setNiveau( lvl );
+        panGame.setPlayerList( PlayerList );
+        panGame.setMobList( MobList );
 
-	for ( Player player : PlayerList ) {
-	    player.setPanneauGame( panGame );
-	    player.setNiveau( lvl );
-	    player.spawnRandom();
-	    player.nuke( lvl.getArray(), 10 );
+        for ( Player player : PlayerList ) {
+            player.setPanneauGame( panGame );
+            player.setNiveau( lvl );
+            player.spawnRandom();
+            player.nuke( lvl.getArray(), 10 );
 
-	}
+        }
 
-	while ( true ) {
+        while ( true ) {
 
-	    try {
-		for ( Player player : PlayerList ) {
+            try {
+                for ( Player player : PlayerList ) {
 
-		    player.runPlayer();
-		    player.applyPhysics();
-		    player.setNiveau( lvl );
-		}
+                    player.runPlayer();
+                    player.applyPhysics();
+                    player.setNiveau( lvl );
+                }
 
-	    } catch ( ArrayIndexOutOfBoundsException e ) {
-		e.printStackTrace();
-	    }
+            } catch ( ArrayIndexOutOfBoundsException e ) {
+                e.printStackTrace();
+            }
 
-	    try {
-		Thread.sleep( 5 );
-	    } catch ( InterruptedException e ) {
-		e.printStackTrace();
-	    }
+            try {
+                Thread.sleep( 5 );
+            } catch ( InterruptedException e ) {
+                e.printStackTrace();
+            }
 
-	}
+        }
 
     }
 
     public void setNiveau( Niveau niv ) {
-	lvl = niv;
+        lvl = niv;
     }
 
     public void setPanneau( PanneauGame pan ) {
-	panGame = pan;
+        panGame = pan;
     }
 
     public Niveau getNiveau() {
-	return lvl;
+        return lvl;
     }
 
     public void setToolSelected( int tool ) {
-	toolSelected = tool;
+        toolSelected = tool;
+    }
+
+    class RunBalle implements Runnable {
+        public void run() {
+
+            // On récupére les positions
+
+            double posXPlayer = player.getPosX();
+            double posYPlayer = player.getPosY();
+
+            double posXTir = panGame.getPointeurX();
+            double posYTir = panGame.getPointeurY();
+
+            double angle = player.getRotationWithMouse( posXTir, posYTir ); // On
+                                                                            // prend
+                                                                            // l'angle
+                                                                            // en
+                                                                            // radian
+
+            Balle balle = new Balle( posXPlayer, posYPlayer, 1, 10.0 ); // Nouvelle
+                                                                        // balle
+
+            int[][] tableau = lvl.getArray();
+
+            while ( true ) {
+
+                try {
+
+                    int x = (int) ( balle.getPosX() / panGame.cellSizeX );
+                    int y = (int) ( balle.getPosY() / panGame.cellSizeY );
+
+                    if ( tableau[x][y] != 0 ) { // SI on a touche un mur
+                        System.out.println( "Impact en x=" + x + " et y=" + y );
+                        break; // on sort de la boucle
+                    }
+
+                    balle.setPosX( balle.getPosX() + Math.cos( angle ) );
+                    balle.setPosY( balle.getPosY() + Math.sin( angle ) );
+
+                } catch ( Exception e ) { // Si on a un outofbound on considére
+                                          // que c'est un mur
+                    System.out.println( "Impact en x=" + x + " et y=" + y );
+                    break;
+                }
+
+            }
+
+        }
     }
 
 }
