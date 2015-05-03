@@ -11,7 +11,7 @@ public class Player extends Entity implements KeyListener{
 	char keyLeft='q';
 	char keyDown='s';
 	char keyNuke = ' ';
-	int speed=10;
+	int speed=5;
 	
 	public Player(Niveau niveau) {
 		super(niveau);

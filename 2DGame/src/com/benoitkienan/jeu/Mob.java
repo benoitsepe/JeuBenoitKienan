@@ -92,7 +92,6 @@ public class Mob extends Entity{
 	for(Player pl : plist){
 	    distanceX = (int)Math.abs((pl.getPosX()/panGame.cellSizeX)-(posX/panGame.cellSizeX));
 	    distanceY = (int)Math.abs((pl.getPosY()/panGame.cellSizeY)-(posY/panGame.cellSizeY));
-	    System.out.println(distanceX);
 	    if(distanceX<100 &&  distanceY<100){
 		map = new AreaMap(aggroMob.length, aggroMob[0].length, aggroMob);
 		aStar = new AStar(map, heuristic);

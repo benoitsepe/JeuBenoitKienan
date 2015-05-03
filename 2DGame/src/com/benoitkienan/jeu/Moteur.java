@@ -49,7 +49,7 @@ public class Moteur {
 	PlayerList.add(player);
 	// PlayerList.add(player2);
 	// MobList.add(mob1);
-	MobList.add(mob2);
+	//MobList.add(mob2);
 
 	for (Player pl : PlayerList) {
 	    pl.setNiveau(lvl);
