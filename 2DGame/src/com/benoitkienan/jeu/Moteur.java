@@ -117,8 +117,8 @@ public class Moteur {
 			long new_temps = System.currentTimeMillis();
 
 			if ((new_temps - temps) > 1000) { // Intervalle
-							  // entre chaque
-							  // tir : 1 sec
+			    // entre chaque
+			    // tir : 1 sec
 
 			    temps = System.currentTimeMillis();
 			    Thread tBalle = new Thread(new RunBalle());
@@ -230,7 +230,7 @@ public class Moteur {
 									  // radian
 
 	    Balle balle = new Balle(posXPlayer, posYPlayer, 1, 10.0); // Nouvelle
-								      // balle
+	    // balle
 
 	    int[][] tableau = lvl.getArray();
 
@@ -249,8 +249,9 @@ public class Moteur {
 		    balle.setPosX(balle.getPosX() + Math.cos(angle));
 		    balle.setPosY(balle.getPosY() + Math.sin(angle));
 
-		} catch (Exception e) { // Si on a un outofbound on consid�re
-					// que c'est un mur
+		} catch (Exception e) { // Si on a un outofbound on
+					// consid�re
+		    // que c'est un mur
 		    System.out.println("Impact en x=" + x + " et y=" + y);
 		    break;
 		}
