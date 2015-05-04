@@ -236,6 +236,24 @@ public class Moteur {
 			break; // on sort de la boucle
 		    }
 
+		    boolean touch = false;
+
+		    for (Mob mob : MobList) {
+			if (mob.checkCollision(x, y, 1, 1)) {
+			    System.out.println("TOCUHE ! en x=" + x + " et y=" + y);
+			    touch = true;
+			    break; // on sort de la boucle
+			}
+		    }
+
+		    if (touch)
+			break;
+
+		    if (player.checkCollision(x, y, 1, 1)) {
+			System.out.println("JOUEUR TOUCHE en x=" + x + " et y=" + y);
+			break; // on sort de la boucle
+		    }
+
 		    balle.setPosX(balle.getPosX() + Math.cos(angle));
 		    balle.setPosY(balle.getPosY() + Math.sin(angle));
 

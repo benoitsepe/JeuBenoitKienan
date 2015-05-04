@@ -133,10 +133,13 @@ public class Entity {
     }
 
     /**
+     * 
+     * x, y positions de la hitbox à tester
+     * 
      * @param sx
-     *            largeur hitbox
+     *            largeur hitbox à tester
      * @param sy
-     *            hauteur hitbox
+     *            hauteur hitbox à tester
      */
     public boolean checkCollision(int x, int y, int sx, int sy) {
 	Rectangle r1 = new Rectangle((int) (posX - panGame.cellSizeX / 2), (int) (posY - panGame.cellSizeY / 2), (int) (panGame.cellSizeX), (int) (panGame.cellSizeY));
