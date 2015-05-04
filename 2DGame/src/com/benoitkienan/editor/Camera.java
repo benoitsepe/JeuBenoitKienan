@@ -11,37 +11,36 @@ import java.util.Random;
 
 import javax.imageio.ImageIO;
 
-public class Camera implements KeyListener{
+public class Camera implements KeyListener {
     KeyListener clavier;
-    boolean keyUpPressed,keyRightPressed,keyLeftPressed,keyDownPressed, keyNukePressed;
-    char keyUp='z';
-    char keyRight='d';
-    char keyLeft='q';
-    char keyDown='s';
+    boolean keyUpPressed, keyRightPressed, keyLeftPressed, keyDownPressed, keyNukePressed;
+    char keyUp = 'z';
+    char keyRight = 'd';
+    char keyLeft = 'q';
+    char keyDown = 's';
 
-    Niveau        niveau;
-    double        posX, posY;
-    double        vectorX, vectorY;
-    int           speed;
-    PanneauGame   panGame;
-    Graphics2D    g2;
+    Niveau niveau;
+    double posX, posY;
+    double vectorX, vectorY;
+    int speed;
+    PanneauGame panGame;
+    Graphics2D g2;
 
-    public Camera( Niveau niveau ) {
-	speed=10;
+    public Camera(Niveau niveau) {
+	speed = 10;
     }
 
-
-    public void runCamera(){
-	if(keyUpPressed==true){
+    public void runCamera() {
+	if (keyUpPressed == true) {
 	    this.addForceY(-speed);
 	}
-	if(keyDownPressed){
+	if (keyDownPressed) {
 	    this.addForceY(speed);
 	}
-	if(keyLeftPressed){
+	if (keyLeftPressed) {
 	    this.addForceX(-speed);
 	}
-	if(keyRightPressed){
+	if (keyRightPressed) {
 	    this.addForceX(speed);
 	}
 
@@ -52,11 +51,11 @@ public class Camera implements KeyListener{
 	}
     }
 
-    public void setNiveau( Niveau niv ) {
+    public void setNiveau(Niveau niv) {
 	niveau = niv;
     }
 
-    public void setPanneauGame( PanneauGame pan ) {
+    public void setPanneauGame(PanneauGame pan) {
 	panGame = pan;
     }
 
@@ -65,23 +64,23 @@ public class Camera implements KeyListener{
 	posY = posY + vectorY;
 
 	vectorX = vectorX / 2; // WHY ?
-		vectorY = vectorY / 2;
+	vectorY = vectorY / 2;
 
     }
 
-    public void addForceX( double force ) {
+    public void addForceX(double force) {
 	vectorX = vectorX + force;
     }
 
-    public void addForceY( double force ) {
+    public void addForceY(double force) {
 	vectorY = vectorY + force;
     }
 
-    public void setPosX( double pos ) {
+    public void setPosX(double pos) {
 	posX = pos;
     }
 
-    public void setPosY( double pos ) {
+    public void setPosY(double pos) {
 	posY = pos;
     }
 
@@ -93,36 +92,34 @@ public class Camera implements KeyListener{
 	return posY;
     }
 
-
     public void keyPressed(KeyEvent e) {
-	if(e.getKeyChar()==keyUp){
-	    keyUpPressed=true;
+	if (e.getKeyChar() == keyUp) {
+	    keyUpPressed = true;
 	}
-	if(e.getKeyChar()==keyDown){
-	    keyDownPressed=true;
+	if (e.getKeyChar() == keyDown) {
+	    keyDownPressed = true;
 	}
-	if(e.getKeyChar()==keyLeft){
-	    keyLeftPressed=true;
+	if (e.getKeyChar() == keyLeft) {
+	    keyLeftPressed = true;
 	}
-	if(e.getKeyChar()==keyRight){
-	    keyRightPressed=true;
+	if (e.getKeyChar() == keyRight) {
+	    keyRightPressed = true;
 	}
-
 
     }
 
     public void keyReleased(KeyEvent e) {
-	if(e.getKeyChar()==keyUp){
-	    keyUpPressed=false;
+	if (e.getKeyChar() == keyUp) {
+	    keyUpPressed = false;
 	}
-	if(e.getKeyChar()==keyDown){
-	    keyDownPressed=false;
+	if (e.getKeyChar() == keyDown) {
+	    keyDownPressed = false;
 	}
-	if(e.getKeyChar()==keyLeft){
-	    keyLeftPressed=false;
+	if (e.getKeyChar() == keyLeft) {
+	    keyLeftPressed = false;
 	}
-	if(e.getKeyChar()==keyRight){
-	    keyRightPressed=false;
+	if (e.getKeyChar() == keyRight) {
+	    keyRightPressed = false;
 	}
 
     }

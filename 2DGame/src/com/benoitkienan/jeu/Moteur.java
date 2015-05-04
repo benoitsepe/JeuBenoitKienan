@@ -13,16 +13,16 @@ public class Moteur {
     Player player = new Player(lvl);
     Mob mob1 = new Mob(lvl);
     Mob mob2 = new Mob(lvl);
-    BufferedImage blueBrick, redBrick, blackBrick, goldBrick, sorcier, cage,
-	    poulpe, nyan;
+    BufferedImage blueBrick, redBrick, blackBrick, goldBrick, sorcier, cage, poulpe, nyan;
 
     PanneauGame panGame;
     int x, y, d; // Pour
     // cercle
     // d'Andres
     int toolSelected = 2;
-    ArrayList<Mob> MobList = new ArrayList<>();
-    ArrayList<Player> PlayerList = new ArrayList<>();
+    ArrayList<Mob> MobList = new ArrayList<Mob>();
+    ArrayList<Player> PlayerList = new ArrayList<Player>();
+    ArrayList<Entity> EntityList = new ArrayList<Entity>();
 
     Thread tBalle;
 
@@ -48,17 +48,19 @@ public class Moteur {
 	panGame = pan;
 	PlayerList.add(player);
 	// PlayerList.add(player2);
-	// MobList.add(mob1);
-	// MobList.add(mob2);
+	MobList.add(mob1);
+	MobList.add(mob2);
 
 	for (Player pl : PlayerList) {
 	    pl.setNiveau(lvl);
 	    pl.setPanneauGame(panGame);
+	    EntityList.add(pl);
 	}
 
 	for (Mob mob : MobList) {
 	    mob.setNiveau(lvl);
 	    mob.setPanneauGame(panGame);
+	    EntityList.add(mob);
 	}
 
     }
@@ -67,11 +69,14 @@ public class Moteur {
 	for (Mob mob : MobList) {
 	    mob.spawnRandom();
 	    mob.goToNearestPlayer(PlayerList, lvl.getArray());
+	    mob.nuke(lvl.getArray(), 50);
+
 	}
 
 	while (true) {
 	    for (Mob mob : MobList) {
 		mob.setNiveau(lvl);
+		mob.collideEntites(EntityList);
 		mob.applyPhysics();
 
 		mob.getNearestPlayer(PlayerList, lvl.getArray());
@@ -99,13 +104,7 @@ public class Moteur {
 	while (true) {
 
 	    if (panGame.getClicMiddle() == true) {
-		System.out.println("["
-			+ panGame.getPointeurX()
-			+ "]["
-			+ panGame.getPointeurY()
-			+ "]:"
-			+ lvl.getArray()[panGame.getPointeurX()][panGame
-				.getPointeurY()]);
+		System.out.println("[" + panGame.getPointeurX() + "][" + panGame.getPointeurY() + "]:" + lvl.getArray()[panGame.getPointeurX()][panGame.getPointeurY()]);
 		panGame.clicMiddle = false;
 	    }
 
@@ -117,8 +116,8 @@ public class Moteur {
 			long new_temps = System.currentTimeMillis();
 
 			if ((new_temps - temps) > 1000) { // Intervalle
-			    // entre chaque
-			    // tir : 1 sec
+							  // entre chaque
+							  // tir : 1 sec
 
 			    temps = System.currentTimeMillis();
 			    Thread tBalle = new Thread(new RunBalle());
@@ -127,8 +126,7 @@ public class Moteur {
 
 		    } else {
 
-			lvl.getArray()[panGame.getPointeurX()][panGame
-				.getPointeurY()] = toolSelected;
+			lvl.getArray()[panGame.getPointeurX()][panGame.getPointeurY()] = toolSelected;
 			panGame.setNiveau(lvl);
 		    }
 		} catch (ArrayIndexOutOfBoundsException e) {
@@ -139,8 +137,7 @@ public class Moteur {
 
 	    if (panGame.getClicDroit() == true) {
 		try {
-		    lvl.getArray()[panGame.getPointeurX()][panGame
-			    .getPointeurY()] = 0;
+		    lvl.getArray()[panGame.getPointeurX()][panGame.getPointeurY()] = 0;
 
 		} catch (ArrayIndexOutOfBoundsException e) {
 		    e.printStackTrace();
@@ -151,7 +148,7 @@ public class Moteur {
 	    panGame.setNiveau(lvl);
 
 	    try {
-		Thread.sleep(5);
+		Thread.sleep(20);
 	    } catch (InterruptedException e) {
 		e.printStackTrace();
 	    }
@@ -178,6 +175,7 @@ public class Moteur {
 		for (Player player : PlayerList) {
 
 		    player.runPlayer();
+		    player.collideEntites(EntityList);
 		    player.applyPhysics();
 		    player.setNiveau(lvl);
 		}
@@ -187,7 +185,7 @@ public class Moteur {
 	    }
 
 	    try {
-		Thread.sleep(5);
+		Thread.sleep(20);
 	    } catch (InterruptedException e) {
 		e.printStackTrace();
 	    }
