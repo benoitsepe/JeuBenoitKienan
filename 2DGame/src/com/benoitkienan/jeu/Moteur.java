@@ -228,7 +228,6 @@ public class Moteur {
 									  // l'angle
 									  // en
 									  // radian
-	    System.out.println(angle);
 
 	    Balle balle = new Balle(posXPlayer, posYPlayer, 1, 10.0); // Nouvelle
 	    // balle
