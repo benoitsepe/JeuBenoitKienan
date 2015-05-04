@@ -21,11 +21,11 @@ public class Fenetre extends JFrame {
     Math math;
     Niveau lvl;
     PanneauGame panGame = new PanneauGame();
+    Hud hud = new Hud();
     Moteur mot = new Moteur(panGame);
-    PanneauGameThread panThread = new PanneauGameThread(this, panGame);
+    PanelThread panThread = new PanelThread(this, panGame);
     char touche;
     JLayeredPane mainPan = new JLayeredPane();
-    Hud hud = new Hud();
 
     public Fenetre(String title) {
 	hud.setBackground(Color.black);
@@ -35,8 +35,8 @@ public class Fenetre extends JFrame {
 	this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	this.setLocationRelativeTo(null);
 	//mainPan.setLayout(bl);
-	mainPan.add(hud, 0, 0);
-	mainPan.add(panGame, 0, 2);
+	mainPan.add(hud, 101, 0);
+	mainPan.add(panGame, 100, 2);
 	//mainPan.add(toolBar, BorderLayout.NORTH);
 	this.setContentPane(mainPan);
 	this.setResizable(true);
@@ -57,27 +57,16 @@ public class Fenetre extends JFrame {
 	tGame = new Thread(new gameThread());
 	tPhysics = new Thread(new applyPhysicsThread());
 	tIA = new Thread(new IAThread());
-	tHud = new Thread(new hudThread());
 
 	tFen.start();
 	tGame.start();
 	tPanel.start();
 	tPhysics.start();
 	tIA.start();
-	tHud.start();
 
     }
 
-    private void runHud(){
-	while(true){
-	    hud.repaint();
-	    try {
-		Thread.sleep(1);
-	    } catch (InterruptedException e) {
-		e.printStackTrace();
-	    }
-	}
-    }
+
 
     private void runFen() {
 	while (true) {
@@ -90,12 +79,6 @@ public class Fenetre extends JFrame {
 		e.printStackTrace();
 	    }
 
-	}
-    }
-
-    class hudThread implements Runnable{
-	public void run(){
-	    runHud();
 	}
     }
     

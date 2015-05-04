@@ -3,13 +3,13 @@ package com.benoitkienan.jeu;
 import java.awt.Color;
 import java.awt.Dimension;
 
-public class PanneauGameThread {
+public class PanelThread {
     PanneauGame panGame = new PanneauGame();
     int[][] fenArray = new int[panGame.lvl.getArraySizeX()][panGame.lvl.getArraySizeY()];
     Fenetre fen;
     ToolBar toolBar;
 
-    public PanneauGameThread(Fenetre f, PanneauGame p) {
+    public PanelThread(Fenetre f, PanneauGame p) {
 	panGame = p;
 	fen = f;
 	toolBar = fen.toolBar;
@@ -18,7 +18,7 @@ public class PanneauGameThread {
     public void goPanel() {
 
 	while (true) {
-	   panGame.repaint();
+	    panGame.repaint();
 
 	    try {
 		Thread.sleep(5);
