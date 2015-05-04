@@ -1,5 +1,6 @@
 package com.benoitkienan.jeu;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -63,13 +64,15 @@ public class Hud extends JPanel implements MouseListener{
 	this.add(blackBrickButton);
 	this.add(goldBrickButton);
 	
+	this.setOpaque(false);
+	
 	this.addMouseListener(this);
 
     }
     
     
     public void mouseClicked(MouseEvent e) {
-	System.out.println(toolSelected);
+
     }
 
     public void mouseEntered(MouseEvent e) {

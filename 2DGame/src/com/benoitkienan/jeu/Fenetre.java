@@ -28,7 +28,6 @@ public class Fenetre extends JFrame {
     JLayeredPane mainPan = new JLayeredPane();
 
     public Fenetre(String title) {
-	hud.setBackground(Color.black);
 
 	this.setTitle(title);
 	this.setSize(1280, 720);

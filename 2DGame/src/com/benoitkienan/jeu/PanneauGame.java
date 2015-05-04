@@ -101,7 +101,6 @@ public class PanneauGame extends JPanel implements MouseListener {
 	
 	width = this.getWidth();
 	height = this.getHeight();
-	System.out.println(width +" " +height);
 
 	Graphics2D g2 = (Graphics2D) g;
 	g2.setColor(exterior);
