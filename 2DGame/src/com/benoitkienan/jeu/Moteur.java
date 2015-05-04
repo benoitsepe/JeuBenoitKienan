@@ -16,9 +16,7 @@ public class Moteur {
     BufferedImage blueBrick, redBrick, blackBrick, goldBrick, sorcier, cage, poulpe, nyan;
 
     PanneauGame panGame;
-    int x, y, d; // Pour
-    // cercle
-    // d'Andres
+    int x, y, d; // Pour cercle d'Andres
     int toolSelected = 2;
     ArrayList<Mob> MobList = new ArrayList<Mob>();
     ArrayList<Player> PlayerList = new ArrayList<Player>();
@@ -115,9 +113,8 @@ public class Moteur {
 
 			long new_temps = System.currentTimeMillis();
 
-			if ((new_temps - temps) > 1000) { // Intervalle
-							  // entre chaque
-							  // tir : 1 sec
+			if ((new_temps - temps) > 1000) { // Intervalle entre
+							  // chaque tir : 1 sec
 
 			    temps = System.currentTimeMillis();
 			    Thread tBalle = new Thread(new RunBalle());
@@ -221,14 +218,9 @@ public class Moteur {
 	    double posXTir = panGame.getRealPointeurX();
 	    double posYTir = panGame.getRealPointeurY();
 
-	    double angle = player.getRotationWithMouse(posXTir, posYTir); // On
-									  // prend
-									  // l'angle
-									  // en
-									  // radian
+	    double angle = player.getRotationWithMouse(posXTir, posYTir); // On prend l'angle en radian
 
-	    Balle balle = new Balle(posXPlayer, posYPlayer, 1, 10.0); // Nouvelle
-	    // balle
+	    Balle balle = new Balle(posXPlayer, posYPlayer, 1, 10.0); // Nouvelle balle
 
 	    int[][] tableau = lvl.getArray();
 
@@ -247,9 +239,7 @@ public class Moteur {
 		    balle.setPosX(balle.getPosX() + Math.cos(angle));
 		    balle.setPosY(balle.getPosY() + Math.sin(angle));
 
-		} catch (Exception e) { // Si on a un outofbound on
-					// consid�re
-		    // que c'est un mur
+		} catch (Exception e) { // Si on a un outofbound on consid�re que c'est un mur
 		    System.out.println("Impact en x=" + x + " et y=" + y);
 		    break;
 		}
