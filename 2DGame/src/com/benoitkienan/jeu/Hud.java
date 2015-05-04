@@ -1,14 +1,14 @@
 package com.benoitkienan.jeu;
 
-import java.awt.Color;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.border.Border;
 
 public class Hud extends JPanel implements MouseListener{
     JButton gunButton = new JButton(new ImageIcon("Pictures/gun.png"));
@@ -21,55 +21,16 @@ public class Hud extends JPanel implements MouseListener{
     int toolSelected;
     
     public Hud(){
-	eraserButton.addActionListener(new ActionListener() {
-	    public void actionPerformed(ActionEvent a) {
-		toolSelected = 0;
-	    }
-	});
-
-	blueBrickButton.addActionListener(new ActionListener() {
-	    public void actionPerformed(ActionEvent a) {
-		toolSelected = 1;
-	    }
-	});
-
-	redBrickButton.addActionListener(new ActionListener() {
-	    public void actionPerformed(ActionEvent a) {
-		toolSelected = 2;
-	    }
-	});
-
-	blackBrickButton.addActionListener(new ActionListener() {
-	    public void actionPerformed(ActionEvent a) {
-		toolSelected = 3;
-	    }
-	});
-
-	goldBrickButton.addActionListener(new ActionListener() {
-	    public void actionPerformed(ActionEvent a) {
-		toolSelected = 4;
-	    }
-	});
-
-	gunButton.addActionListener(new ActionListener() {
-	    public void actionPerformed(ActionEvent a) {
-		toolSelected = 5;
-	    }
-	});
 	
-	this.add(gunButton);
-	this.add(eraserButton);
-	this.add(blueBrickButton);
-	this.add(redBrickButton);
-	this.add(blackBrickButton);
-	this.add(goldBrickButton);
-	
-	this.setOpaque(false);
+	this.setOpaque(true);
 	
 	this.addMouseListener(this);
 
     }
     
+    public void paintComponent(Graphics g) {
+	
+    }
     
     public void mouseClicked(MouseEvent e) {
 
@@ -92,8 +53,8 @@ public class Hud extends JPanel implements MouseListener{
     }
     
     
-    public int getToolSelected() {
-	return toolSelected;
+    public void setToolSelected(int tool) {
+	toolSelected=tool;
     }
     
 }

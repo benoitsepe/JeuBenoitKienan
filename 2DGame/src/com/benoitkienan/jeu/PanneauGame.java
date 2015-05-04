@@ -47,6 +47,7 @@ public class PanneauGame extends JPanel implements MouseListener {
     double zoom = 1;
     int width, height;
     int xMin, xMax, yMin, yMax;
+    int toolSelected = 2;
 
     Color exterior = Color.gray.darker();
 
@@ -67,10 +68,11 @@ public class PanneauGame extends JPanel implements MouseListener {
 
 	    public void mouseWheelMoved(MouseWheelEvent e) {
 		if (e.getWheelRotation() < 0) {
-		    
+		    toolSelected = (toolSelected>=5) ? toolSelected=1 : toolSelected+1;
 		}
 
 		if (e.getWheelRotation() > 0) {
+		    toolSelected = (toolSelected<=0) ? toolSelected=5 : toolSelected-1;
 		}
 	    }
 
@@ -221,6 +223,10 @@ public class PanneauGame extends JPanel implements MouseListener {
     }
 
 
+    public int getToolSelected() {
+	return toolSelected;
+    }
+    
     public void setNiveau(Niveau niv) {
 	lvl = niv;
     }

@@ -23,7 +23,7 @@ public class Fenetre extends JFrame {
     PanneauGame panGame = new PanneauGame();
     Hud hud = new Hud();
     Moteur mot = new Moteur(panGame);
-    PanelThread panThread = new PanelThread(this, panGame);
+    PanelThread panThread = new PanelThread(this, panGame, hud);
     char touche;
     JLayeredPane mainPan = new JLayeredPane();
 
@@ -73,7 +73,8 @@ public class Fenetre extends JFrame {
 		hud.setBounds(0+(this.getWidth()/10), this.getHeight()-100, 500, 100);
 		
 	    this.requestFocus();
-	    mot.setToolSelected(hud.getToolSelected());
+	    mot.setToolSelected(panGame.getToolSelected());
+	    hud.setToolSelected(panGame.getToolSelected());
 	    mot.setPanneau(panGame);
 	    try {
 		Thread.sleep(5);
