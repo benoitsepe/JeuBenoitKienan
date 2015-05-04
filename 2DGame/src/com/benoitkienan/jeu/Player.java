@@ -5,13 +5,16 @@ import java.awt.event.KeyListener;
 
 public class Player extends Entity implements KeyListener {
     KeyListener clavier;
-    boolean keyUpPressed, keyRightPressed, keyLeftPressed, keyDownPressed, keyNukePressed;
+    boolean keyUpPressed, keyRightPressed, keyLeftPressed, keyDownPressed, keyNukePressed, keyMinusPressed, keyPlusPressed;;
     char keyUp = 'z';
     char keyRight = 'd';
     char keyLeft = 'q';
     char keyDown = 's';
     char keyNuke = ' ';
+    char keyMinus = '-';
+    char keyPlus ='+';
     int speed = 10;
+    double zoom = 0.4;
 
     public Player(Niveau niveau) {
 	super(niveau);
@@ -43,6 +46,12 @@ public class Player extends Entity implements KeyListener {
 	if (keyNukePressed) {
 	    this.nuke(niveau.getArray(), 5);
 	}
+	if (keyPlusPressed  && zoom < 0.95){
+	    zoom = zoom + 0.01;
+	}
+	if(keyMinusPressed  && zoom > 0.05){
+	    zoom = zoom - 0.01;
+	}
 
 	try {
 	    Thread.sleep(5);
@@ -62,6 +71,10 @@ public class Player extends Entity implements KeyListener {
 	}
 	return rotation;
     }
+    
+    public double getZoom(){
+	return zoom;
+    }
 
     public void keyPressed(KeyEvent e) {
 	if (e.getKeyChar() == keyUp) {
@@ -78,6 +91,12 @@ public class Player extends Entity implements KeyListener {
 	}
 	if (e.getKeyChar() == keyNuke) {
 	    keyNukePressed = true;
+	}
+	if(e.getKeyChar() == keyPlus){
+	    keyPlusPressed = true;
+	}
+	if(e.getKeyChar() == keyMinus){
+	    keyMinusPressed = true;
 	}
 
     }
@@ -97,6 +116,12 @@ public class Player extends Entity implements KeyListener {
 	}
 	if (e.getKeyChar() == keyNuke) {
 	    keyNukePressed = false;
+	}
+	if(e.getKeyChar() == keyPlus){
+	    keyPlusPressed = false;
+	}
+	if(e.getKeyChar() == keyMinus){
+	    keyMinusPressed = false;
 	}
     }
 

@@ -66,12 +66,11 @@ public class PanneauGame extends JPanel implements MouseListener {
 	this.addMouseWheelListener(new MouseWheelListener() {
 
 	    public void mouseWheelMoved(MouseWheelEvent e) {
-		if (e.getWheelRotation() < 0 && zoom < 0.95) {
-		    zoom = zoom + 0.01;
+		if (e.getWheelRotation() < 0) {
+		    
 		}
 
-		if (e.getWheelRotation() > 0 && zoom > 0.05) {
-		    zoom = zoom - 0.01;
+		if (e.getWheelRotation() > 0) {
 		}
 	    }
 
@@ -98,6 +97,7 @@ public class PanneauGame extends JPanel implements MouseListener {
     }
 
     public void paintComponent(Graphics g) {
+	zoom=PlayerList.get(0).getZoom();
 	
 	width = this.getWidth();
 	height = this.getHeight();
