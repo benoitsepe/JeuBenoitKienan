@@ -12,9 +12,9 @@ public class Player extends Entity implements KeyListener {
     char keyDown = 's';
     char keyNuke = ' ';
     char keyMinus = '-';
-    char keyPlus ='+';
+    char keyPlus = '+';
     int speed = 10;
-    double zoom = 0.4;
+    double zoom = 0.2;
 
     public Player(Niveau niveau) {
 	super(niveau);
@@ -46,10 +46,10 @@ public class Player extends Entity implements KeyListener {
 	if (keyNukePressed) {
 	    this.nuke(niveau.getArray(), 5);
 	}
-	if (keyPlusPressed  && zoom < 0.95){
+	if (keyPlusPressed && zoom < 0.95) {
 	    zoom = zoom + 0.01;
 	}
-	if(keyMinusPressed  && zoom > 0.05){
+	if (keyMinusPressed && zoom > 0.05) {
 	    zoom = zoom - 0.01;
 	}
 
@@ -71,8 +71,8 @@ public class Player extends Entity implements KeyListener {
 	}
 	return rotation;
     }
-    
-    public double getZoom(){
+
+    public double getZoom() {
 	return zoom;
     }
 
@@ -92,10 +92,10 @@ public class Player extends Entity implements KeyListener {
 	if (e.getKeyChar() == keyNuke) {
 	    keyNukePressed = true;
 	}
-	if(e.getKeyChar() == keyPlus){
+	if (e.getKeyChar() == keyPlus) {
 	    keyPlusPressed = true;
 	}
-	if(e.getKeyChar() == keyMinus){
+	if (e.getKeyChar() == keyMinus) {
 	    keyMinusPressed = true;
 	}
 
@@ -117,10 +117,10 @@ public class Player extends Entity implements KeyListener {
 	if (e.getKeyChar() == keyNuke) {
 	    keyNukePressed = false;
 	}
-	if(e.getKeyChar() == keyPlus){
+	if (e.getKeyChar() == keyPlus) {
 	    keyPlusPressed = false;
 	}
-	if(e.getKeyChar() == keyMinus){
+	if (e.getKeyChar() == keyMinus) {
 	    keyMinusPressed = false;
 	}
     }
