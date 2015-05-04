@@ -14,7 +14,7 @@ public class Player extends Entity implements KeyListener {
     char keyMinus = '-';
     char keyPlus = '+';
     int speed = 10;
-    double zoom = 0.2;
+    double zoom = 0.4;
 
     public Player(Niveau niveau) {
 	super(niveau);

@@ -23,7 +23,7 @@ public class Fenetre extends JFrame {
     PanneauGame panGame = new PanneauGame();
     Hud hud = new Hud();
     Moteur mot = new Moteur(panGame);
-    PanelThread panThread = new PanelThread(this, panGame);
+    PanelThread panThread = new PanelThread(this, panGame, hud);
     char touche;
     JLayeredPane mainPan = new JLayeredPane();
 
@@ -33,13 +33,13 @@ public class Fenetre extends JFrame {
 	this.setSize(1280, 720);
 	this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	this.setLocationRelativeTo(null);
-	//mainPan.setLayout(bl);
+	// mainPan.setLayout(bl);
 	mainPan.add(hud, 101, 0);
-	mainPan.add(panGame, 100, 2);
-	//mainPan.add(toolBar, BorderLayout.NORTH);
+	mainPan.add(panGame, 100, 1);
+	// mainPan.add(toolBar, BorderLayout.NORTH);
 	this.setContentPane(mainPan);
 	this.setResizable(true);
-	this.setJMenuBar(menuBar);
+	//this.setJMenuBar(menuBar);
 
 	for (Player player : mot.PlayerList) {
 	    this.addKeyListener(player);
@@ -47,7 +47,6 @@ public class Fenetre extends JFrame {
 
 	this.setVisible(true);
 	panGame.setBounds(0, 0, this.getWidth(), this.getHeight());
-	hud.setBounds(0+(this.getWidth()/10), this.getHeight()-100, 500, 100);
 
 	this.requestFocus();
 
@@ -65,15 +64,15 @@ public class Fenetre extends JFrame {
 
     }
 
-
-
     private void runFen() {
 	while (true) {
-		panGame.setBounds(0, 0, this.getWidth(), this.getHeight());
-		hud.setBounds(0+(this.getWidth()/10), this.getHeight()-100, 500, 100);
-		
+	    panGame.setBounds(0, 0, this.getWidth(), this.getHeight());   
+	    hud.setBounds(400, panGame.getHeight() - 95, panGame.getWidth()-800, 50);
+	    
 	    this.requestFocus();
-	    mot.setToolSelected(hud.getToolSelected());
+	    mot.setToolSelected(panGame.getToolSelected());
+	    mot.setHudItems(hud.getHudItems());
+	    hud.setToolSelected(panGame.getToolSelected());
 	    mot.setPanneau(panGame);
 	    try {
 		Thread.sleep(5);
@@ -83,7 +82,7 @@ public class Fenetre extends JFrame {
 
 	}
     }
-    
+
     class fenThread implements Runnable {
 	public void run() {
 	    runFen();

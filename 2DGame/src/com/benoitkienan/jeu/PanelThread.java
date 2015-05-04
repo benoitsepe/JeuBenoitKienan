@@ -5,19 +5,23 @@ import java.awt.Dimension;
 
 public class PanelThread {
     PanneauGame panGame = new PanneauGame();
-    int[][] fenArray = new int[panGame.lvl.getArraySizeX()][panGame.lvl.getArraySizeY()];
+    Tile[][] fenArray = new Tile[panGame.lvl.getArraySizeX()][panGame.lvl.getArraySizeY()];
     Fenetre fen;
     ToolBar toolBar;
+    Hud hud;
 
-    public PanelThread(Fenetre f, PanneauGame p) {
-	panGame = p;
-	fen = f;
-	toolBar = fen.toolBar;
+    public PanelThread(Fenetre fen, PanneauGame panGame, Hud hud) {
+	this.hud = hud;
+	this.panGame = panGame;
+	this.fen = fen;
+	this.toolBar = fen.toolBar;
     }
 
     public void goPanel() {
 
 	while (true) {
+
+	    hud.repaint();
 	    panGame.repaint();
 
 	    try {

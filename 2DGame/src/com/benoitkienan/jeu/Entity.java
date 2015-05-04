@@ -23,13 +23,20 @@ public class Entity {
     int d, x, y, r;
     BufferedImage image;
     int masse = 10;
+    TileManager tileManager;
 
     public Entity(Niveau niveau) {
+	tileManager = new TileManager();
 	try {
 	    image = ImageIO.read(new File("Pictures/notDefined.png"));
 	} catch (IOException e) {
 	    e.printStackTrace();
 	}
+    }
+
+    // EntitÃ© ne dÃ©pendant pas d'un niveau
+    public Entity() {
+
     }
 
     public void sayInfos() {
@@ -42,12 +49,12 @@ public class Entity {
 	do {
 	    posX = (double) rand.nextInt((niveau.getArraySizeX() - 2) * (int) panGame.cellSizeX);
 	    posY = (double) rand.nextInt((niveau.getArraySizeY() - 2) * (int) panGame.cellSizeY);
-	} while (niveau.getArray()[(int) (posX / panGame.cellSizeX)][(int) (posY / panGame.cellSizeY)] != 0);
+	} while (niveau.getArray()[(int) (posX / panGame.cellSizeX)][(int) (posY / panGame.cellSizeY)].isSolid());
 	System.out.println("Spawned at x:" + posX + " y:" + posY);
 
     }
 
-    public int[][] nuke(int[][] array, int rayon) {
+    public Tile[][] nuke(Tile[][] array, int rayon) {
 	try {
 	    for (int r = 0; r < rayon; r++) {
 		// Algorithme de tracÃ© de cercle d'Andres
@@ -55,14 +62,14 @@ public class Entity {
 		y = r;
 		d = r - 1;
 		while (y >= x) {
-		    array[(int) (posX / panGame.cellSizeX) + x][(int) (posY / panGame.cellSizeY) + y] = 0;
-		    array[(int) (posX / panGame.cellSizeX) + y][(int) (posY / panGame.cellSizeY) + x] = 0;
-		    array[(int) (posX / panGame.cellSizeX) - x][(int) (posY / panGame.cellSizeY) + y] = 0;
-		    array[(int) (posX / panGame.cellSizeX) - y][(int) (posY / panGame.cellSizeY) + x] = 0;
-		    array[(int) (posX / panGame.cellSizeX) + x][(int) (posY / panGame.cellSizeY) - y] = 0;
-		    array[(int) (posX / panGame.cellSizeX) + y][(int) (posY / panGame.cellSizeY) - x] = 0;
-		    array[(int) (posX / panGame.cellSizeX) - x][(int) (posY / panGame.cellSizeY) - y] = 0;
-		    array[(int) (posX / panGame.cellSizeX) - y][(int) (posY / panGame.cellSizeY) - x] = 0;
+		    array[(int) (posX / panGame.cellSizeX) + x][(int) (posY / panGame.cellSizeY) + y] = tileManager.grass;
+		    array[(int) (posX / panGame.cellSizeX) + y][(int) (posY / panGame.cellSizeY) + x] = tileManager.grass;
+		    array[(int) (posX / panGame.cellSizeX) - x][(int) (posY / panGame.cellSizeY) + y] = tileManager.grass;
+		    array[(int) (posX / panGame.cellSizeX) - y][(int) (posY / panGame.cellSizeY) + x] = tileManager.grass;
+		    array[(int) (posX / panGame.cellSizeX) + x][(int) (posY / panGame.cellSizeY) - y] = tileManager.grass;
+		    array[(int) (posX / panGame.cellSizeX) + y][(int) (posY / panGame.cellSizeY) - x] = tileManager.grass;
+		    array[(int) (posX / panGame.cellSizeX) - x][(int) (posY / panGame.cellSizeY) - y] = tileManager.grass;
+		    array[(int) (posX / panGame.cellSizeX) - y][(int) (posY / panGame.cellSizeY) - x] = tileManager.grass;
 
 		    if (d >= 2 * x) {
 			d = d - 2 * x - 1;
@@ -108,11 +115,11 @@ public class Entity {
 
     public void collide() { // Collisions avec les blocs seulement
 	try {
-	    if (niveau.getArray()[(int) ((posX + vectorX) / panGame.cellSizeX)][(int) (posY / panGame.cellSizeY)] != 0) {
+	    if (niveau.getArray()[(int) ((posX + vectorX) / panGame.cellSizeX)][(int) (posY / panGame.cellSizeY)].isSolid()) {
 		vectorX = 0;
 	    }
 
-	    if (niveau.getArray()[(int) (posX / panGame.cellSizeX)][(int) ((posY + vectorY) / panGame.cellSizeY)] != 0) {
+	    if (niveau.getArray()[(int) (posX / panGame.cellSizeX)][(int) ((posY + vectorY) / panGame.cellSizeY)].isSolid()) {
 		vectorY = 0;
 	    }
 
@@ -134,12 +141,12 @@ public class Entity {
 
     /**
      * 
-     * x, y positions de la hitbox à tester
+     * x, y positions de la hitbox ï¿½ tester
      * 
      * @param sx
-     *            largeur hitbox à tester
+     *            largeur hitbox ï¿½ tester
      * @param sy
-     *            hauteur hitbox à tester
+     *            hauteur hitbox ï¿½ tester
      */
     public boolean checkCollision(int x, int y, int sx, int sy) {
 	Rectangle r1 = new Rectangle((int) (posX - panGame.cellSizeX / 2), (int) (posY - panGame.cellSizeY / 2), (int) (panGame.cellSizeX), (int) (panGame.cellSizeY));
@@ -203,14 +210,6 @@ public class Entity {
 
     public double getPosY() {
 	return posY;
-    }
-
-    public void setCouleur(Color col) {
-	couleur = col;
-    }
-
-    public Color getCouleur() {
-	return couleur;
     }
 
 }

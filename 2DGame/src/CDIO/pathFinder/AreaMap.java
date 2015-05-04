@@ -3,6 +3,8 @@ package CDIO.pathFinder;
 import java.awt.Point;
 import java.util.ArrayList;
 
+import com.benoitkienan.jeu.Tile;
+
 import CDIO.pathFinder.utils.Logger;
 
 /**
@@ -20,7 +22,7 @@ public class AreaMap {
     private int startLocationY = 0;
     private int goalLocationX = 0;
     private int goalLocationY = 0;
-    private int[][] obstacleMap = { { 0 } };
+    private Tile[][] obstacleMap;
 
     private Logger log = new Logger();
 
@@ -52,7 +54,7 @@ public class AreaMap {
      *            a 2D int array map of the obstacles on the map. '1' is
      *            obstacle, '0' is not.
      */
-    public AreaMap(int mapWith, int mapHeight, int[][] obstacleMap) {
+    public AreaMap(int mapWith, int mapHeight, Tile[][] obstacleMap) {
 	this.mapWith = mapWith;
 	this.mapHeight = mapHeight;
 	this.obstacleMap = obstacleMap;
@@ -72,7 +74,7 @@ public class AreaMap {
 	    for (int y = 0; y < mapHeight; y++) {
 		node = new Node(x, y, this);
 		try {
-		    if (obstacleMap[x][y] != 0)
+		    if (obstacleMap[x][y].isSolid())
 			node.setObstical(true);
 		} catch (Exception e) {
 		}

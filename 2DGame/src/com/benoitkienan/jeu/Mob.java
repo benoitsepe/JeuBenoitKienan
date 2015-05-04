@@ -2,6 +2,7 @@ package com.benoitkienan.jeu;
 
 import java.awt.Point;
 import java.util.ArrayList;
+import java.util.ArrayList;
 
 import CDIO.pathFinder.AStar;
 import CDIO.pathFinder.AreaMap;
@@ -25,7 +26,7 @@ public class Mob extends Entity {
 	speed = 10;
     }
 
-    public void refreshPath(int bx, int by, int[][] array) {
+    public void refreshPath(int bx, int by, Tile[][] array) {
 	map = new AreaMap(array.length, array[0].length, array);
 	aStar = new AStar(map, heuristic);
 	shortestPath = aStar.calcShortestPath((int) (posX / panGame.cellSizeX), (int) (posY / panGame.cellSizeY), bx, by);
@@ -51,7 +52,7 @@ public class Mob extends Entity {
 
     }
 
-    public Player getNearestPlayer(ArrayList<Player> plist, int[][] array) {
+    public Player getNearestPlayer(ArrayList<Player> plist, Tile[][] array) {
 	if ((int) ((posX / panGame.cellSizeX) - 100) < 0) {
 	    xMin = 0;
 	} else {
@@ -76,7 +77,7 @@ public class Mob extends Entity {
 	    yMax = (int) ((posY / panGame.cellSizeY) + 100);
 	}
 
-	int[][] aggroMob = new int[xMax][yMax];
+	Tile[][] aggroMob = new Tile[xMax][yMax];
 
 	for (int x = xMin; y < xMax; y++) {
 	    for (int y = yMin; y < yMax; y++) {
@@ -105,7 +106,7 @@ public class Mob extends Entity {
 	return nearestPlayer;
     }
 
-    public void goToNearestPlayer(ArrayList<Player> plist, int[][] array) {
+    public void goToNearestPlayer(ArrayList<Player> plist, Tile[][] array) {
 
 	this.getNearestPlayer(plist, array);
 	if (distanceX < 100 && distanceY < 100) {

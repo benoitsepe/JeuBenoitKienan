@@ -4,8 +4,11 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
+
+import com.benoitkienan.jeu.Item.uselessException;
 
 public class Moteur {
 
@@ -21,10 +24,14 @@ public class Moteur {
     ArrayList<Mob> MobList = new ArrayList<Mob>();
     ArrayList<Player> PlayerList = new ArrayList<Player>();
     ArrayList<Entity> EntityList = new ArrayList<Entity>();
+    TileManager tileManager;
+    Item[] hudItems;
 
     Thread tBalle;
 
     public Moteur(PanneauGame pan) {
+
+	tileManager = new TileManager();
 
 	try {
 
@@ -123,7 +130,10 @@ public class Moteur {
 
 		    } else {
 
-			lvl.getArray()[panGame.getPointeurX()][panGame.getPointeurY()] = toolSelected;
+			try {
+			    lvl.getArray()[panGame.getPointeurX()][panGame.getPointeurY()]= hudItems[toolSelected].getTile();
+			} catch (uselessException e) {
+			}
 			panGame.setNiveau(lvl);
 		    }
 		} catch (ArrayIndexOutOfBoundsException e) {
@@ -134,7 +144,7 @@ public class Moteur {
 
 	    if (panGame.getClicDroit() == true) {
 		try {
-		    lvl.getArray()[panGame.getPointeurX()][panGame.getPointeurY()] = 0;
+		    lvl.getArray()[panGame.getPointeurX()][panGame.getPointeurY()] = tileManager.grass;
 
 		} catch (ArrayIndexOutOfBoundsException e) {
 		    e.printStackTrace();
@@ -190,6 +200,10 @@ public class Moteur {
 	}
 
     }
+    
+    public void setHudItems(Item[] hudItems){
+	this.hudItems=hudItems;
+    }
 
     public void setNiveau(Niveau niv) {
 	lvl = niv;
@@ -218,11 +232,16 @@ public class Moteur {
 	    double posXTir = panGame.getRealPointeurX();
 	    double posYTir = panGame.getRealPointeurY();
 
-	    double angle = player.getRotationWithMouse(posXTir, posYTir); // On prend l'angle en radian
+	    double angle = player.getRotationWithMouse(posXTir, posYTir); // On
+									  // prend
+									  // l'angle
+									  // en
+									  // radian
 
-	    Balle balle = new Balle(posXPlayer, posYPlayer, 1, 10.0); // Nouvelle balle
+	    Balle balle = new Balle(posXPlayer, posYPlayer, 1, 10.0); // Nouvelle
+								      // balle
 
-	    int[][] tableau = lvl.getArray();
+	    Tile[][] tableau = lvl.getArray();
 
 	    while (true) {
 
@@ -231,7 +250,7 @@ public class Moteur {
 		    int x = (int) (balle.getPosX() / panGame.cellSizeX);
 		    int y = (int) (balle.getPosY() / panGame.cellSizeY);
 
-		    if (tableau[x][y] != 0) { // SI on a touche un mur
+		    if (tableau[x][y].isSolid()) { // SI on a touche un mur
 			System.out.println("Impact en x=" + x + " et y=" + y);
 			break; // on sort de la boucle
 		    }
@@ -257,7 +276,8 @@ public class Moteur {
 		    balle.setPosX(balle.getPosX() + Math.cos(angle));
 		    balle.setPosY(balle.getPosY() + Math.sin(angle));
 
-		} catch (Exception e) { // Si on a un outofbound on consid�re que c'est un mur
+		} catch (Exception e) { // Si on a un outofbound on consid�re
+					// que c'est un mur
 		    System.out.println("Impact en x=" + x + " et y=" + y);
 		    break;
 		}
