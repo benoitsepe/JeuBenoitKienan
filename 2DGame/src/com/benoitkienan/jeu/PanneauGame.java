@@ -34,8 +34,6 @@ public class PanneauGame extends JPanel implements MouseListener {
     double cellSizeX, cellSizeY;
     boolean clicGauche, clicDroit, clicMiddle;
     BufferedImage blueBrick, redBrick, blackBrick, goldBrick;
-    Dimension dim = new Dimension(1280, 720);
-
     ArrayList<Mob> MobList = new ArrayList<>();
     ArrayList<Player> PlayerList = new ArrayList<>();
 
@@ -95,13 +93,15 @@ public class PanneauGame extends JPanel implements MouseListener {
 
 	});
 
-	cellSizeX = (1280 / lvl.getArraySizeX()) * 50;
-	cellSizeY = (720 / lvl.getArraySizeY()) * 50;
+	cellSizeX = (1920 / lvl.getArraySizeX()) * 50;
+	cellSizeY = (1080 / lvl.getArraySizeY()) * 50;
     }
 
     public void paintComponent(Graphics g) {
+
 	width = this.getWidth();
 	height = this.getHeight();
+	
 
 	Graphics2D g2 = (Graphics2D) g;
 	g2.setColor(exterior);
@@ -221,9 +221,6 @@ public class PanneauGame extends JPanel implements MouseListener {
 	return newImage;
     }
 
-    public Dimension getDim() {
-	return dim;
-    }
 
     public void setNiveau(Niveau niv) {
 	lvl = niv;

@@ -31,7 +31,7 @@ public class Fenetre extends JFrame {
 	hud.setBackground(Color.black);
 
 	this.setTitle(title);
-	this.setSize(1280 + 16, 720 + 109);
+	this.setSize(1280, 720);
 	this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	this.setLocationRelativeTo(null);
 	//mainPan.setLayout(bl);
@@ -70,6 +70,9 @@ public class Fenetre extends JFrame {
 
     private void runFen() {
 	while (true) {
+		panGame.setBounds(0, 0, this.getWidth(), this.getHeight());
+		hud.setBounds(0+(this.getWidth()/10), this.getHeight()-100, 500, 100);
+		
 	    this.requestFocus();
 	    mot.setToolSelected(hud.getToolSelected());
 	    mot.setPanneau(panGame);
