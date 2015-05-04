@@ -18,7 +18,7 @@ public class PanneauGameThread {
     public void goPanel() {
 
 	while (true) {
-	    panGame.repaint();
+	   panGame.repaint();
 
 	    try {
 		Thread.sleep(5);

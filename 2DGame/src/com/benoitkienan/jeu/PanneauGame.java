@@ -175,8 +175,6 @@ public class PanneauGame extends JPanel implements MouseListener {
 
 	g2.setColor(Color.green);
 	for (Mob mob : MobList) {
-	    g2.draw(mob.getHitbox());
-
 	    // Dessin du path
 	    if (mob.getPath() != null) {
 		for (int i = 0; i < mob.shortestPath.size(); i++) {
@@ -194,22 +192,22 @@ public class PanneauGame extends JPanel implements MouseListener {
 	}
 
 	// Dessin de vecteurs
-
-	// if((int)ent.vectorX!=0 || (int)ent.vectorY!=0){
-	// ((Graphics2D) g2).setStroke(new BasicStroke(5));
-	// g2.setColor(Color.BLUE);
-	// g2.drawLine((int)(ent.getPosX()+cellSizeX/2),
-	// (int)(ent.getPosY()+cellSizeY/2),
-	// (int)((ent.getPosX()+cellSizeX/2)+ent.vectorX*10),
-	// (int)((ent.getPosY()+cellSizeY/2)+ent.vectorY*10));
+	//for(Entity ent : EntityList){
+	// 	if((int)ent.vectorX!=0 || (int)ent.vectorY!=0){
+	// 	((Graphics2D) g2).setStroke(new BasicStroke(5));
+	// 	g2.setColor(Color.BLUE);
+	// 	g2.drawLine((int)(ent.getPosX()+cellSizeX/2),
+	// 	(int)(ent.getPosY()+cellSizeY/2),
+	// 	(int)((ent.getPosX()+cellSizeX/2)+ent.vectorX*10),
+	// 	(int)((ent.getPosY()+cellSizeY/2)+ent.vectorY*10));
+	//	}
 	// }
 
 	g2.setColor(Color.RED);
 	g2.setStroke(new BasicStroke(10));
 	g2.drawRect((int) (pointeurX * cellSizeX), (int) (pointeurY * cellSizeY), (int) cellSizeX, (int) cellSizeY);
 
-	g2.setColor(Color.BLUE);
-	g2.draw(PlayerList.get(0).getHitbox());
+
 
     }
 

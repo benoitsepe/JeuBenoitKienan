@@ -1,21 +1,22 @@
 package com.benoitkienan.jeu;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
+import javax.swing.JLayeredPane;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 
 public class Fenetre extends JFrame {
-    JPanel mainPan = new JPanel();
     MenusBar menuBar = new MenusBar();
     ToolBar toolBar = new ToolBar();
     BorderLayout bl = new BorderLayout();
-    Thread tPanel, tFen, tGame, tPhysics, tIA;
+    Thread tPanel, tFen, tGame, tPhysics, tIA, tHud;
     IOLevel iolvl = new IOLevel();
     Math math;
     Niveau lvl;
@@ -23,16 +24,20 @@ public class Fenetre extends JFrame {
     Moteur mot = new Moteur(panGame);
     PanneauGameThread panThread = new PanneauGameThread(this, panGame);
     char touche;
+    JLayeredPane mainPan = new JLayeredPane();
+    Hud hud = new Hud();
 
     public Fenetre(String title) {
+	hud.setBackground(Color.black);
 
 	this.setTitle(title);
 	this.setSize(1280 + 16, 720 + 109);
 	this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	this.setLocationRelativeTo(null);
-	mainPan.setLayout(bl);
-	mainPan.add(panGame, BorderLayout.CENTER);
-	mainPan.add(toolBar, BorderLayout.NORTH);
+	//mainPan.setLayout(bl);
+	mainPan.add(hud, 0, 0);
+	mainPan.add(panGame, 0, 2);
+	//mainPan.add(toolBar, BorderLayout.NORTH);
 	this.setContentPane(mainPan);
 	this.setResizable(true);
 	this.setJMenuBar(menuBar);
@@ -42,6 +47,8 @@ public class Fenetre extends JFrame {
 	}
 
 	this.setVisible(true);
+	panGame.setBounds(0, 0, this.getWidth(), this.getHeight());
+	hud.setBounds(0+(this.getWidth()/10), this.getHeight()-100, 500, 100);
 
 	this.requestFocus();
 
@@ -50,19 +57,32 @@ public class Fenetre extends JFrame {
 	tGame = new Thread(new gameThread());
 	tPhysics = new Thread(new applyPhysicsThread());
 	tIA = new Thread(new IAThread());
+	tHud = new Thread(new hudThread());
 
 	tFen.start();
 	tGame.start();
 	tPanel.start();
 	tPhysics.start();
 	tIA.start();
+	tHud.start();
 
+    }
+
+    private void runHud(){
+	while(true){
+	    hud.repaint();
+	    try {
+		Thread.sleep(1);
+	    } catch (InterruptedException e) {
+		e.printStackTrace();
+	    }
+	}
     }
 
     private void runFen() {
 	while (true) {
 	    this.requestFocus();
-	    mot.setToolSelected(toolBar.getToolSelected());
+	    mot.setToolSelected(hud.getToolSelected());
 	    mot.setPanneau(panGame);
 	    try {
 		Thread.sleep(5);
@@ -73,6 +93,12 @@ public class Fenetre extends JFrame {
 	}
     }
 
+    class hudThread implements Runnable{
+	public void run(){
+	    runHud();
+	}
+    }
+    
     class fenThread implements Runnable {
 	public void run() {
 	    runFen();
