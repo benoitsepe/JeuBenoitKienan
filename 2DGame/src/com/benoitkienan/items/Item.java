@@ -1,13 +1,13 @@
 package com.benoitkienan.items;
 
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 
-import javax.imageio.ImageIO;
-
+<<<<<<< HEAD
 import com.benoitkienan.jeu.Entity;
 import com.benoitkienan.tiles.Tile;
+=======
+import com.benoit.tiles.Tile;
+>>>>>>> branch 'master' of https://github.com/mister-benoit/JeuBenoitKienan.git
 
 public class Item {
     boolean isTile;
@@ -19,7 +19,7 @@ public class Item {
     public Item() {
 
     }
-    
+
     public Item(Tile tile) {
 	this.tile = tile;
 	isTile = true;
@@ -31,10 +31,13 @@ public class Item {
 	return isTile;
     }
 
+    public Tile getTile() {
+	return tile;
+    }
+
     public String getName() {
 	return name;
     }
-
 
     public BufferedImage getImg() {
 	return itemImg;
