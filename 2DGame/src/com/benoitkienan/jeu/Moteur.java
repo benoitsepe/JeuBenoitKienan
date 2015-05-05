@@ -4,25 +4,28 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
-import com.benoitkienan.jeu.Item.uselessException;
+import com.benoit.tiles.Tile;
+import com.benoit.tiles.TileManager;
+import com.benoitkienan.affichage.PanneauGame;
+import com.benoitkienan.items.Item;
+import com.benoitkienan.items.Item.uselessException;
 
 public class Moteur {
 
     Niveau lvl = new Niveau();
-    Player player = new Player(lvl);
-    Mob mob1 = new Mob(lvl);
-    Mob mob2 = new Mob(lvl);
+    Player player = new Player();
+    Mob mob1 = new Mob();
+    Mob mob2 = new Mob();
     BufferedImage blueBrick, redBrick, blackBrick, goldBrick, sorcier, cage, poulpe, nyan;
 
     PanneauGame panGame;
     int x, y, d; // Pour cercle d'Andres
     int toolSelected = 2;
     ArrayList<Mob> MobList = new ArrayList<Mob>();
-    ArrayList<Player> PlayerList = new ArrayList<Player>();
+    public ArrayList<Player> PlayerList = new ArrayList<Player>();
     ArrayList<Entity> EntityList = new ArrayList<Entity>();
     TileManager tileManager;
     Item[] hudItems;
@@ -116,7 +119,7 @@ public class Moteur {
 	    if (panGame.getClicGauche() == true) {
 		try {
 
-		    if (toolSelected == 5) { // TIR
+		    if (toolSelected == 6) { // TIR
 
 			long new_temps = System.currentTimeMillis();
 
@@ -130,10 +133,12 @@ public class Moteur {
 
 		    } else {
 
-			try {
-			    lvl.getArray()[panGame.getPointeurX()][panGame.getPointeurY()]= hudItems[toolSelected].getTile();
-			} catch (uselessException e) {
-			}
+			    try {
+				lvl.getArray()[panGame.getPointeurX()][panGame.getPointeurY()]= hudItems[toolSelected].getTile();
+			    } catch (uselessException e) {
+				e.printStackTrace();
+			    }
+			
 			panGame.setNiveau(lvl);
 		    }
 		} catch (ArrayIndexOutOfBoundsException e) {

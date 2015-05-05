@@ -1,7 +1,6 @@
-package com.benoitkienan.jeu;
+package com.benoitkienan.affichage;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -10,7 +9,11 @@ import javax.swing.JLayeredPane;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.JPanel;
+
+import com.benoitkienan.jeu.IOLevel;
+import com.benoitkienan.jeu.Moteur;
+import com.benoitkienan.jeu.Niveau;
+import com.benoitkienan.jeu.Player;
 
 public class Fenetre extends JFrame {
     MenusBar menuBar = new MenusBar();

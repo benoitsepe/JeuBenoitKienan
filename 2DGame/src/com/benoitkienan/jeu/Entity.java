@@ -10,6 +10,10 @@ import java.util.Random;
 
 import javax.imageio.ImageIO;
 
+import com.benoit.tiles.Tile;
+import com.benoit.tiles.TileManager;
+import com.benoitkienan.affichage.PanneauGame;
+
 public class Entity {
     Niveau niveau;
     double posX, posY;
@@ -25,7 +29,7 @@ public class Entity {
     int masse = 10;
     TileManager tileManager;
 
-    public Entity(Niveau niveau) {
+    public Entity() {
 	tileManager = new TileManager();
 	try {
 	    image = ImageIO.read(new File("Pictures/notDefined.png"));
@@ -34,10 +38,6 @@ public class Entity {
 	}
     }
 
-    // Entité ne dépendant pas d'un niveau
-    public Entity() {
-
-    }
 
     public void sayInfos() {
 	System.out.println("--------------------------------------------------------------");

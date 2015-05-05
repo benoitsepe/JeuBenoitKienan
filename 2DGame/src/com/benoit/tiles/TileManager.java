@@ -1,11 +1,12 @@
-package com.benoitkienan.jeu;
+package com.benoit.tiles;
 
 import java.util.ArrayList;
 import java.util.Hashtable;
 
 public class TileManager {
     ArrayList<Tile> TileList;
-    Tile blueBrick, redBrick, blackBrick, goldBrick, grass;
+    Tile blueBrick, redBrick, blackBrick, goldBrick;
+    public Tile grass;
 
     public TileManager() {
 

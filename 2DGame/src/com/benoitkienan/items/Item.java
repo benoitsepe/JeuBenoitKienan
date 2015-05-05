@@ -1,10 +1,13 @@
-package com.benoitkienan.jeu;
+package com.benoitkienan.items;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+
+import com.benoit.tiles.Tile;
+import com.benoitkienan.jeu.Entity;
 
 public class Item {
     boolean isTile;
@@ -77,7 +80,7 @@ public class Item {
 	return itemImg;
     }
 
-    class uselessException extends Exception {
+    public class uselessException extends Exception {
 	public uselessException() {
 	    System.out.println("Cet objet est inutile");
 	}

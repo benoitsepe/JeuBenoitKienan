@@ -3,7 +3,7 @@ package CDIO.pathFinder;
 import java.awt.Point;
 import java.util.ArrayList;
 
-import com.benoitkienan.jeu.Tile;
+import com.benoit.tiles.Tile;
 
 import CDIO.pathFinder.utils.Logger;
 

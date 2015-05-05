@@ -1,4 +1,4 @@
-package com.benoitkienan.jeu;
+package com.benoitkienan.affichage;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -18,6 +18,10 @@ import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
+import com.benoitkienan.jeu.Mob;
+import com.benoitkienan.jeu.Niveau;
+import com.benoitkienan.jeu.Player;
+
 import CDIO.pathFinder.Node;
 
 public class PanneauGame extends JPanel implements MouseListener {
@@ -26,8 +30,10 @@ public class PanneauGame extends JPanel implements MouseListener {
     Niveau lvl = new Niveau();
     int pointeurX, pointeurY;
     double realPointeurX, realPointeurY;
-    double cellSizeX, cellSizeY;
-    boolean clicGauche, clicDroit, clicMiddle;
+    public double cellSizeX;
+    public double cellSizeY;
+    boolean clicGauche, clicDroit;
+    public boolean clicMiddle;
     BufferedImage blueBrick, redBrick, blackBrick, goldBrick;
     ArrayList<Mob> MobList = new ArrayList<Mob>();
     ArrayList<Player> PlayerList = new ArrayList<Player>();

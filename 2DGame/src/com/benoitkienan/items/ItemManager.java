@@ -1,6 +1,10 @@
-package com.benoitkienan.jeu;
+package com.benoitkienan.items;
 
 import java.util.Hashtable;
+
+import com.benoit.tiles.Tile;
+import com.benoit.tiles.TileManager;
+import com.benoitkienan.jeu.Mob;
 
 public class ItemManager {
     Hashtable<String, Item> ItemList = new Hashtable<String, Item>();
@@ -9,11 +13,10 @@ public class ItemManager {
 	TileManager tileManager = new TileManager();
 
 	for (Tile tile : tileManager.getTileList()) {
-	    System.out.println("Tile:" + tile.getName());
 	    ItemList.put(tile.getName(), new Item(tile));
 	}
 
-	Item spawner = new Item(new Entity());
+	Item spawner = new Item(new Mob());
 	ItemList.put("spawner", spawner);
     }
 

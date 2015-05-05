@@ -1,7 +1,9 @@
-package com.benoitkienan.jeu;
+package com.benoitkienan.affichage;
 
 import java.awt.Color;
 import java.awt.Dimension;
+
+import com.benoit.tiles.Tile;
 
 public class PanelThread {
     PanneauGame panGame = new PanneauGame();

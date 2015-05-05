@@ -4,6 +4,8 @@ import java.awt.Point;
 import java.util.ArrayList;
 import java.util.ArrayList;
 
+import com.benoit.tiles.Tile;
+
 import CDIO.pathFinder.AStar;
 import CDIO.pathFinder.AreaMap;
 import CDIO.pathFinder.Node;
@@ -14,15 +16,14 @@ public class Mob extends Entity {
     AreaMap map;
     AStarHeuristic heuristic = new DiagonalHeuristic();
     AStar aStar;
-    ArrayList<Point> shortestPath;
+    public ArrayList<Point> shortestPath;
     ArrayList<Point> path;
     Node node;
     Player nearestPlayer;
     int xMin, xMax, yMin, yMax;
     int distanceX, distanceY;
 
-    public Mob(Niveau niveau) {
-	super(niveau);
+    public Mob() {
 	speed = 10;
     }
 

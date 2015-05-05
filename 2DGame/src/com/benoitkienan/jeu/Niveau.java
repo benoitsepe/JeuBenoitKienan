@@ -10,6 +10,9 @@ import java.util.Random;
 
 import javax.imageio.ImageIO;
 
+import com.benoit.tiles.Tile;
+import com.benoit.tiles.TileManager;
+
 public class Niveau implements Serializable {
 
     public int arraySizeX = 64 * 10;

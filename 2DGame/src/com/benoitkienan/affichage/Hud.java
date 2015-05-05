@@ -1,4 +1,4 @@
-package com.benoitkienan.jeu;
+package com.benoitkienan.affichage;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -11,14 +11,10 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import com.benoitkienan.items.Item;
+import com.benoitkienan.items.ItemManager;
+
 public class Hud extends JPanel implements MouseListener {
-    JButton gunButton = new JButton(new ImageIcon("Pictures/gun.png"));
-    JButton eraserButton = new JButton(new ImageIcon("Pictures/eraser.png"));
-    JButton blueBrickButton = new JButton(new ImageIcon("Pictures/blueBrick.png"));
-    JButton redBrickButton = new JButton(new ImageIcon("Pictures/redBrick.png"));
-    JButton blackBrickButton = new JButton(new ImageIcon("Pictures/blackBrick.png"));
-    JButton goldBrickButton = new JButton(new ImageIcon("Pictures/goldBrick.png"));
-    JButton rainbow = new JButton(new ImageIcon("Pictures/rainbow.png"));
     Item[] hudItems = new Item[8];
     int toolSelected;
     int caseSize;
@@ -29,6 +25,9 @@ public class Hud extends JPanel implements MouseListener {
 	hudItems[0] = (itemManager.getItemList().get("spawner"));
 	hudItems[1] = (itemManager.getItemList().get("blackBrick"));
 	hudItems[2] = (itemManager.getItemList().get("redBrick"));
+	hudItems[3] = (itemManager.getItemList().get("goldBrick"));
+	hudItems[4] = (itemManager.getItemList().get("blueBrick"));
+	hudItems[5] = (itemManager.getItemList().get("grass"));
 
 	caseSize = this.getWidth() / hudItems.length;
 
