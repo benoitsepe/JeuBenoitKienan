@@ -28,8 +28,10 @@ public class Entity {
     BufferedImage image;
     int masse = 10;
     TileManager tileManager;
+    String name;
 
-    public Entity() {
+    public Entity(String name) {
+	this.name=name;
 	tileManager = new TileManager();
 	try {
 	    image = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("Pictures/notDefined.png"));
@@ -211,4 +213,7 @@ public class Entity {
 	return posY;
     }
 
+    public String getName(){
+	return name;
+    }
 }

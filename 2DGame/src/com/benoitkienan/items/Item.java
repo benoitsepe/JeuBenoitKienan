@@ -22,6 +22,10 @@ public class Item {
 	name = tile.getName();
 	itemImg = tile.getImg();
     }
+    
+    public Item(Entity entity){
+	name=entity.getName();
+    }
 
     public boolean isTile() {
 	return isTile;

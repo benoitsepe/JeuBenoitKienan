@@ -16,17 +16,17 @@ public class Player extends Entity implements KeyListener {
     int speed = 10;
     double zoom = 0.4;
 
-    public Player() {
-
+    public Player(String name) {
+	super(name);
     }
 
-    public Player(Niveau niveau, char Up, char Down, char Left, char Right, char Nuke) {
-	keyUp = Up;
-	keyDown = Down;
-	keyLeft = Left;
-	keyRight = Right;
-	keyNuke = Nuke;
-    }
+//    public Player(Niveau niveau, char Up, char Down, char Left, char Right, char Nuke) {
+//	keyUp = Up;
+//	keyDown = Down;
+//	keyLeft = Left;
+//	keyRight = Right;
+//	keyNuke = Nuke;
+//    }
 
     public void runPlayer() {
 	if (keyUpPressed == true) {

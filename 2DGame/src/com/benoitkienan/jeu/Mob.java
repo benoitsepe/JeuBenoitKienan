@@ -23,7 +23,8 @@ public class Mob extends Entity {
     int xMin, xMax, yMin, yMax;
     int distanceX, distanceY;
 
-    public Mob() {
+    public Mob(String name) {
+	super(name);
 	speed = 10;
     }
 

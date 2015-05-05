@@ -15,9 +15,9 @@ import com.benoitkienan.tiles.TileManager;
 public class Moteur {
 
     Niveau lvl = new Niveau();
-    Player player = new Player();
-    Mob mob1 = new Mob();
-    Mob mob2 = new Mob();
+    Player player = new Player("Roger");
+    Mob mob1 = new Mob("Cage");
+    Mob mob2 = new Mob("Calamar");
     BufferedImage blueBrick, redBrick, blackBrick, goldBrick, sorcier, cage, poulpe, nyan;
 
     PanneauGame panGame;
