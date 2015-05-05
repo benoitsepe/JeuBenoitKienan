@@ -132,11 +132,7 @@ public class Moteur {
 		    } else {
 
 			if (hudItems[toolSelected].isTile()) {
-<<<<<<< HEAD
 				//lvl.getArray()[panGame.getPointeurX()][panGame.getPointeurY()]= hudItems[toolSelected].getTile();
-=======
-			    lvl.getArray()[panGame.getPointeurX()][panGame.getPointeurY()] = hudItems[toolSelected].getTile();
->>>>>>> branch 'master' of https://github.com/mister-benoit/JeuBenoitKienan.git
 			}
 
 			panGame.setNiveau(lvl);
@@ -272,6 +268,11 @@ public class Moteur {
 
 		    if (touch)
 			break;
+
+		    if (player.checkCollision(x, y, 1, 1)) {
+			System.out.println("JOUEUR TOUCHE en x=" + x + " et y=" + y);
+			break; // on sort de la boucle
+		    }
 
 		    balle.setPosX(balle.getPosX() + Math.cos(angle));
 		    balle.setPosY(balle.getPosY() + Math.sin(angle));
