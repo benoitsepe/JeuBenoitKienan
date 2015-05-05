@@ -5,8 +5,7 @@ import java.util.Hashtable;
 
 public class TileManager {
     ArrayList<Tile> TileList;
-    Tile blueBrick, redBrick, blackBrick, goldBrick;
-    public Tile grass;
+    public Tile grass,blueBrick, redBrick, blackBrick, goldBrick, wood1, wood2, wood3;
 
     public TileManager() {
 
@@ -14,7 +13,8 @@ public class TileManager {
 	redBrick = new Tile("redBrick.png", true, "redBrick");
 	blackBrick = new Tile("blackBrick.png", true, "blackBrick");
 	goldBrick = new Tile("goldBrick.png", true, "goldBrick");
-	grass = new Tile("grass.png", false, "grass");
+	grass = new Tile("texture gazon.png", false, "grass");
+	wood1 = new Tile("texture bois 1.png",false,"wood");
 
 	TileList = new ArrayList<Tile>();
 
@@ -23,6 +23,8 @@ public class TileManager {
 	TileList.add(blackBrick);
 	TileList.add(goldBrick);
 	TileList.add(grass);
+	TileList.add(wood1);
+	
 
     }
 
