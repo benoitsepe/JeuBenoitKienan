@@ -1,4 +1,4 @@
-package com.benoitkienan.jeu;
+package com.benoitkienan.gun;
 
 public class Balle {
 
