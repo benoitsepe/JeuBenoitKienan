@@ -3,7 +3,7 @@ package com.benoitkienan.affichage;
 import java.awt.Color;
 import java.awt.Dimension;
 
-import com.benoit.tiles.Tile;
+import com.benoitkienan.tiles.Tile;
 
 public class PanelThread {
     PanneauGame panGame = new PanneauGame();

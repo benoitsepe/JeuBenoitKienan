@@ -4,7 +4,7 @@ import java.awt.Point;
 import java.util.ArrayList;
 import java.util.ArrayList;
 
-import com.benoit.tiles.Tile;
+import com.benoitkienan.tiles.Tile;
 
 import CDIO.pathFinder.AStar;
 import CDIO.pathFinder.AreaMap;

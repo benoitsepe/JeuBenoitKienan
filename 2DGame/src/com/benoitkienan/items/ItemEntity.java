@@ -21,6 +21,7 @@ public class ItemEntity extends Item {
     }
 
     public void use() {
+	
     }
 
 }

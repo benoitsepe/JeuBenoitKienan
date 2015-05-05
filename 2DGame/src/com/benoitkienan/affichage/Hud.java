@@ -7,8 +7,6 @@ import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import com.benoitkienan.items.Item;
@@ -28,6 +26,7 @@ public class Hud extends JPanel implements MouseListener {
 	hudItems[3] = (itemManager.getItemList().get("goldBrick"));
 	hudItems[4] = (itemManager.getItemList().get("blueBrick"));
 	hudItems[5] = (itemManager.getItemList().get("grass"));
+	
 
 	caseSize = this.getWidth() / hudItems.length;
 

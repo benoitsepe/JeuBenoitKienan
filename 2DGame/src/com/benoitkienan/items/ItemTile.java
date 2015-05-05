@@ -1,6 +1,6 @@
 package com.benoitkienan.items;
 
-import com.benoit.tiles.Tile;
+import com.benoitkienan.tiles.Tile;
 
 public class ItemTile extends Item {
 

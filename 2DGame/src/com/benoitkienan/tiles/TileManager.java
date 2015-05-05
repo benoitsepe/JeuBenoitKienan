@@ -1,4 +1,4 @@
-package com.benoit.tiles;
+package com.benoitkienan.tiles;
 
 import java.util.ArrayList;
 import java.util.Hashtable;

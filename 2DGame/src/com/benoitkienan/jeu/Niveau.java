@@ -10,8 +10,8 @@ import java.util.Random;
 
 import javax.imageio.ImageIO;
 
-import com.benoit.tiles.Tile;
-import com.benoit.tiles.TileManager;
+import com.benoitkienan.tiles.Tile;
+import com.benoitkienan.tiles.TileManager;
 
 public class Niveau implements Serializable {
 

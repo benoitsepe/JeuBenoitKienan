@@ -7,10 +7,10 @@ import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
-import com.benoit.tiles.Tile;
-import com.benoit.tiles.TileManager;
 import com.benoitkienan.affichage.PanneauGame;
 import com.benoitkienan.items.Item;
+import com.benoitkienan.tiles.Tile;
+import com.benoitkienan.tiles.TileManager;
 
 public class Moteur {
 
@@ -133,7 +133,7 @@ public class Moteur {
 		    } else {
 
 			if (hudItems[toolSelected].isTile()) {
-				lvl.getArray()[panGame.getPointeurX()][panGame.getPointeurY()]= hudItems[toolSelected].getTile();
+				//lvl.getArray()[panGame.getPointeurX()][panGame.getPointeurY()]= hudItems[toolSelected].getTile();
 			}
 
 			panGame.setNiveau(lvl);
