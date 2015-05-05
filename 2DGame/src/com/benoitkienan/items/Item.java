@@ -2,8 +2,8 @@ package com.benoitkienan.items;
 
 import java.awt.image.BufferedImage;
 
+import com.benoitkienan.entities.Entity;
 import com.benoitkienan.gun.Arme;
-import com.benoitkienan.jeu.Entity;
 import com.benoitkienan.tiles.Tile;
 
 public class Item {

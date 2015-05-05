@@ -18,9 +18,9 @@ import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
-import com.benoitkienan.jeu.Mob;
+import com.benoitkienan.entities.Mob;
+import com.benoitkienan.entities.Player;
 import com.benoitkienan.jeu.Niveau;
-import com.benoitkienan.jeu.Player;
 
 import CDIO.pathFinder.Node;
 

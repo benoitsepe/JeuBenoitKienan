@@ -1,4 +1,4 @@
-package com.benoitkienan.jeu;
+package com.benoitkienan.entities;
 
 import java.awt.Point;
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package com.benoitkienan.jeu;
+package com.benoitkienan.entities;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;

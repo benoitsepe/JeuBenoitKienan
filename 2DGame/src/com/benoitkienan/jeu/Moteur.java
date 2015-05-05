@@ -7,6 +7,9 @@ import java.util.ArrayList;
 import javax.imageio.ImageIO;
 
 import com.benoitkienan.affichage.PanneauGame;
+import com.benoitkienan.entities.Entity;
+import com.benoitkienan.entities.Mob;
+import com.benoitkienan.entities.Player;
 import com.benoitkienan.gun.Balle;
 import com.benoitkienan.items.Item;
 import com.benoitkienan.tiles.Tile;

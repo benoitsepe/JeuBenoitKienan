@@ -10,10 +10,10 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
+import com.benoitkienan.entities.Player;
 import com.benoitkienan.jeu.IOLevel;
 import com.benoitkienan.jeu.Moteur;
 import com.benoitkienan.jeu.Niveau;
-import com.benoitkienan.jeu.Player;
 
 public class Fenetre extends JFrame {
     MenusBar menuBar = new MenusBar();

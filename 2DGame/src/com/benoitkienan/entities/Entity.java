@@ -1,4 +1,4 @@
-package com.benoitkienan.jeu;
+package com.benoitkienan.entities;
 
 import java.awt.Color;
 import java.awt.Rectangle;
@@ -11,6 +11,7 @@ import java.util.Random;
 import javax.imageio.ImageIO;
 
 import com.benoitkienan.affichage.PanneauGame;
+import com.benoitkienan.jeu.Niveau;
 import com.benoitkienan.tiles.Tile;
 import com.benoitkienan.tiles.TileManager;
 
