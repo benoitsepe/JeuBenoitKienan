@@ -10,11 +10,11 @@ public class TileManager {
 
     public TileManager() {
 
-	blueBrick = new Tile("Pictures/blueBrick.png", true, "blueBrick");
-	redBrick = new Tile("Pictures/redBrick.png", true, "redBrick");
-	blackBrick = new Tile("Pictures/blackBrick.png", true, "blackBrick");
-	goldBrick = new Tile("Pictures/goldBrick.png", true, "goldBrick");
-	grass = new Tile("Pictures/grass.png", false, "grass");
+	blueBrick = new Tile("blueBrick.png", true, "blueBrick");
+	redBrick = new Tile("redBrick.png", true, "redBrick");
+	blackBrick = new Tile("blackBrick.png", true, "blackBrick");
+	goldBrick = new Tile("goldBrick.png", true, "goldBrick");
+	grass = new Tile("grass.png", false, "grass");
 
 	TileList = new ArrayList<Tile>();
 

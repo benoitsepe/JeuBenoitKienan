@@ -49,9 +49,9 @@ public class PanneauGame extends JPanel implements MouseListener {
     int width, height;
     int xMin, xMax, yMin, yMax;
     BufferedImage blueBrickImg, redBrickImg, blackBrickImg, goldBrickImg, grassImg;
-    int toolSelected=0;
+    int toolSelected = 0;
     int mouseX, mouseY;
-    
+
     Color exterior = Color.gray.darker();
 
     public PanneauGame() {
@@ -61,24 +61,24 @@ public class PanneauGame extends JPanel implements MouseListener {
 
 	    public void mouseWheelMoved(MouseWheelEvent e) {
 		if (e.getWheelRotation() < 0) {
-		    toolSelected = (toolSelected>=7) ? toolSelected=0 : toolSelected+1;
+		    toolSelected = (toolSelected >= 7) ? toolSelected = 0 : toolSelected + 1;
 		}
 
 		if (e.getWheelRotation() > 0) {
-		    toolSelected = (toolSelected<=0) ? toolSelected=7 : toolSelected-1;
+		    toolSelected = (toolSelected <= 0) ? toolSelected = 7 : toolSelected - 1;
 		}
 	    }
 
 	});
 	this.addMouseMotionListener(new MouseMotionListener() {
 	    public void mouseDragged(MouseEvent e) {
-		mouseX=e.getX();
-		mouseY=e.getY();
+		mouseX = e.getX();
+		mouseY = e.getY();
 	    }
 
 	    public void mouseMoved(MouseEvent e) {
-		mouseX=e.getX();
-		mouseY=e.getY();
+		mouseX = e.getX();
+		mouseY = e.getY();
 	    }
 
 	});
@@ -92,7 +92,7 @@ public class PanneauGame extends JPanel implements MouseListener {
 	realPointeurY = (((PlayerList.get(0).getPosY() - height) + ((mouseY) * 2)));
 	pointeurX = (int) (((PlayerList.get(0).getPosX() - width / 2 / zoom) / cellSizeX) + ((mouseX / zoom) / cellSizeX));
 	pointeurY = (int) (((PlayerList.get(0).getPosY() - height / 2 / zoom) / cellSizeY) + ((mouseY / zoom) / cellSizeY));
-	
+
 	zoom = PlayerList.get(0).getZoom();
 
 	width = this.getWidth();
@@ -266,8 +266,8 @@ public class PanneauGame extends JPanel implements MouseListener {
 	clicDroit = false;
 	clicMiddle = false;
     }
-    
-    public int getToolSelected(){
+
+    public int getToolSelected() {
 	return toolSelected;
     }
 

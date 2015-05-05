@@ -11,9 +11,9 @@ public class Tile {
     boolean isSolid;
     String name;
 
-    public Tile(String imgPath, boolean solid, String name) {
+    public Tile(String imgName, boolean solid, String name) {
 	try {
-	    tileImg = ImageIO.read(new File(imgPath));
+	    tileImg = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("Pictures/" + imgName));
 	} catch (IOException e) {
 	    e.printStackTrace();
 	}

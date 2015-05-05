@@ -11,7 +11,6 @@ import com.benoit.tiles.Tile;
 import com.benoit.tiles.TileManager;
 import com.benoitkienan.affichage.PanneauGame;
 import com.benoitkienan.items.Item;
-import com.benoitkienan.items.Item.uselessException;
 
 public class Moteur {
 
@@ -37,11 +36,11 @@ public class Moteur {
 	tileManager = new TileManager();
 
 	try {
-
-	    sorcier = ImageIO.read(new File("Pictures/sorcier.png"));
-	    cage = ImageIO.read(new File("Pictures/CAGE.png"));
-	    poulpe = ImageIO.read(new File("Pictures/poulpe.png"));
-	    nyan = ImageIO.read(new File("Pictures/nyan.png"));
+	    String path = ("Pictures/");
+	    sorcier = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream(path + "sorcier.png"));
+	    cage = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream(path + "CAGE.png"));
+	    poulpe = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream(path + "poulpe.png"));
+	    nyan = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream(path + "nyan.png"));
 
 	} catch (IOException e) {
 	    e.printStackTrace();
@@ -133,12 +132,10 @@ public class Moteur {
 
 		    } else {
 
-			    try {
+			if (hudItems[toolSelected].isTile()) {
 				lvl.getArray()[panGame.getPointeurX()][panGame.getPointeurY()]= hudItems[toolSelected].getTile();
-			    } catch (uselessException e) {
-				e.printStackTrace();
-			    }
-			
+			}
+
 			panGame.setNiveau(lvl);
 		    }
 		} catch (ArrayIndexOutOfBoundsException e) {
@@ -205,9 +202,9 @@ public class Moteur {
 	}
 
     }
-    
-    public void setHudItems(Item[] hudItems){
-	this.hudItems=hudItems;
+
+    public void setHudItems(Item[] hudItems) {
+	this.hudItems = hudItems;
     }
 
     public void setNiveau(Niveau niv) {

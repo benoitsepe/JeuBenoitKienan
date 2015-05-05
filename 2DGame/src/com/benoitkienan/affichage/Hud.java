@@ -46,13 +46,13 @@ public class Hud extends JPanel implements MouseListener {
 	for (int i = 0; i < hudItems.length; i++) {
 	    if (hudItems[i] != null) {
 		g2.setColor(Color.white);
-		g2.fillRect((i*caseSize)+5, 5, caseSize-10, this.getHeight()-10);
-		g2.drawImage(hudItems[i].getImg(), (i * caseSize) + 10, 10, caseSize - 20, this.getHeight()-20, this);
+		g2.fillRect((i * caseSize) + 5, 5, caseSize - 10, this.getHeight() - 10);
+		g2.drawImage(hudItems[i].getImg(), (i * caseSize) + 10, 10, caseSize - 20, this.getHeight() - 20, this);
 	    }
-	    
+
 	    g2.setColor(Color.blue);
 	    g2.setStroke(new BasicStroke(5));
-	    g2.drawRect((toolSelected*caseSize)+3, 3, caseSize-8, this.getHeight()-8);
+	    g2.drawRect((toolSelected * caseSize) + 3, 3, caseSize - 8, this.getHeight() - 8);
 	}
 
     }
@@ -77,11 +77,11 @@ public class Hud extends JPanel implements MouseListener {
 
     }
 
-    public void setToolSelected(int tool){
-	toolSelected=tool;
+    public void setToolSelected(int tool) {
+	toolSelected = tool;
     }
-    
-    public Item[] getHudItems(){
+
+    public Item[] getHudItems() {
 	return hudItems;
     }
 

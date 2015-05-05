@@ -32,12 +32,11 @@ public class Entity {
     public Entity() {
 	tileManager = new TileManager();
 	try {
-	    image = ImageIO.read(new File("Pictures/notDefined.png"));
+	    image = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("Pictures/notDefined.png"));
 	} catch (IOException e) {
 	    e.printStackTrace();
 	}
     }
-
 
     public void sayInfos() {
 	System.out.println("--------------------------------------------------------------");

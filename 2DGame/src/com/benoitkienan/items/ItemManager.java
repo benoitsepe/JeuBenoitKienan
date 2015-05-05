@@ -13,11 +13,9 @@ public class ItemManager {
 	TileManager tileManager = new TileManager();
 
 	for (Tile tile : tileManager.getTileList()) {
-	    ItemList.put(tile.getName(), new Item(tile));
+	    ItemList.put(tile.getName(), new ItemTile(tile));
 	}
-
-	Item spawner = new Item(new Mob());
-	ItemList.put("spawner", spawner);
+	
     }
 
     public Hashtable<String, Item> getItemList() {

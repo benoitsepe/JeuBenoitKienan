@@ -42,7 +42,7 @@ public class Fenetre extends JFrame {
 	// mainPan.add(toolBar, BorderLayout.NORTH);
 	this.setContentPane(mainPan);
 	this.setResizable(true);
-	//this.setJMenuBar(menuBar);
+	// this.setJMenuBar(menuBar);
 
 	for (Player player : mot.PlayerList) {
 	    this.addKeyListener(player);
@@ -69,9 +69,9 @@ public class Fenetre extends JFrame {
 
     private void runFen() {
 	while (true) {
-	    panGame.setBounds(0, 0, this.getWidth(), this.getHeight());   
-	    hud.setBounds(400, panGame.getHeight() - 95, panGame.getWidth()-800, 50);
-	    
+	    panGame.setBounds(0, 0, this.getWidth(), this.getHeight());
+	    hud.setBounds(400, panGame.getHeight() - 95, panGame.getWidth() - 800, 50);
+
 	    this.requestFocus();
 	    mot.setToolSelected(panGame.getToolSelected());
 	    mot.setHudItems(hud.getHudItems());
