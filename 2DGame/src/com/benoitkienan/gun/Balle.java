@@ -2,6 +2,8 @@ package com.benoitkienan.gun;
 
 public class Balle {
 
+    Arme arme;
+
     double posX;
     double posY;
 
