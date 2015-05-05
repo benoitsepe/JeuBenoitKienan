@@ -15,4 +15,8 @@ public class ItemTile extends Item {
 	array[x][y] = tile;
     }
 
+    public Tile getTile() {
+	return tile;
+    }
+
 }
