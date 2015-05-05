@@ -20,9 +20,10 @@ public class Hud extends JPanel implements MouseListener {
     public Hud() {
 	ItemManager itemManager = new ItemManager();
 
-	hudItems[0] = (itemManager.getItemList().get("spawner"));
+
+	hudItems[0] = (itemManager.getItemList().get("redBrick"));
 	hudItems[1] = (itemManager.getItemList().get("blackBrick"));
-	hudItems[2] = (itemManager.getItemList().get("redBrick"));
+	hudItems[2] = (itemManager.getItemList().get("wood"));
 	hudItems[3] = (itemManager.getItemList().get("goldBrick"));
 	hudItems[4] = (itemManager.getItemList().get("dirt"));
 	hudItems[5] = (itemManager.getItemList().get("grass"));

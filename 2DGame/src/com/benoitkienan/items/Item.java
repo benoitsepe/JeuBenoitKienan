@@ -7,8 +7,8 @@ import com.benoitkienan.jeu.Entity;
 import com.benoitkienan.tiles.Tile;
 
 public class Item {
-    boolean isTile;
-    boolean isWeapon;
+    boolean isTile= false;
+    boolean isWeapon= false;
     String name;
     Tile tile;
     Arme arme;

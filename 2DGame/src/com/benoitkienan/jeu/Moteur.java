@@ -133,7 +133,7 @@ public class Moteur {
 		    } else {
 
 			if (hudItems[toolSelected].isTile()) {
-			    lvl.getArray()[panGame.getPointeurX()][panGame.getPointeurY()] = hudItems[toolSelected].getTile();
+			    lvl.getArray()[panGame.getPointeurX()][panGame.getPointeurY()]= hudItems[toolSelected].getTile();
 			}
 
 			panGame.setNiveau(lvl);
