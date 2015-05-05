@@ -9,7 +9,7 @@ public class ArmeManager {
     public ArmeManager() {
 
 	pistolet = new Arme("pistolet.png", 1.0, "pistolet");
-	fusil = new Arme("fusil.png", 10.0, "redBrick");
+	fusil = new Arme("fusil.png", 10.0, "fusil");
 	mitraillette = new Arme("mitraillette.png", 2.0, "mitraillette");
 
 	ArmeList = new ArrayList<Arme>();

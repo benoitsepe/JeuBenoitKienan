@@ -4,7 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -131,7 +130,7 @@ public class Fenetre extends JFrame implements ActionListener {
 	}
 
 	if (e.getSource() == editor) {
-	    com.benoitkienan.editor.Fenetre fen = new com.benoitkienan.editor.Fenetre("Pouet");
+	    // com.benoitkienan.editor.Fenetre fen = new com.benoitkienan.editor.Fenetre("Pouet");
 
 	}
 

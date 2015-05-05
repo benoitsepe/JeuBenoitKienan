@@ -1,11 +1,10 @@
 package com.benoitkienan.tiles;
 
 import java.util.ArrayList;
-import java.util.Hashtable;
 
 public class TileManager {
     ArrayList<Tile> TileList;
-    public Tile grass,blueBrick, redBrick, blackBrick, goldBrick, wood1, wood2, wood3;
+    public Tile grass, blueBrick, redBrick, blackBrick, goldBrick, wood1, wood2, wood3;
 
     public TileManager() {
 
@@ -14,7 +13,7 @@ public class TileManager {
 	blackBrick = new Tile("blackBrick.png", true, "blackBrick");
 	goldBrick = new Tile("goldBrick.png", true, "goldBrick");
 	grass = new Tile("texture gazon.png", false, "grass");
-	wood1 = new Tile("texture bois 2.png",true,"wood");
+	wood1 = new Tile("texture bois 2.png", true, "wood");
 
 	TileList = new ArrayList<Tile>();
 
@@ -24,7 +23,6 @@ public class TileManager {
 	TileList.add(goldBrick);
 	TileList.add(grass);
 	TileList.add(wood1);
-	
 
     }
 
