@@ -2,9 +2,9 @@ package com.benoitkienan.items;
 
 import java.util.Hashtable;
 
-import com.benoit.tiles.Tile;
-import com.benoit.tiles.TileManager;
 import com.benoitkienan.jeu.Mob;
+import com.benoitkienan.tiles.Tile;
+import com.benoitkienan.tiles.TileManager;
 
 public class ItemManager {
     Hashtable<String, Item> ItemList = new Hashtable<String, Item>();
@@ -15,6 +15,8 @@ public class ItemManager {
 	for (Tile tile : tileManager.getTileList()) {
 	    ItemList.put(tile.getName(), new ItemTile(tile));
 	}
+	
+	
 	
     }
 

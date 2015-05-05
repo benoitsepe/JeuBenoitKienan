@@ -1,4 +1,4 @@
-package com.benoit.tiles;
+package com.benoitkienan.tiles;
 
 import java.awt.image.BufferedImage;
 import java.io.File;

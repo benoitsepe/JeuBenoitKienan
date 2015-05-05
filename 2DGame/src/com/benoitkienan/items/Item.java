@@ -2,7 +2,8 @@ package com.benoitkienan.items;
 
 import java.awt.image.BufferedImage;
 
-import com.benoit.tiles.Tile;
+import com.benoitkienan.jeu.Entity;
+import com.benoitkienan.tiles.Tile;
 
 public class Item {
     boolean isTile;
