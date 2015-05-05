@@ -1,7 +1,6 @@
 package com.benoitkienan.jeu;
 
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -133,7 +132,7 @@ public class Moteur {
 		    } else {
 
 			if (hudItems[toolSelected].isTile()) {
-				lvl.getArray()[panGame.getPointeurX()][panGame.getPointeurY()]= hudItems[toolSelected].getTile();
+			    lvl.getArray()[panGame.getPointeurX()][panGame.getPointeurY()] = hudItems[toolSelected].getTile();
 			}
 
 			panGame.setNiveau(lvl);
@@ -269,11 +268,6 @@ public class Moteur {
 
 		    if (touch)
 			break;
-
-		    if (player.checkCollision(x, y, 1, 1)) {
-			System.out.println("JOUEUR TOUCHE en x=" + x + " et y=" + y);
-			break; // on sort de la boucle
-		    }
 
 		    balle.setPosX(balle.getPosX() + Math.cos(angle));
 		    balle.setPosY(balle.getPosY() + Math.sin(angle));
