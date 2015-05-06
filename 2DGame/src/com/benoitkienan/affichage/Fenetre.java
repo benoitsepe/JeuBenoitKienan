@@ -25,10 +25,12 @@ public class Fenetre extends JFrame {
     Niveau lvl;
     PanneauGame panGame = new PanneauGame();
     Hud hud = new Hud();
+    OptionsMenu options = new OptionsMenu();
     Moteur mot = new Moteur(panGame);
     PanelThread panThread = new PanelThread(this, panGame, hud);
     char touche;
     JLayeredPane mainPan = new JLayeredPane();
+    int guiSize=1;
 
     public Fenetre(String title) {
 
@@ -37,9 +39,9 @@ public class Fenetre extends JFrame {
 	this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	this.setLocationRelativeTo(null);
 	// mainPan.setLayout(bl);
-	mainPan.add(hud, 101, 0);
-	mainPan.add(panGame, 100, 1);
-	// mainPan.add(toolBar, BorderLayout.NORTH);
+	mainPan.add(options, 105, 0);
+	mainPan.add(hud, 101, 1);
+	mainPan.add(panGame, 100, 2);
 	this.setContentPane(mainPan);
 	this.setResizable(true);
 	// this.setJMenuBar(menuBar);
@@ -70,13 +72,22 @@ public class Fenetre extends JFrame {
     private void runFen() {
 	while (true) {
 	    panGame.setBounds(0, 0, this.getWidth(), this.getHeight());
-	    hud.setBounds(400, panGame.getHeight() - 95, panGame.getWidth() - 800, 50);
+	    hud.setBounds(this.getWidth()/3, this.getHeight() - 95, this.getWidth() - 2*(this.getWidth()/3), 50);
+	    options.setBounds((this.getWidth()/2)-guiSize*(100), (this.getHeight()/2)-guiSize*(100), guiSize*(200), guiSize*(200));
 
 	    this.requestFocus();
 	    mot.setToolSelected(panGame.getToolSelected());
 	    mot.setHudItems(hud.getHudItems());
 	    hud.setToolSelected(panGame.getToolSelected());
 	    mot.setPanneau(panGame);
+	    
+	    if(mot.getPlayerEscape() && !options.isVisible()){
+		options.openMenu();
+	    }else if(mot.getPlayerEscape() && options.isVisible()){
+		options.closeMenu();
+	    }
+	    
+	    
 	    try {
 		Thread.sleep(5);
 	    } catch (InterruptedException e) {

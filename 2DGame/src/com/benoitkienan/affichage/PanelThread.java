@@ -11,6 +11,7 @@ public class PanelThread {
     Fenetre fen;
     ToolBar toolBar;
     Hud hud;
+    OptionsMenu options;
 
     public PanelThread(Fenetre fen, PanneauGame panGame, Hud hud) {
 	this.hud = hud;

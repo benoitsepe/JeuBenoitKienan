@@ -31,6 +31,7 @@ public class Moteur {
     ArrayList<Entity> EntityList = new ArrayList<Entity>();
     TileManager tileManager;
     Item[] hudItems;
+    boolean playerEscape;
 
     Thread tBalle;
 
@@ -190,6 +191,7 @@ public class Moteur {
 		    player.collideEntites(EntityList);
 		    player.applyPhysics();
 		    player.setNiveau(lvl);
+		    playerEscape=player.getEscapePressed();
 		}
 
 	    } catch (ArrayIndexOutOfBoundsException e) {
@@ -206,6 +208,10 @@ public class Moteur {
 
     }
 
+    public boolean getPlayerEscape(){
+	return playerEscape;
+    }
+    
     public void setHudItems(Item[] hudItems) {
 	this.hudItems = hudItems;
     }

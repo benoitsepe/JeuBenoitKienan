@@ -5,7 +5,7 @@ import java.awt.event.KeyListener;
 
 public class Player extends Entity implements KeyListener {
     KeyListener clavier;
-    boolean keyUpPressed, keyRightPressed, keyLeftPressed, keyDownPressed, keyNukePressed, keyMinusPressed, keyPlusPressed;;
+    boolean keyUpPressed, keyRightPressed, keyLeftPressed, keyDownPressed, keyNukePressed, keyMinusPressed, keyPlusPressed, keyEscapePressed;
     char keyUp = 'z';
     char keyRight = 'd';
     char keyLeft = 'q';
@@ -13,6 +13,7 @@ public class Player extends Entity implements KeyListener {
     char keyNuke = ' ';
     char keyMinus = '-';
     char keyPlus = '+';
+    
     int speed = 10;
     double zoom = 0.4;
 
@@ -73,6 +74,10 @@ public class Player extends Entity implements KeyListener {
     public double getZoom() {
 	return zoom;
     }
+    
+    public boolean getEscapePressed(){
+	return keyEscapePressed;
+    }
 
     public void keyPressed(KeyEvent e) {
 	if (e.getKeyChar() == keyUp) {
@@ -95,6 +100,10 @@ public class Player extends Entity implements KeyListener {
 	}
 	if (e.getKeyChar() == keyMinus) {
 	    keyMinusPressed = true;
+	}
+	
+	if(e.getKeyChar() == KeyEvent.VK_ESCAPE){
+	    keyEscapePressed=true;
 	}
 
     }
@@ -120,6 +129,10 @@ public class Player extends Entity implements KeyListener {
 	}
 	if (e.getKeyChar() == keyMinus) {
 	    keyMinusPressed = false;
+	}
+	
+	if(e.getKeyChar() == KeyEvent.VK_ESCAPE){
+	    keyEscapePressed=false;
 	}
     }
 
