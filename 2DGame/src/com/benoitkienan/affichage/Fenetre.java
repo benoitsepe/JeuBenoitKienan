@@ -89,7 +89,7 @@ public class Fenetre extends JFrame {
 	    
 	    
 	    try {
-		Thread.sleep(5);
+		Thread.sleep(200);
 	    } catch (InterruptedException e) {
 		e.printStackTrace();
 	    }

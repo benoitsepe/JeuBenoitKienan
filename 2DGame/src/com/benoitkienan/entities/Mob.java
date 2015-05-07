@@ -1,8 +1,11 @@
 package com.benoitkienan.entities;
 
 import java.awt.Point;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.ArrayList;
+
+import javax.imageio.ImageIO;
 
 import com.benoitkienan.tiles.Tile;
 
@@ -27,6 +30,17 @@ public class Mob extends Entity {
 	super(name);
 	speed = 10;
     }
+    
+    public Mob(String name, String imgName) {
+ 	super(name);
+ 	speed = 10;
+	try {
+	    image = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("Pictures/"+imgName));
+	} catch (IOException e) {
+	    e.printStackTrace();
+	}
+     }
+    
 
     public void refreshPath(int bx, int by, Tile[][] array) {
 	map = new AreaMap(array.length, array[0].length, array);

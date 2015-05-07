@@ -18,9 +18,8 @@ import com.benoitkienan.tiles.TileManager;
 public class Moteur {
 
     Niveau lvl = new Niveau();
-    Player player = new Player("Roger");
-    Mob mob1 = new Mob("Cage");
-    Mob mob2 = new Mob("Calamar");
+    Player player;
+    Mob mob1, mob2;
     BufferedImage blueBrick, redBrick, blackBrick, goldBrick, sorcier, cage, poulpe, nyan;
 
     PanneauGame panGame;
@@ -49,12 +48,11 @@ public class Moteur {
 	} catch (IOException e) {
 	    e.printStackTrace();
 	}
-
-	player.setImage(nyan);
-	// player2.setImage(poulpe);
-	mob1.setImage(sorcier);
-	mob2.setImage(cage);
-
+	
+	player = new Player("Roger", "nyan.png");
+	mob1 = new Mob("Cage", "sorcier.png");
+	mob2 = new Mob("Calamar", "CAGE.png");
+	
 	lvl.createRandomLvl();
 	panGame = pan;
 	PlayerList.add(player);

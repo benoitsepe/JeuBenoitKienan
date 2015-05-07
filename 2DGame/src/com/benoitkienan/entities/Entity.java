@@ -40,6 +40,16 @@ public class Entity {
 	    e.printStackTrace();
 	}
     }
+    
+    public Entity(String name, String imgName) {
+	this.name=name;
+	tileManager = new TileManager();
+	try {
+	    image = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("Pictures/"+imgName));
+	} catch (IOException e) {
+	    e.printStackTrace();
+	}
+    }
 
     public void sayInfos() {
 	System.out.println("--------------------------------------------------------------");

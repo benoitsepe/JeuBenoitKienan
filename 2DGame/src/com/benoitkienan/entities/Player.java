@@ -2,6 +2,9 @@ package com.benoitkienan.entities;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 
 public class Player extends Entity implements KeyListener {
     KeyListener clavier;
@@ -20,6 +23,15 @@ public class Player extends Entity implements KeyListener {
     public Player(String name) {
 	super(name);
     }
+    
+    public Player(String name, String imgName) {
+ 	super(name);
+	try {
+	    image = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("Pictures/"+imgName));
+	} catch (IOException e) {
+	    e.printStackTrace();
+	}
+     }
 
 //    public Player(Niveau niveau, char Up, char Down, char Left, char Right, char Nuke) {
 //	keyUp = Up;
