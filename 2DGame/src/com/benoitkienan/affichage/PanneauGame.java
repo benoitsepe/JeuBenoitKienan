@@ -153,8 +153,10 @@ public class PanneauGame extends JPanel implements MouseListener {
 	for (Mob mob : MobList) {
 	    // Dessin du path
 	    if (mob.getPath() != null) {
+		if(mob.shortestPath.size()>0){
 		for (int i = 0; i < mob.shortestPath.size(); i++) {
 		    g2.fillRect((int) (mob.getPath().get(i).getX() * cellSizeX), (int) (mob.getPath().get(i).getY() * cellSizeY), (int) cellSizeX, (int) cellSizeY);
+		}
 		}
 	    }
 	    // Fin dessin path
@@ -164,6 +166,8 @@ public class PanneauGame extends JPanel implements MouseListener {
 
 	for (Player player : PlayerList) {
 	    g2.drawImage(rotate(player.getImage(), (int) cellSizeX, (int) cellSizeY, player.getRotationWithMouse(realPointeurX, realPointeurY)), (int) (player.getPosX() - cellSizeX / 2), (int) (player.getPosY() - cellSizeY / 2), (int) cellSizeX, (int) cellSizeY, this);
+	    //player.getRotationWithMouse(realPointeurX, realPointeurY);
+	    //g2.drawImage(player.getImage(), (int) (player.getPosX() - cellSizeX / 2), (int) (player.getPosY() - cellSizeY / 2), (int) cellSizeX, (int) cellSizeY, this);
 
 	}
 

@@ -49,7 +49,7 @@ public class Moteur {
 	    e.printStackTrace();
 	}
 	
-	player = new Player("Roger", "nyan.png");
+	player = new Player("Roger", "personnage.png");
 	mob1 = new Mob("Cage", "sorcier.png");
 	mob2 = new Mob("Calamar", "CAGE.png");
 	
@@ -120,17 +120,20 @@ public class Moteur {
 	    if (panGame.getClicGauche() == true) {
 		try {
 
-		    if (toolSelected == 6) { // TIR
-
-			long new_temps = System.currentTimeMillis();
-
-			if ((new_temps - temps) > 1000) { // Intervalle entre
-							  // chaque tir : 1 sec
-
-			    temps = System.currentTimeMillis();
-			    Thread tBalle = new Thread(new RunBalle());
-			    tBalle.start();
-			}
+		    if (hudItems[toolSelected].isWeapon()) { // TIR
+//
+//			long new_temps = System.currentTimeMillis();
+//
+//			if ((new_temps - temps) > 1000) { // Intervalle entre
+//							  // chaque tir : 1 sec
+//
+//			    temps = System.currentTimeMillis();
+//			    Thread tBalle = new Thread(new RunBalle());
+//			    tBalle.start();
+//			}
+			
+			player.shoot(panGame.getPointeurX(), panGame.getPointeurY(), EntityList);
+			
 
 		    } else {
 
