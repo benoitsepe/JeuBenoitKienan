@@ -48,7 +48,7 @@ public class Particle {
     }
     
     public void applyPhysics() {
-	
+
     }
 
     public BufferedImage getImage() {
@@ -152,7 +152,7 @@ public class Particle {
     public double getPosY() {
 	return posY;
     }
-    
+
     public double getVectorX() {
 	return vectorX;
     }

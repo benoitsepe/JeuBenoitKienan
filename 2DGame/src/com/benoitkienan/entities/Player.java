@@ -37,7 +37,8 @@ public class Player extends Entity implements KeyListener {
 	}
     }
 
-    // public Player(Niveau niveau, char Up, char Down, char Left, char Right, char Nuke) {
+    // public Player(Niveau niveau, char Up, char Down, char Left, char Right,
+    // char Nuke) {
     // keyUp = Up;
     // keyDown = Down;
     // keyLeft = Left;
