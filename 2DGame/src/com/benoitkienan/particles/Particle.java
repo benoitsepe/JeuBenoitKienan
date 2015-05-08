@@ -46,6 +46,11 @@ public class Particle {
 	System.out.println("Spawned at x:" + posX + " y:" + posY);
 
     }
+    
+    public void applyPhysics() {
+	
+     }
+    
 
     public BufferedImage getImage() {
 	return image;
@@ -125,10 +130,6 @@ public class Particle {
 	panGame = pan;
     }
 
-    public void applyPhysics() {
-
-    }
-
     public void addForceX(double force) {
 	vectorX = vectorX + force;
     }
@@ -151,5 +152,21 @@ public class Particle {
 
     public double getPosY() {
 	return posY;
+    }
+    
+    public double getVectorX() {
+	return vectorX;
+    }
+
+    public void setVectorX(double vectorX) {
+	this.vectorX = vectorX;
+    }
+
+    public double getVectorY() {
+	return vectorY;
+    }
+
+    public void setVectorY(double vectorY) {
+	this.vectorY = vectorY;
     }
 }

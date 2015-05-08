@@ -102,7 +102,7 @@ public class Moteur {
 			// tBalle.start();
 			// }
 
-			player.shoot(panGame.getPointeurX(), panGame.getPointeurY(), entitiesManager.getEntityList());
+			entitiesManager.getPlayerList().get(0).shoot(panGame.getPointeurX(), panGame.getPointeurY(), entitiesManager.getEntityList());
 
 		    } else {
 
