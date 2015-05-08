@@ -28,11 +28,11 @@ public class Particle {
     BufferedImage image;
     int masse = 10;
     TileManager tileManager;
-    
+
     public Particle(String imgName) {
 	tileManager = new TileManager();
 	try {
-	    image = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("Pictures/"+imgName));
+	    image = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("Pictures/" + imgName));
 	} catch (IOException e) {
 	    e.printStackTrace();
 	}
@@ -46,6 +46,11 @@ public class Particle {
 	System.out.println("Spawned at x:" + posX + " y:" + posY);
 
     }
+    
+    public void applyPhysics() {
+	
+     }
+    
 
     public BufferedImage getImage() {
 	return image;
@@ -83,12 +88,12 @@ public class Particle {
 
     public void collideEntities(ArrayList<Entity> entList) {
 	for (Entity ent : entList) {
-		if (checkCollision((int) ent.getPosX(), (int) ent.getPosY(), (int) (panGame.cellSizeX), (int) (panGame.cellSizeY))) {
-		    vectorX = (vectorX > 0) ? (vectorX + ent.getVectorX() + 1) : (vectorX + ent.getVectorX() - 1);
-		    vectorY = (vectorY > 0) ? (vectorY + ent.getVectorY() + 1) : (vectorY + ent.getVectorY() - 1);
-		}
+	    if (checkCollision((int) ent.getPosX(), (int) ent.getPosY(), (int) (panGame.cellSizeX), (int) (panGame.cellSizeY))) {
+		vectorX = (vectorX > 0) ? (vectorX + ent.getVectorX() + 1) : (vectorX + ent.getVectorX() - 1);
+		vectorY = (vectorY > 0) ? (vectorY + ent.getVectorY() + 1) : (vectorY + ent.getVectorY() - 1);
 	    }
 	}
+    }
 
     /**
      * 
@@ -125,10 +130,6 @@ public class Particle {
 	panGame = pan;
     }
 
-    public void applyPhysics() {
-	
-    }
-
     public void addForceX(double force) {
 	vectorX = vectorX + force;
     }
@@ -152,7 +153,20 @@ public class Particle {
     public double getPosY() {
 	return posY;
     }
+    
+    public double getVectorX() {
+	return vectorX;
+    }
+
+    public void setVectorX(double vectorX) {
+	this.vectorX = vectorX;
+    }
+
+    public double getVectorY() {
+	return vectorY;
+    }
+
+    public void setVectorY(double vectorY) {
+	this.vectorY = vectorY;
+    }
 }
-
-
-

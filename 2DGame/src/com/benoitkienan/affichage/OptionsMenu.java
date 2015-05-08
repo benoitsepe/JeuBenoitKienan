@@ -1,14 +1,10 @@
 package com.benoitkienan.affichage;
 
 import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -16,7 +12,7 @@ import javax.swing.JPanel;
 import com.benoitkienan.items.Item;
 import com.benoitkienan.main.Bouton;
 
-public class OptionsMenu extends JPanel{
+public class OptionsMenu extends JPanel {
     Item[] hudItems = new Item[8];
     int toolSelected;
     int caseSize;
@@ -25,7 +21,7 @@ public class OptionsMenu extends JPanel{
     Bouton quit = new Bouton("Quitter");
 
     public OptionsMenu() {
-	
+
 	this.removeAll();
 
 	JLabel label = new JLabel("Options");
@@ -44,7 +40,7 @@ public class OptionsMenu extends JPanel{
 	gbc.gridy = gbc.gridy + 1;
 	this.add(quit, gbc);
 	this.repaint();
-	
+
 	this.setBackground(Color.black);
 	this.setOpaque(false);
 
@@ -53,34 +49,27 @@ public class OptionsMenu extends JPanel{
 		closeMenu();
 	    }
 	});
-	
+
 	control.addActionListener(new ActionListener() {
 	    public void actionPerformed(ActionEvent a) {
 		System.out.println("Menu contrôle");
 	    }
 	});
-	
+
 	quit.addActionListener(new ActionListener() {
 	    public void actionPerformed(ActionEvent a) {
 		System.out.println("Menu contrôle");
 	    }
 	});
 
-	
     }
-    
-    
-    
-    
-    public void closeMenu(){
+
+    public void closeMenu() {
 	this.setVisible(false);
     }
-    
-    public void openMenu(){
+
+    public void openMenu() {
 	this.setVisible(true);
     }
-    
-    
-
 
 }

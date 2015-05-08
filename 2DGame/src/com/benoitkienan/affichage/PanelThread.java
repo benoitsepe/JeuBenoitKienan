@@ -1,8 +1,5 @@
 package com.benoitkienan.affichage;
 
-import java.awt.Color;
-import java.awt.Dimension;
-
 import com.benoitkienan.tiles.Tile;
 
 public class PanelThread {

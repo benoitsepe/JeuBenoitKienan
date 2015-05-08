@@ -1,14 +1,9 @@
 package com.benoitkienan.jeu;
 
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.ArrayList;
 import java.util.Random;
-
-import javax.imageio.ImageIO;
 
 import com.benoitkienan.tiles.Tile;
 import com.benoitkienan.tiles.TileManager;

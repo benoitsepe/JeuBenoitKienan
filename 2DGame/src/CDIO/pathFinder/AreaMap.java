@@ -3,9 +3,9 @@ package CDIO.pathFinder;
 import java.awt.Point;
 import java.util.ArrayList;
 
-import com.benoitkienan.tiles.Tile;
-
 import CDIO.pathFinder.utils.Logger;
+
+import com.benoitkienan.tiles.Tile;
 
 /**
  * The AreaMap holds information about the With, Height, Start position, Goal
