@@ -8,6 +8,10 @@ import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
+import com.benoitkienan.affichage.PanneauGame;
+import com.benoitkienan.gun.Balle;
+import com.benoitkienan.jeu.Niveau;
+import com.benoitkienan.tiles.Tile;
 import com.benoitkienan.tiles.TileManager;
 
 public class Player extends Entity implements KeyListener {
@@ -109,19 +113,44 @@ public class Player extends Entity implements KeyListener {
 	}
     }
 
-    public void shoot(double shootX, double shootY, ArrayList<Entity> EntityList) {
-	posX = posX + (Math.cos(shootY));
-	posY = posY + (Math.sin(shootY));
+    public void shoot(double posXTir, double posYTir, ArrayList<Entity> EntityList, Niveau lvl, PanneauGame panGame) {
 
-	for (Entity entity : EntityList) {
-	    if (entity.getHitbox().contains(new Point((int) shootX, (int) shootY))) {
-		System.out.println(entity.getName() + " a été touché");
+	double angle = getRotationWithMouse(posXTir, posYTir);
+
+	Balle balle = new Balle(posX, posY, 1, 10.0); // Nouvelle
+						      // balle
+
+	boolean touche = false;
+
+	while (true) {
+
+	    Tile[][] arrayLvl = lvl.getArray();
+
+	    balle.setPosX(balle.getPosX() + Math.cos(angle));
+	    balle.setPosY(balle.getPosY() + Math.sin(angle));
+
+	    int x = (int) (balle.getPosX() / panGame.cellSizeX);
+	    int y = (int) (balle.getPosY() / panGame.cellSizeY);
+
+	    for (Entity entity : EntityList) {
+		if (entity.getHitbox().contains(new Point((int) balle.getPosX(), (int) balle.getPosY()))) {
+		    if (entity != this) {
+			System.out.println(entity.getName() + " a ete touche");
+			touche = true;
+			break;
+		    }
+		}
 	    }
-	}
 
-	if (niveau.getArray()[(int) shootX][(int) shootY].isSolid()) {
-	    System.out.println("[" + (int) shootX + "][" + (int) shootY + "] a reçu un tir");
-	    niveau.getArray()[(int) shootX][(int) shootY] = (new TileManager().grass);
+	    if (touche)
+		break;
+
+	    if (niveau.getArray()[x][y].isSolid()) {
+		System.out.println("[" + x + "][" + y + "] a recu un tir");
+		niveau.getArray()[x][y] = (new TileManager().grass);
+		break;
+	    }
+
 	}
 
     }
