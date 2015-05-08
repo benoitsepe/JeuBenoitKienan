@@ -89,18 +89,13 @@ public class Moteur {
 		try {
 
 		    if (hudItems[toolSelected].isWeapon()) { // TIR
-			//
-			// long new_temps = System.currentTimeMillis();
-			//
-			// if ((new_temps - temps) > 1000) { // Intervalle entre
-			// // chaque tir : 1 sec
-			//
-			// temps = System.currentTimeMillis();
-			// Thread tBalle = new Thread(new RunBalle());
-			// tBalle.start();
-			// }
 
-			entitiesManager.getPlayerList().get(0).shoot(panGame.getPointeurX(), panGame.getPointeurY(), entitiesManager.getEntityList(), lvl, panGame);
+			long new_temps = System.currentTimeMillis();
+			if ((new_temps - temps) > 1000) { // Intervalle entre chaque tir : 1 sec
+			    temps = new_temps;
+			    entitiesManager.getPlayerList().get(0).shoot(panGame.getRealPointeurX(), panGame.getRealPointeurY(), entitiesManager.getEntityList(), lvl, panGame);
+
+			}
 
 		    } else {
 
