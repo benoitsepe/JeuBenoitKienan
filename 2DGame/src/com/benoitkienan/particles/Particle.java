@@ -46,11 +46,10 @@ public class Particle {
 	System.out.println("Spawned at x:" + posX + " y:" + posY);
 
     }
-    
+
     public void applyPhysics() {
 	
-     }
-    
+    }
 
     public BufferedImage getImage() {
 	return image;
@@ -153,7 +152,7 @@ public class Particle {
     public double getPosY() {
 	return posY;
     }
-    
+
     public double getVectorX() {
 	return vectorX;
     }
