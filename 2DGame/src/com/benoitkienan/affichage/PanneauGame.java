@@ -154,7 +154,7 @@ public class PanneauGame extends JPanel implements MouseListener {
 	    if (mob.getPath() != null) {
 		if (mob.shortestPath.size() > 0) {
 		    for (int i = 0; i < mob.shortestPath.size(); i++) {
-			g2.fillRect((int) (mob.getPath().get(i).getX() * cellSizeX), (int) (mob.getPath().get(i).getY() * cellSizeY), (int) cellSizeX, (int) cellSizeY);
+			g2.fillRect((int) (mob.getPath().get(i).getX() * cellSizeX), (int) (mob.getPath().get(i).getY() * cellSizeY), (int) cellSizeX / 4, (int) cellSizeY / 4);
 		    }
 		}
 	    }

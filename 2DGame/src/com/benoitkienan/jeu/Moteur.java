@@ -18,14 +18,12 @@ public class Moteur {
     Player player;
     Mob mob1, mob2;
     BufferedImage blueBrick, redBrick, blackBrick, goldBrick, sorcier, cage, poulpe, nyan;
-
     PanneauGame panGame;
     int x, y, d; // Pour cercle d'Andres
     int toolSelected = 2;
     TileManager tileManager;
     public EntitiesManager entitiesManager;
     Item[] hudItems;
-    boolean playerEscape;
 
     Thread tBalle;
 
@@ -161,7 +159,6 @@ public class Moteur {
 		    player.collideEntites(entitiesManager.getEntityList());
 		    player.applyPhysics();
 		    player.setNiveau(lvl);
-		    playerEscape = player.getEscapePressed();
 		}
 
 	    } catch (ArrayIndexOutOfBoundsException e) {
@@ -176,10 +173,6 @@ public class Moteur {
 
 	}
 
-    }
-
-    public boolean getPlayerEscape() {
-	return playerEscape;
     }
 
     public void setHudItems(Item[] hudItems) {

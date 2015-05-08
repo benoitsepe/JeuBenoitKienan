@@ -3,6 +3,9 @@ package com.benoitkienan.affichage;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.WindowEvent;
 
 import javax.swing.JFrame;
 import javax.swing.JLayeredPane;
@@ -55,6 +58,24 @@ public class Fenetre extends JFrame {
 
 	this.requestFocus();
 
+	this.addKeyListener(new KeyListener() {
+
+	    public void keyPressed(KeyEvent arg0) {
+		if (arg0.getKeyChar() == KeyEvent.VK_ESCAPE && !options.isVisible()) {
+		    options.openMenu();
+		}
+	    }
+
+	    public void keyReleased(KeyEvent arg0) {
+
+	    }
+
+	    public void keyTyped(KeyEvent arg0) {
+
+	    }
+
+	});
+
 	tPanel = new Thread(new refreshPanel());
 	tFen = new Thread(new fenThread());
 	tGame = new Thread(new gameThread());
@@ -81,14 +102,12 @@ public class Fenetre extends JFrame {
 	    hud.setToolSelected(panGame.getToolSelected());
 	    mot.setPanneau(panGame);
 
-	    if (mot.getPlayerEscape() && !options.isVisible()) {
-		options.openMenu();
-	    } else if (mot.getPlayerEscape() && options.isVisible()) {
-		options.closeMenu();
+	    if (options.isNeedToQuit()) {
+		this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
 	    }
 
 	    try {
-		Thread.sleep(200);
+		Thread.sleep(10);
 	    } catch (InterruptedException e) {
 		e.printStackTrace();
 	    }

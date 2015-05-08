@@ -16,6 +16,7 @@ public class OptionsMenu extends JPanel {
     Item[] hudItems = new Item[8];
     int toolSelected;
     int caseSize;
+    boolean needToQuit = false;
     Bouton play = new Bouton("Reprendre");
     Bouton control = new Bouton("Contrôles");
     Bouton quit = new Bouton("Quitter");
@@ -58,7 +59,7 @@ public class OptionsMenu extends JPanel {
 
 	quit.addActionListener(new ActionListener() {
 	    public void actionPerformed(ActionEvent a) {
-		System.out.println("Menu contrôle");
+		needToQuit = true;
 	    }
 	});
 
@@ -70,6 +71,13 @@ public class OptionsMenu extends JPanel {
 
     public void openMenu() {
 	this.setVisible(true);
+    }
+
+    /**
+     * @return the needToQuit
+     */
+    public boolean isNeedToQuit() {
+	return needToQuit;
     }
 
 }

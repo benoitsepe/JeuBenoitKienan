@@ -12,7 +12,8 @@ import com.benoitkienan.tiles.TileManager;
 
 public class Player extends Entity implements KeyListener {
     KeyListener clavier;
-    boolean keyUpPressed, keyRightPressed, keyLeftPressed, keyDownPressed, keyNukePressed, keyMinusPressed, keyPlusPressed, keyEscapePressed;
+    boolean keyUpPressed, keyRightPressed, keyLeftPressed, keyDownPressed, keyNukePressed, keyMinusPressed, keyPlusPressed;
+    boolean callOptions;
     char keyUp = 'z';
     char keyRight = 'd';
     char keyLeft = 'q';
@@ -146,10 +147,6 @@ public class Player extends Entity implements KeyListener {
 	return zoom;
     }
 
-    public boolean getEscapePressed() {
-	return keyEscapePressed;
-    }
-
     public void keyPressed(KeyEvent e) {
 	if (e.getKeyChar() == keyUp) {
 	    keyUpPressed = true;
@@ -171,10 +168,6 @@ public class Player extends Entity implements KeyListener {
 	}
 	if (e.getKeyChar() == keyMinus) {
 	    keyMinusPressed = true;
-	}
-
-	if (e.getKeyChar() == KeyEvent.VK_ESCAPE) {
-	    keyEscapePressed = true;
 	}
 
     }
@@ -202,9 +195,6 @@ public class Player extends Entity implements KeyListener {
 	    keyMinusPressed = false;
 	}
 
-	if (e.getKeyChar() == KeyEvent.VK_ESCAPE) {
-	    keyEscapePressed = false;
-	}
     }
 
     public void keyTyped(KeyEvent e) {
