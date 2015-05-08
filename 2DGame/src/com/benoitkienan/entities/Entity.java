@@ -18,7 +18,8 @@ import com.benoitkienan.tiles.TileManager;
 public class Entity {
     Niveau niveau;
     double posX, posY;
-    double vectorX, vectorY;
+    private double vectorX;
+    private double vectorY;
     int speed;
     Random rand = new Random();
     PanneauGame panGame;
@@ -30,6 +31,8 @@ public class Entity {
     int masse = 10;
     TileManager tileManager;
     String name;
+    
+    int life;
 
     public Entity(String name) {
 	this.name=name;
@@ -54,7 +57,7 @@ public class Entity {
     public void sayInfos() {
 	System.out.println("--------------------------------------------------------------");
 	System.out.println("posX:" + posX + " posY:" + posY);
-	System.out.println("vectorX:" + vectorX + " vectorY:" + vectorY);
+	System.out.println("vectorX:" + getVectorX() + " vectorY:" + getVectorY());
     }
 
     public void spawnRandom() { // Place l'entité aléatoirement
@@ -115,10 +118,10 @@ public class Entity {
     }
 
     public double getRotationWithVectors() {
-	if (vectorX != 0 || vectorY != 0) {
+	if (getVectorX() != 0 || getVectorY() != 0) {
 
-	    modZ = Math.sqrt(Math.pow(vectorX, 2) + Math.pow(vectorY, 2));
-	    rotation = Math.acos(vectorX / modZ);
+	    modZ = Math.sqrt(Math.pow(getVectorX(), 2) + Math.pow(getVectorY(), 2));
+	    rotation = Math.acos(getVectorX() / modZ);
 	    return rotation;
 	} else {
 	    return 0;
@@ -127,12 +130,12 @@ public class Entity {
 
     public void collide() { // Collisions avec les blocs seulement
 	try {
-	    if (niveau.getArray()[(int) ((posX + vectorX) / panGame.cellSizeX)][(int) (posY / panGame.cellSizeY)].isSolid()) {
-		vectorX = 0;
+	    if (niveau.getArray()[(int) ((posX + getVectorX()) / panGame.cellSizeX)][(int) (posY / panGame.cellSizeY)].isSolid()) {
+		setVectorX(0);
 	    }
 
-	    if (niveau.getArray()[(int) (posX / panGame.cellSizeX)][(int) ((posY + vectorY) / panGame.cellSizeY)].isSolid()) {
-		vectorY = 0;
+	    if (niveau.getArray()[(int) (posX / panGame.cellSizeX)][(int) ((posY + getVectorY()) / panGame.cellSizeY)].isSolid()) {
+		setVectorY(0);
 	    }
 
 	} catch (ArrayIndexOutOfBoundsException e) {
@@ -144,8 +147,8 @@ public class Entity {
 	for (Entity ent : entList) {
 	    if (ent != this) {
 		if (checkCollision((int) ent.getPosX(), (int) ent.getPosY(), (int) (panGame.cellSizeX), (int) (panGame.cellSizeY))) {
-		    vectorX = (vectorX > 0) ? (vectorX + ent.vectorX + 1) : (vectorX + ent.vectorX - 1);
-		    vectorY = (vectorY > 0) ? (vectorY + ent.vectorY + 1) : (vectorY + ent.vectorY - 1);
+		    setVectorX((getVectorX() > 0) ? (getVectorX() + ent.getVectorX() + 1) : (getVectorX() + ent.getVectorX() - 1));
+		    setVectorY((getVectorY() > 0) ? (getVectorY() + ent.getVectorY() + 1) : (getVectorY() + ent.getVectorY() - 1));
 		}
 	    }
 	}
@@ -188,24 +191,24 @@ public class Entity {
 
     public void applyPhysics() {
 	collide(); // WTF
-	if (niveau.getArray().length > ((posX + vectorX + panGame.cellSizeX) / panGame.cellSizeX) && ((posX + vectorX) / panGame.cellSizeX) > 0) // WAT
+	if (niveau.getArray().length > ((posX + getVectorX() + panGame.cellSizeX) / panGame.cellSizeX) && ((posX + getVectorX()) / panGame.cellSizeX) > 0) // WAT
 																		 // ?
-	    posX = posX + vectorX;
-	if (niveau.getArray()[1].length > ((posY + vectorY + panGame.cellSizeY) / panGame.cellSizeY) && ((posY + vectorY) / panGame.cellSizeY) > 0) // RE-WHAT
+	    posX = posX + getVectorX();
+	if (niveau.getArray()[1].length > ((posY + getVectorY() + panGame.cellSizeY) / panGame.cellSizeY) && ((posY + getVectorY()) / panGame.cellSizeY) > 0) // RE-WHAT
 																		    // ?
-	    posY = posY + vectorY;
+	    posY = posY + getVectorY();
 
-	vectorX = vectorX / 2; // WHY ?
-	vectorY = vectorY / 2;
+	setVectorX(getVectorX() / 2); // WHY ?
+	setVectorY(getVectorY() / 2);
 
     }
 
     public void addForceX(double force) {
-	vectorX = vectorX + force;
+	setVectorX(getVectorX() + force);
     }
 
     public void addForceY(double force) {
-	vectorY = vectorY + force;
+	setVectorY(getVectorY() + force);
     }
 
     public void setPosX(double pos) {
@@ -226,5 +229,21 @@ public class Entity {
 
     public String getName(){
 	return name;
+    }
+
+    public double getVectorX() {
+	return vectorX;
+    }
+
+    public void setVectorX(double vectorX) {
+	this.vectorX = vectorX;
+    }
+
+    public double getVectorY() {
+	return vectorY;
+    }
+
+    public void setVectorY(double vectorY) {
+	this.vectorY = vectorY;
     }
 }

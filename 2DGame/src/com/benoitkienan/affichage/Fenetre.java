@@ -46,7 +46,7 @@ public class Fenetre extends JFrame {
 	this.setResizable(true);
 	// this.setJMenuBar(menuBar);
 
-	for (Player player : mot.PlayerList) {
+	for (Player player : mot.entitiesManager.getPlayerList()) {
 	    this.addKeyListener(player);
 	}
 

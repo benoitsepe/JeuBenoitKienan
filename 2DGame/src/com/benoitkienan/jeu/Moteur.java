@@ -1,12 +1,9 @@
 package com.benoitkienan.jeu;
 
 import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.util.ArrayList;
-
-import javax.imageio.ImageIO;
 
 import com.benoitkienan.affichage.PanneauGame;
+import com.benoitkienan.entities.EntitiesManager;
 import com.benoitkienan.entities.Entity;
 import com.benoitkienan.entities.Mob;
 import com.benoitkienan.entities.Player;
@@ -25,10 +22,8 @@ public class Moteur {
     PanneauGame panGame;
     int x, y, d; // Pour cercle d'Andres
     int toolSelected = 2;
-    ArrayList<Mob> MobList = new ArrayList<Mob>();
-    public ArrayList<Player> PlayerList = new ArrayList<Player>();
-    ArrayList<Entity> EntityList = new ArrayList<Entity>();
     TileManager tileManager;
+    public EntitiesManager entitiesManager;
     Item[] hudItems;
     boolean playerEscape;
 
@@ -37,65 +32,40 @@ public class Moteur {
     public Moteur(PanneauGame pan) {
 
 	tileManager = new TileManager();
+	entitiesManager = new EntitiesManager();
 
-	try {
-	    String path = ("Pictures/");
-	    sorcier = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream(path + "sorcier.png"));
-	    cage = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream(path + "CAGE.png"));
-	    poulpe = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream(path + "poulpe.png"));
-	    nyan = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream(path + "nyan.png"));
-
-	} catch (IOException e) {
-	    e.printStackTrace();
-	}
-	
-	player = new Player("Roger", "personnage.png");
-	mob1 = new Mob("Cage", "sorcier.png");
-	mob2 = new Mob("Calamar", "CAGE.png");
-	
 	lvl.createRandomLvl();
 	panGame = pan;
-	PlayerList.add(player);
-	// PlayerList.add(player2);
-	MobList.add(mob1);
-	MobList.add(mob2);
-
-	for (Player pl : PlayerList) {
-	    pl.setNiveau(lvl);
-	    pl.setPanneauGame(panGame);
-	    EntityList.add(pl);
-	}
-
-	for (Mob mob : MobList) {
-	    mob.setNiveau(lvl);
-	    mob.setPanneauGame(panGame);
-	    EntityList.add(mob);
+	
+	for (Entity ent : entitiesManager.getEntityList()){
+	    ent.setNiveau(lvl);
+	    ent.setPanneauGame(panGame);
 	}
 
     }
 
     public void runIA() {
-	for (Mob mob : MobList) {
+	for (Mob mob : entitiesManager.getMobList()) {
 	    mob.spawnRandom();
-	    mob.goToNearestPlayer(PlayerList, lvl.getArray());
+	    mob.goToNearestPlayer(entitiesManager.getPlayerList(), lvl.getArray());
 	    mob.nuke(lvl.getArray(), 50);
 
 	}
 
 	while (true) {
-	    for (Mob mob : MobList) {
+	    for (Mob mob : entitiesManager.getMobList()) {
 		mob.setNiveau(lvl);
-		mob.collideEntites(EntityList);
+		mob.collideEntites(entitiesManager.getEntityList());
 		mob.applyPhysics();
 
-		mob.getNearestPlayer(PlayerList, lvl.getArray());
+		mob.getNearestPlayer(entitiesManager.getPlayerList(), lvl.getArray());
 		if (mob.shortestPath != null) {
-		    mob.goToNearestPlayer(PlayerList, lvl.getArray());
+		    mob.goToNearestPlayer(entitiesManager.getPlayerList(), lvl.getArray());
 		    mob.followPath();
 		}
 
 	    }
-	    panGame.setMobList(MobList);
+	    panGame.setMobList(entitiesManager.getMobList());
 
 	    try {
 		Thread.sleep(20);
@@ -132,7 +102,7 @@ public class Moteur {
 //			    tBalle.start();
 //			}
 			
-			player.shoot(panGame.getPointeurX(), panGame.getPointeurY(), EntityList);
+			player.shoot(panGame.getPointeurX(), panGame.getPointeurY(), entitiesManager.getEntityList());
 			
 
 		    } else {
@@ -158,7 +128,7 @@ public class Moteur {
 		}
 	    }
 
-	    panGame.setPlayerList(PlayerList);
+	    panGame.setPlayerList(entitiesManager.getPlayerList());
 	    panGame.setNiveau(lvl);
 
 	    try {
@@ -172,10 +142,10 @@ public class Moteur {
 
     public void motApplyPhysics() {
 	panGame.setNiveau(lvl);
-	panGame.setPlayerList(PlayerList);
-	panGame.setMobList(MobList);
+	panGame.setPlayerList(entitiesManager.getPlayerList());
+	panGame.setMobList(entitiesManager.getMobList());
 
-	for (Player player : PlayerList) {
+	for (Player player : entitiesManager.getPlayerList()) {
 	    player.setPanneauGame(panGame);
 	    player.setNiveau(lvl);
 	    player.spawnRandom();
@@ -186,10 +156,10 @@ public class Moteur {
 	while (true) {
 
 	    try {
-		for (Player player : PlayerList) {
+		for (Player player : entitiesManager.getPlayerList()) {
 
 		    player.runPlayer();
-		    player.collideEntites(EntityList);
+		    player.collideEntites(entitiesManager.getEntityList());
 		    player.applyPhysics();
 		    player.setNiveau(lvl);
 		    playerEscape=player.getEscapePressed();
@@ -269,7 +239,7 @@ public class Moteur {
 
 		    boolean touch = false;
 
-		    for (Mob mob : MobList) {
+		    for (Mob mob : entitiesManager.getMobList()) {
 			if (mob.checkCollision(x, y, 1, 1)) {
 			    System.out.println("TOCUHE ! en x=" + x + " et y=" + y);
 			    touch = true;
