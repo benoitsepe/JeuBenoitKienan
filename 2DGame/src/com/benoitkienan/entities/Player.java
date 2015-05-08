@@ -21,7 +21,7 @@ public class Player extends Entity implements KeyListener {
     char keyMinus = '-';
     char keyPlus = '+';
 
-    int speed = 100;
+    int speed = 10;
     double zoom = 0.4;
 
     public Player(String name) {
