@@ -4,7 +4,6 @@ import java.awt.Point;
 import java.util.ArrayList;
 
 import CDIO.pathFinder.bresenhamsLine.BresenhamsLine;
-import CDIO.pathFinder.graphics.PrintMap;
 import CDIO.pathFinder.heuristics.AStarHeuristic;
 import CDIO.pathFinder.heuristics.DiagonalHeuristic;
 import CDIO.pathFinder.utils.Logger;

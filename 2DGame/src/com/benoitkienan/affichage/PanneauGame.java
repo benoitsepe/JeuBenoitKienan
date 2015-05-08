@@ -14,15 +14,14 @@ import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
-import java.util.ArrayList;
 
 import javax.swing.JPanel;
+
+import CDIO.pathFinder.Node;
 
 import com.benoitkienan.entities.Mob;
 import com.benoitkienan.entities.Player;
 import com.benoitkienan.jeu.Niveau;
-
-import CDIO.pathFinder.Node;
 
 public class PanneauGame extends JPanel implements MouseListener {
 
@@ -153,25 +152,24 @@ public class PanneauGame extends JPanel implements MouseListener {
 	for (Mob mob : MobList) {
 	    // Dessin du path
 	    if (mob.getPath() != null) {
-		if(mob.shortestPath.size()>0){
-		for (int i = 0; i < mob.shortestPath.size(); i++) {
-		    g2.fillRect((int) (mob.getPath().get(i).getX() * cellSizeX), (int) (mob.getPath().get(i).getY() * cellSizeY), (int) cellSizeX, (int) cellSizeY);
-		}
+		if (mob.shortestPath.size() > 0) {
+		    for (int i = 0; i < mob.shortestPath.size(); i++) {
+			g2.fillRect((int) (mob.getPath().get(i).getX() * cellSizeX), (int) (mob.getPath().get(i).getY() * cellSizeY), (int) cellSizeX, (int) cellSizeY);
+		    }
 		}
 	    }
 	    // Fin dessin path
 
 	    g2.drawImage(rotate(mob.getImage(), (int) cellSizeX, (int) cellSizeY, mob.getRotationWithVectors()), (int) (mob.getPosX() - cellSizeX / 2), (int) (mob.getPosY() - cellSizeY / 2), (int) cellSizeX, (int) cellSizeY, this);
-	   
-	    g2.setColor(Color.ORANGE);
-	    g2.setStroke(new BasicStroke(5));
-	    g2.draw(mob.getSearchZone());
+
 	}
 
 	for (Player player : PlayerList) {
 	    g2.drawImage(rotate(player.getImage(), (int) cellSizeX, (int) cellSizeY, player.getRotationWithMouse(realPointeurX, realPointeurY)), (int) (player.getPosX() - cellSizeX / 2), (int) (player.getPosY() - cellSizeY / 2), (int) cellSizeX, (int) cellSizeY, this);
-	    //player.getRotationWithMouse(realPointeurX, realPointeurY);
-	    //g2.drawImage(player.getImage(), (int) (player.getPosX() - cellSizeX / 2), (int) (player.getPosY() - cellSizeY / 2), (int) cellSizeX, (int) cellSizeY, this);
+	    // player.getRotationWithMouse(realPointeurX, realPointeurY);
+	    // g2.drawImage(player.getImage(), (int) (player.getPosX() -
+	    // cellSizeX / 2), (int) (player.getPosY() - cellSizeY / 2), (int)
+	    // cellSizeX, (int) cellSizeY, this);
 
 	}
 

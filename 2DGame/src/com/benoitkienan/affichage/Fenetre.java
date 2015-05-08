@@ -30,7 +30,7 @@ public class Fenetre extends JFrame {
     PanelThread panThread = new PanelThread(this, panGame, hud);
     char touche;
     JLayeredPane mainPan = new JLayeredPane();
-    int guiSize=1;
+    int guiSize = 1;
 
     public Fenetre(String title) {
 
@@ -72,22 +72,21 @@ public class Fenetre extends JFrame {
     private void runFen() {
 	while (true) {
 	    panGame.setBounds(0, 0, this.getWidth(), this.getHeight());
-	    hud.setBounds(this.getWidth()/3, this.getHeight() - 95, this.getWidth() - 2*(this.getWidth()/3), 50);
-	    options.setBounds((this.getWidth()/2)-guiSize*(100), (this.getHeight()/2)-guiSize*(100), guiSize*(200), guiSize*(200));
+	    hud.setBounds(this.getWidth() / 3, this.getHeight() - 95, this.getWidth() - 2 * (this.getWidth() / 3), 50);
+	    options.setBounds((this.getWidth() / 2) - guiSize * (100), (this.getHeight() / 2) - guiSize * (100), guiSize * (200), guiSize * (200));
 
 	    this.requestFocus();
 	    mot.setToolSelected(panGame.getToolSelected());
 	    mot.setHudItems(hud.getHudItems());
 	    hud.setToolSelected(panGame.getToolSelected());
 	    mot.setPanneau(panGame);
-	    
-	    if(mot.getPlayerEscape() && !options.isVisible()){
+
+	    if (mot.getPlayerEscape() && !options.isVisible()) {
 		options.openMenu();
-	    }else if(mot.getPlayerEscape() && options.isVisible()){
+	    } else if (mot.getPlayerEscape() && options.isVisible()) {
 		options.closeMenu();
 	    }
-	    
-	    
+
 	    try {
 		Thread.sleep(200);
 	    } catch (InterruptedException e) {

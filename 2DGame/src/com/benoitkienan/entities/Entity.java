@@ -3,7 +3,6 @@ package com.benoitkienan.entities;
 import java.awt.Color;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
@@ -31,11 +30,11 @@ public class Entity {
     int masse = 10;
     TileManager tileManager;
     String name;
-    
+
     int life;
 
     public Entity(String name) {
-	this.name=name;
+	this.name = name;
 	tileManager = new TileManager();
 	try {
 	    image = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("Pictures/notDefined.png"));
@@ -43,12 +42,12 @@ public class Entity {
 	    e.printStackTrace();
 	}
     }
-    
+
     public Entity(String name, String imgName) {
-	this.name=name;
+	this.name = name;
 	tileManager = new TileManager();
 	try {
-	    image = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("Pictures/"+imgName));
+	    image = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("Pictures/" + imgName));
 	} catch (IOException e) {
 	    e.printStackTrace();
 	}
@@ -192,10 +191,10 @@ public class Entity {
     public void applyPhysics() {
 	collide(); // WTF
 	if (niveau.getArray().length > ((posX + getVectorX() + panGame.cellSizeX) / panGame.cellSizeX) && ((posX + getVectorX()) / panGame.cellSizeX) > 0) // WAT
-																		 // ?
+	    // ?
 	    posX = posX + getVectorX();
 	if (niveau.getArray()[1].length > ((posY + getVectorY() + panGame.cellSizeY) / panGame.cellSizeY) && ((posY + getVectorY()) / panGame.cellSizeY) > 0) // RE-WHAT
-																		    // ?
+	    // ?
 	    posY = posY + getVectorY();
 
 	setVectorX(getVectorX() / 2); // WHY ?
@@ -227,7 +226,7 @@ public class Entity {
 	return posY;
     }
 
-    public String getName(){
+    public String getName() {
 	return name;
     }
 

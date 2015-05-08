@@ -36,8 +36,8 @@ public class Moteur {
 
 	lvl.createRandomLvl();
 	panGame = pan;
-	
-	for (Entity ent : entitiesManager.getEntityList()){
+
+	for (Entity ent : entitiesManager.getEntityList()) {
 	    ent.setNiveau(lvl);
 	    ent.setPanneauGame(panGame);
 	}
@@ -58,8 +58,8 @@ public class Moteur {
 		mob.collideEntites(entitiesManager.getEntityList());
 		mob.applyPhysics();
 
-		mob.getNearestPlayer(entitiesManager.getPlayerList(), lvl.getArray());
-		if (mob.shortestPath != null) {
+		mob.getNearestPlayer(entitiesManager.getPlayerList());
+		if (mob.isInSearchZone()) {
 		    mob.goToNearestPlayer(entitiesManager.getPlayerList(), lvl.getArray());
 		    mob.followPath();
 		}
@@ -91,24 +91,23 @@ public class Moteur {
 		try {
 
 		    if (hudItems[toolSelected].isWeapon()) { // TIR
-//
-//			long new_temps = System.currentTimeMillis();
-//
-//			if ((new_temps - temps) > 1000) { // Intervalle entre
-//							  // chaque tir : 1 sec
-//
-//			    temps = System.currentTimeMillis();
-//			    Thread tBalle = new Thread(new RunBalle());
-//			    tBalle.start();
-//			}
-			
+			//
+			// long new_temps = System.currentTimeMillis();
+			//
+			// if ((new_temps - temps) > 1000) { // Intervalle entre
+			// // chaque tir : 1 sec
+			//
+			// temps = System.currentTimeMillis();
+			// Thread tBalle = new Thread(new RunBalle());
+			// tBalle.start();
+			// }
+
 			player.shoot(panGame.getPointeurX(), panGame.getPointeurY(), entitiesManager.getEntityList());
-			
 
 		    } else {
 
 			if (hudItems[toolSelected].isTile()) {
-			    lvl.getArray()[panGame.getPointeurX()][panGame.getPointeurY()]= hudItems[toolSelected].getTile();
+			    lvl.getArray()[panGame.getPointeurX()][panGame.getPointeurY()] = hudItems[toolSelected].getTile();
 			}
 
 			panGame.setNiveau(lvl);
@@ -162,7 +161,7 @@ public class Moteur {
 		    player.collideEntites(entitiesManager.getEntityList());
 		    player.applyPhysics();
 		    player.setNiveau(lvl);
-		    playerEscape=player.getEscapePressed();
+		    playerEscape = player.getEscapePressed();
 		}
 
 	    } catch (ArrayIndexOutOfBoundsException e) {
@@ -179,10 +178,10 @@ public class Moteur {
 
     }
 
-    public boolean getPlayerEscape(){
+    public boolean getPlayerEscape() {
 	return playerEscape;
     }
-    
+
     public void setHudItems(Item[] hudItems) {
 	this.hudItems = hudItems;
     }

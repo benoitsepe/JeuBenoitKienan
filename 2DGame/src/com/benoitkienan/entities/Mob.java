@@ -23,30 +23,32 @@ public class Mob extends Entity {
     ArrayList<Point> path;
     Node node;
     Player nearestPlayer;
-    int xMin, xMax, yMin, yMax;
+    Entity nearestEntity;
     int distanceX, distanceY;
-    int searchZone=20;
+    int searchZone = 20;
 
     public Mob(String name) {
 	super(name);
 	speed = 10;
     }
-    
+
     public Mob(String name, String imgName) {
- 	super(name);
- 	speed = 10;
+	super(name);
+	speed = 10;
 	try {
-	    image = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("Pictures/"+imgName));
+	    image = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("Pictures/" + imgName));
 	} catch (IOException e) {
 	    e.printStackTrace();
 	}
-     }
-    
-    public Rectangle getSearchZone(){
-	Rectangle r = new Rectangle((int)(xMin*panGame.cellSizeX), (int)(yMin*panGame.cellSizeY), (int)(2*searchZone*panGame.cellSizeX), (int)(2*searchZone*panGame.cellSizeY));
-	return r;
     }
-    
+
+    public boolean isInSearchZone() {
+	if (getManhattanDistance(nearestPlayer.getPosX(), nearestPlayer.getPosY()) < searchZone) {
+	    return true;
+	} else {
+	    return false;
+	}
+    }
 
     public void refreshPath(int bx, int by, Tile[][] array) {
 	map = new AreaMap(array.length, array[0].length, array);
@@ -74,66 +76,44 @@ public class Mob extends Entity {
 
     }
 
-    public Player getNearestPlayer(ArrayList<Player> plist, Tile[][] array) {
-	if ((int) ((posX / panGame.cellSizeX) - searchZone) < 0) {
-	    xMin = 0;
-	} else {
-	    xMin = (int) ((posX / panGame.cellSizeX) - searchZone);
-	}
-
-	if ((int) ((posX / panGame.cellSizeX) + searchZone) > array.length) {
-	    xMax = array.length;
-	} else {
-	    xMax = (int) ((posX / panGame.cellSizeX) + searchZone);
-	}
-
-	if ((int) ((posY / panGame.cellSizeY) - searchZone) < 0) {
-	    yMin = 0;
-	} else {
-	    yMin = (int) ((posY / panGame.cellSizeY) - searchZone);
-	}
-
-	if ((int) ((posY / panGame.cellSizeY) + searchZone) > array[0].length) {
-	    yMax = array[0].length;
-	} else {
-	    yMax = (int) ((posY / panGame.cellSizeY) + searchZone);
-	}
-
-	Tile[][] aggroMob = new Tile[searchZone*2][searchZone*2];
-
-	for (int x = xMin; y < xMax; y++) {
-	    for (int y = yMin; y < yMax; y++) {
-		aggroMob[x][y] = array[x][y];
+    public Entity getNearestEntity(ArrayList<Entity> eList) {
+	nearestEntity = eList.get(0);
+	for (Entity entity : eList) {
+	    if ((Math.abs(entity.getPosX() - posX) + Math.abs(entity.getPosY() - posY)) < (Math.abs(nearestEntity.getPosX() - posX) + Math.abs(nearestEntity.getPosY() - posY))) {
+		nearestEntity = entity;
 	    }
 	}
+	return nearestEntity;
+    }
 
-	for (Player pl : plist) {
-	    distanceX = (int) Math.abs((pl.getPosX() / panGame.cellSizeX) - (posX / panGame.cellSizeX));
-	    distanceY = (int) Math.abs((pl.getPosY() / panGame.cellSizeY) - (posY / panGame.cellSizeY));
-	    if (distanceX < searchZone && distanceY < searchZone) {
-		map = new AreaMap(aggroMob.length, aggroMob[0].length, aggroMob);
-		aStar = new AStar(map, heuristic);
-		path = aStar.calcShortestPath((int) (posX / panGame.cellSizeX), (int) (posY / panGame.cellSizeY), (int) (pl.getPosX() / panGame.cellSizeX), (int) (pl.getPosY() / panGame.cellSizeY));
-
-		if (path != null) {
-		    if (shortestPath == null) {
-			shortestPath = path;
-		    } else if (shortestPath.size() > path.size()) {
-			nearestPlayer = pl;
-		    }
-
-		}
+    public Player getNearestPlayer(ArrayList<Player> pList) {
+	nearestPlayer = pList.get(0);
+	for (Player player : pList) {
+	    if ((Math.abs(player.getPosX() - posX) + Math.abs(player.getPosY() - posY)) < (Math.abs(nearestPlayer.getPosX() - posX) + Math.abs(nearestPlayer.getPosY() - posY))) {
+		nearestPlayer = player;
 	    }
 	}
 	return nearestPlayer;
+
+    }
+
+    public double getManhattanDistance(double posX2, double posY2) {
+	double ManhattanDistance = Math.abs((posX2 - posX) / panGame.cellSizeX) + Math.abs((posY2 - posY) / panGame.cellSizeY);
+	return ManhattanDistance;
     }
 
     public void goToNearestPlayer(ArrayList<Player> plist, Tile[][] array) {
+	if (nearestPlayer != null) {
+	    this.refreshPath((int) (this.nearestPlayer.getPosX() / panGame.cellSizeX), (int) (this.nearestPlayer.getPosY() / panGame.cellSizeY), array);
+	}
+    }
 
-	this.getNearestPlayer(plist, array);
+    public void goToNearestEntity(ArrayList<Entity> plist, Tile[][] array) {
+
+	this.getNearestEntity(plist);
 	if (distanceX < searchZone && distanceY < searchZone) {
-	    if (nearestPlayer != null)
-		this.refreshPath((int) (this.nearestPlayer.getPosX() / panGame.cellSizeX), (int) (this.nearestPlayer.getPosY() / panGame.cellSizeY), array);
+	    if (nearestEntity != null)
+		this.refreshPath((int) (this.nearestEntity.getPosX() / panGame.cellSizeX), (int) (this.nearestEntity.getPosY() / panGame.cellSizeY), array);
 	}
     }
 

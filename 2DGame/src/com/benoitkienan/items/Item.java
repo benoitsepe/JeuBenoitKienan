@@ -7,8 +7,8 @@ import com.benoitkienan.gun.Arme;
 import com.benoitkienan.tiles.Tile;
 
 public class Item {
-    boolean isTile= false;
-    boolean isWeapon= false;
+    boolean isTile = false;
+    boolean isWeapon = false;
     boolean isSpawner = false;
     String name;
     Tile tile;
@@ -25,10 +25,10 @@ public class Item {
 	name = tile.getName();
 	itemImg = tile.getImg();
     }
-    
-    public Item(Entity entity){
-	name=entity.getName();
-	isSpawner=true;
+
+    public Item(Entity entity) {
+	name = entity.getName();
+	isSpawner = true;
     }
 
     public Item(Arme arme) {

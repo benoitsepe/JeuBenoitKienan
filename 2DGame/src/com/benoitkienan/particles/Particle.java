@@ -28,11 +28,11 @@ public class Particle {
     BufferedImage image;
     int masse = 10;
     TileManager tileManager;
-    
+
     public Particle(String imgName) {
 	tileManager = new TileManager();
 	try {
-	    image = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("Pictures/"+imgName));
+	    image = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("Pictures/" + imgName));
 	} catch (IOException e) {
 	    e.printStackTrace();
 	}
@@ -83,12 +83,12 @@ public class Particle {
 
     public void collideEntities(ArrayList<Entity> entList) {
 	for (Entity ent : entList) {
-		if (checkCollision((int) ent.getPosX(), (int) ent.getPosY(), (int) (panGame.cellSizeX), (int) (panGame.cellSizeY))) {
-		    vectorX = (vectorX > 0) ? (vectorX + ent.getVectorX() + 1) : (vectorX + ent.getVectorX() - 1);
-		    vectorY = (vectorY > 0) ? (vectorY + ent.getVectorY() + 1) : (vectorY + ent.getVectorY() - 1);
-		}
+	    if (checkCollision((int) ent.getPosX(), (int) ent.getPosY(), (int) (panGame.cellSizeX), (int) (panGame.cellSizeY))) {
+		vectorX = (vectorX > 0) ? (vectorX + ent.getVectorX() + 1) : (vectorX + ent.getVectorX() - 1);
+		vectorY = (vectorY > 0) ? (vectorY + ent.getVectorY() + 1) : (vectorY + ent.getVectorY() - 1);
 	    }
 	}
+    }
 
     /**
      * 
@@ -126,7 +126,7 @@ public class Particle {
     }
 
     public void applyPhysics() {
-	
+
     }
 
     public void addForceX(double force) {
@@ -153,6 +153,3 @@ public class Particle {
 	return posY;
     }
 }
-
-
-
