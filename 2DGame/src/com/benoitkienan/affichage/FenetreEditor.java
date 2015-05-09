@@ -38,19 +38,19 @@ public class FenetreEditor extends JFrame {
 	this.setSize(1280, 720);
 	this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	this.setLocationRelativeTo(null);
-	//mainPan.setLayout(bl);
 	mainPan.add(options, 105, 0);
+	mainPan.add(toolBar, 105, 0);
 	mainPan.add(panGame, 100, 2);
 	this.setContentPane(mainPan);
 	this.setResizable(true);
 	this.setJMenuBar(menuBar);
-	this.add(toolBar);
 
-	    this.addKeyListener(mot.camera);
+	this.addKeyListener(mot.camera);
 	
 
 	this.setVisible(true);
 	panGame.setBounds(0, 0, this.getWidth(), this.getHeight());
+	toolBar.setBounds(0, 0, this.getWidth(), 50);
 
 	this.requestFocus();
 
@@ -91,6 +91,7 @@ public class FenetreEditor extends JFrame {
 
 	    this.requestFocus();
 	    mot.setPanneau(panGame);
+	    mot.setToolSelected(toolBar.getToolSelected());
 
 	    if (options.isNeedToQuit()) {
 		this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));

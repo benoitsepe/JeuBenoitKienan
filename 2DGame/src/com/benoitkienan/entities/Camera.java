@@ -15,7 +15,7 @@ public class Camera extends Player implements KeyListener {
     char keyMinus = '-';
     char keyPlus = '+';
 
-    int speed = 10;
+    int speed = 20;
     double zoom = 0.4;
 
     public Camera(String name) {
@@ -23,14 +23,12 @@ public class Camera extends Player implements KeyListener {
     }
 
     public void applyPhysics() {
-	if (niveau.getArray().length > ((posX + getVectorX() + panGame.cellSizeX) / panGame.cellSizeX) && ((posX + getVectorX()) / panGame.cellSizeX) > 0) // WAT
-	    // ?
+	if (niveau.getArray().length > ((posX + getVectorX() + panGame.cellSizeX) / panGame.cellSizeX) && ((posX + getVectorX()) / panGame.cellSizeX) > 0)
 	    posX = posX + getVectorX();
-	if (niveau.getArray()[1].length > ((posY + getVectorY() + panGame.cellSizeY) / panGame.cellSizeY) && ((posY + getVectorY()) / panGame.cellSizeY) > 0) // RE-WHAT
-	    // ?
+	if (niveau.getArray()[1].length > ((posY + getVectorY() + panGame.cellSizeY) / panGame.cellSizeY) && ((posY + getVectorY()) / panGame.cellSizeY) > 0)
 	    posY = posY + getVectorY();
 
-	setVectorX(getVectorX() / 2); // WHY ?
+	setVectorX(getVectorX() / 2);
 	setVectorY(getVectorY() / 2);
 
     }
@@ -51,7 +49,7 @@ public class Camera extends Player implements KeyListener {
 	if (keyPlusPressed && zoom < 0.95) {
 	    zoom = zoom + 0.01;
 	}
-	if (keyMinusPressed && zoom > 0.05) {
+	if (keyMinusPressed && zoom > 0.04) {
 	    zoom = zoom - 0.01;
 	}
 

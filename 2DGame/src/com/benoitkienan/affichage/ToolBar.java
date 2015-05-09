@@ -1,74 +1,54 @@
 package com.benoitkienan.affichage;
 
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Map;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JToolBar;
 
+import com.benoitkienan.items.Item;
+import com.benoitkienan.items.ItemManager;
+import com.benoitkienan.tiles.Tile;
+import com.benoitkienan.tiles.TileManager;
+
 public class ToolBar extends JToolBar {
-
-    JButton gunButton = new JButton(new ImageIcon("Pictures/gun.png"));
-    JButton eraserButton = new JButton(new ImageIcon("Pictures/eraser.png"));
-    JButton blueBrickButton = new JButton(new ImageIcon("Pictures/blueBrick.png"));
-    JButton redBrickButton = new JButton(new ImageIcon("Pictures/redBrick.png"));
-    JButton blackBrickButton = new JButton(new ImageIcon("Pictures/blackBrick.png"));
-    JButton goldBrickButton = new JButton(new ImageIcon("Pictures/goldBrick.png"));
-    JButton rainbow = new JButton(new ImageIcon("Pictures/rainbow.png"));
-
-    int toolSelected;
+    
+    TileManager tileManager = new TileManager();
+    Tile toolSelected = tileManager.grass;
     int sliderValue = 1;
+    ArrayList<JButton> buttonList = new ArrayList<JButton>();
+    
 
     public ToolBar() {
+	
+	for(final Tile tile : tileManager.getTileList()){
+	    buttonList.add(new JButton(new ImageIcon(tile.getImg().getScaledInstance(20, 20, Image.SCALE_DEFAULT))));
+	    buttonList.get(buttonList.size() - 1).addActionListener(new ActionListener(){
+		public void actionPerformed(ActionEvent a){
+		    toolSelected=tile;
+		}
+	    });;
+	}
+	
+	for(JButton button : buttonList){
+	    this.add(button);
+	}
+	
+	
 
-	eraserButton.addActionListener(new ActionListener() {
-	    public void actionPerformed(ActionEvent a) {
-		toolSelected = 0;
-	    }
-	});
 
-	blueBrickButton.addActionListener(new ActionListener() {
-	    public void actionPerformed(ActionEvent a) {
-		toolSelected = 1;
-	    }
-	});
-
-	redBrickButton.addActionListener(new ActionListener() {
-	    public void actionPerformed(ActionEvent a) {
-		toolSelected = 2;
-	    }
-	});
-
-	blackBrickButton.addActionListener(new ActionListener() {
-	    public void actionPerformed(ActionEvent a) {
-		toolSelected = 3;
-	    }
-	});
-
-	goldBrickButton.addActionListener(new ActionListener() {
-	    public void actionPerformed(ActionEvent a) {
-		toolSelected = 4;
-	    }
-	});
-
-	gunButton.addActionListener(new ActionListener() {
-	    public void actionPerformed(ActionEvent a) {
-		toolSelected = 5;
-	    }
-	});
-
-	this.add(gunButton);
-	this.add(eraserButton);
-	this.add(blueBrickButton);
-	this.add(redBrickButton);
-	this.add(blackBrickButton);
-	this.add(goldBrickButton);
+	
 	this.setFloatable(false);
+	this.setVisible(true);
 
     }
 
-    public int getToolSelected() {
+    public Tile getToolSelected() {
 	return toolSelected;
     }
 
