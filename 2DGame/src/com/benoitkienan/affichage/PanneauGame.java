@@ -51,6 +51,7 @@ public class PanneauGame extends JPanel implements MouseListener {
     BufferedImage blueBrickImg, redBrickImg, blackBrickImg, goldBrickImg, grassImg;
     int toolSelected = 0;
     int mouseX, mouseY;
+    Player focusPlayer;
 
     Color exterior = Color.gray.darker();
 
@@ -88,12 +89,12 @@ public class PanneauGame extends JPanel implements MouseListener {
     }
 
     public void paintComponent(Graphics g) {
-	realPointeurX = (((PlayerList.get(0).getPosX() - width) + ((mouseX) * 2)));
-	realPointeurY = (((PlayerList.get(0).getPosY() - height) + ((mouseY) * 2)));
-	pointeurX = (int) (((PlayerList.get(0).getPosX() - width / 2 / zoom) / cellSizeX) + ((mouseX / zoom) / cellSizeX));
-	pointeurY = (int) (((PlayerList.get(0).getPosY() - height / 2 / zoom) / cellSizeY) + ((mouseY / zoom) / cellSizeY));
+	realPointeurX = (((focusPlayer.getPosX() - width) + ((mouseX) * 2)));
+	realPointeurY = (((focusPlayer.getPosY() - height) + ((mouseY) * 2)));
+	pointeurX = (int) (((focusPlayer.getPosX() - width / 2 / zoom) / cellSizeX) + ((mouseX / zoom) / cellSizeX));
+	pointeurY = (int) (((focusPlayer.getPosY() - height / 2 / zoom) / cellSizeY) + ((mouseY / zoom) / cellSizeY));
 
-	zoom = PlayerList.get(0).getZoom();
+	zoom = focusPlayer.getZoom();
 
 	width = this.getWidth();
 	height = this.getHeight();
@@ -102,7 +103,7 @@ public class PanneauGame extends JPanel implements MouseListener {
 	g2.setColor(exterior);
 	g2.fillRect(0, 0, this.getWidth(), this.getHeight());
 
-	g2.translate((-PlayerList.get(0).getPosX() * zoom) + this.getWidth() / 2, (-PlayerList.get(0).getPosY() * zoom) + this.getHeight() / 2);
+	g2.translate((-focusPlayer.getPosX() * zoom) + this.getWidth() / 2, (-focusPlayer.getPosY() * zoom) + this.getHeight() / 2);
 	g2.scale(zoom, zoom);
 
 	// Création quadrillage
@@ -118,28 +119,28 @@ public class PanneauGame extends JPanel implements MouseListener {
 	 */
 	// Fin création quadrillage
 
-	if ((PlayerList.get(0).getPosX() - this.getWidth() / 2 / zoom) / cellSizeX < 0) {
+	if ((focusPlayer.getPosX() - this.getWidth() / 2 / zoom) / cellSizeX < 0) {
 	    xMin = 0;
 	} else {
-	    xMin = (int) ((PlayerList.get(0).getPosX() - this.getWidth() / 2 / zoom) / cellSizeX);
+	    xMin = (int) ((focusPlayer.getPosX() - this.getWidth() / 2 / zoom) / cellSizeX);
 	}
 
-	if (((PlayerList.get(0).getPosX() + this.getWidth() / 2 / zoom) / cellSizeX) + 5 > lvl.getArraySizeX()) {
+	if (((focusPlayer.getPosX() + this.getWidth() / 2 / zoom) / cellSizeX) + 5 > lvl.getArraySizeX()) {
 	    xMax = lvl.getArraySizeX();
 	} else {
-	    xMax = (int) ((PlayerList.get(0).getPosX() + this.getWidth() / 2 / zoom) / cellSizeX) + 5;
+	    xMax = (int) ((focusPlayer.getPosX() + this.getWidth() / 2 / zoom) / cellSizeX) + 5;
 	}
 
-	if ((PlayerList.get(0).getPosY() - this.getHeight() / 2 / zoom) / cellSizeY < 0) {
+	if ((focusPlayer.getPosY() - this.getHeight() / 2 / zoom) / cellSizeY < 0) {
 	    yMin = 0;
 	} else {
-	    yMin = (int) ((PlayerList.get(0).getPosY() - this.getHeight() / 2 / zoom) / cellSizeY);
+	    yMin = (int) ((focusPlayer.getPosY() - this.getHeight() / 2 / zoom) / cellSizeY);
 	}
 
-	if (((PlayerList.get(0).getPosY() + this.getHeight() / 2 / zoom) / cellSizeY) + 5 > lvl.getArraySizeY()) {
+	if (((focusPlayer.getPosY() + this.getHeight() / 2 / zoom) / cellSizeY) + 5 > lvl.getArraySizeY()) {
 	    yMax = (lvl.getArraySizeY());
 	} else {
-	    yMax = (int) ((PlayerList.get(0).getPosY() + this.getHeight() / 2 / zoom) / cellSizeY) + 5;
+	    yMax = (int) ((focusPlayer.getPosY() + this.getHeight() / 2 / zoom) / cellSizeY) + 5;
 	}
 
 	for (int x = xMin; x < xMax; x++) {
@@ -205,6 +206,22 @@ public class PanneauGame extends JPanel implements MouseListener {
 	g2.rotate(rotation, h / 2, w / 2);
 	g2.drawImage(img, 0, 0, cellSizeX, cellSizeY, null);
 	return newImage;
+    }
+
+    
+    
+    /**
+     * @return the focusEntity
+     */
+    public Player getFocusEntity() {
+        return focusPlayer;
+    }
+
+    /**
+     * @param focusEntity the focusEntity to set
+     */
+    public void setFocusEntity(Player focusEntity) {
+        this.focusPlayer = focusEntity;
     }
 
     public void setNiveau(Niveau niv) {

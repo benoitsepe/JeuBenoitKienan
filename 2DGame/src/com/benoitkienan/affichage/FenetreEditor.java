@@ -14,7 +14,6 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
 import com.benoitkienan.editor.Moteur;
-import com.benoitkienan.entities.Player;
 import com.benoitkienan.main.IOLevel;
 import com.benoitkienan.niveau.Niveau;
 

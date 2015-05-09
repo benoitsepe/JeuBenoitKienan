@@ -18,7 +18,7 @@ import com.benoitkienan.tiles.TileManager;
 public class Moteur {
 
     Niveau lvl = new Niveau();
-    public Camera camera;
+    public Camera camera = new Camera("Roger");
     BufferedImage blueBrick, redBrick, blackBrick, goldBrick, sorcier, cage, poulpe, nyan;
     PanneauGame panGame;
     int x, y, d; // Pour cercle d'Andres
@@ -39,6 +39,7 @@ public class Moteur {
 
     public void runGame() {
 	while (true) {
+	    
 	    
 	    if (panGame.getClicMiddle() == true) {
 		System.out.println("[" + panGame.getPointeurX() + "][" + panGame.getPointeurY() + "]:" + lvl.getArray()[panGame.getPointeurX()][panGame.getPointeurY()]);
@@ -78,6 +79,7 @@ public class Moteur {
 
     public void motApplyPhysics() {
 	panGame.setNiveau(lvl);
+	panGame.setFocusEntity(camera);
 
 	camera.setPanneauGame(panGame);
 	camera.setNiveau(lvl);

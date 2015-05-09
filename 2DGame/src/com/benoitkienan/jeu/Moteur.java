@@ -143,6 +143,7 @@ public class Moteur {
     }
 
     public void motApplyPhysics() {
+	panGame.setFocusEntity(entitiesManager.getPlayerList().get(0));
 	panGame.setNiveau(lvl);
 	panGame.setPlayerList(entitiesManager.getPlayerList());
 	panGame.setMobList(entitiesManager.getMobList());
