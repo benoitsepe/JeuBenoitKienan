@@ -2,6 +2,7 @@ package com.benoitkienan.items;
 
 import java.util.Hashtable;
 
+import com.benoitkienan.entities.Mob;
 import com.benoitkienan.gun.Arme;
 import com.benoitkienan.gun.ArmeManager;
 import com.benoitkienan.tiles.Tile;
@@ -23,6 +24,9 @@ public class ItemManager {
 	for (Arme arme : armeManager.getArmeList()) {
 	    ItemList.put(arme.getNom(), new Item(arme));
 	}
+
+	Item spawner = new Item("spawner");
+	ItemList.put(spawner.getName(), spawner);
 
     }
 

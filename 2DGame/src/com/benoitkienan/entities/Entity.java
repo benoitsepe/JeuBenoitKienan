@@ -68,6 +68,12 @@ public class Entity {
 
     }
 
+    public void spawnAt(int posX, int posY) {
+	this.posX = posX;
+	this.posY = posY;
+	System.out.println("Spawned at x:" + posX + " y:" + posY);
+    }
+
     public Tile[][] nuke(Tile[][] array, int rayon) {
 	try {
 	    for (int r = 0; r < rayon; r++) {
@@ -104,8 +110,12 @@ public class Entity {
 	return array;
     }
 
-    public void setImage(BufferedImage img) {
-	image = img;
+    public void setImage(String imgName) {
+	try {
+	    image = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("Pictures/" + imgName));
+	} catch (IOException e) {
+	    e.printStackTrace();
+	}
     }
 
     public BufferedImage getImage() {

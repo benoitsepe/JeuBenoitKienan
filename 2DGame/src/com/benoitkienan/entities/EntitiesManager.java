@@ -2,10 +2,13 @@ package com.benoitkienan.entities;
 
 import java.util.ArrayList;
 
+import com.benoitkienan.affichage.PanneauGame;
+import com.benoitkienan.jeu.Niveau;
+
 public class EntitiesManager {
-    ArrayList<Entity> EntityList;
-    ArrayList<Player> PlayerList;
-    ArrayList<Mob> MobList;
+    ArrayList<Entity> EntityList = new ArrayList<Entity>();
+    ArrayList<Player> PlayerList = new ArrayList<Player>();
+    ArrayList<Mob> MobList = new ArrayList<Mob>();
     Player player;
     Mob mob1, mob2;
 
@@ -15,13 +18,9 @@ public class EntitiesManager {
 	mob1 = new Mob("Cage", "sorcier.png");
 	mob2 = new Mob("CAGE", "CAGE.png");
 
-	EntityList = new ArrayList<Entity>();
-	PlayerList = new ArrayList<Player>();
-	MobList = new ArrayList<Mob>();
-
 	EntityList.add(player);
-	EntityList.add(mob1);
-	EntityList.add(mob2);
+	// EntityList.add(mob1);
+	// EntityList.add(mob2);
 
 	for (Entity ent : EntityList) {
 	    if (ent instanceof Mob) {
@@ -46,9 +45,20 @@ public class EntitiesManager {
 	return PlayerList;
     }
 
-    public void addMob(Mob mob) {
-	EntityList.add(mob);
-	MobList.add(mob);
+    public void addMob(String name, int posX, int posY, Niveau lvl, PanneauGame panGame) {
+	EntityList.add(new Mob(name + (EntityList.size())));
+	EntityList.get(EntityList.size() - 1).setImage("nyan.png");
+	EntityList.get(EntityList.size() - 1).spawnAt(posX, posY);
+	EntityList.get(EntityList.size() - 1).setNiveau(lvl);
+	EntityList.get(EntityList.size() - 1).setPanneauGame(panGame);
+	MobList.add((Mob) EntityList.get(EntityList.size() - 1));
+
+	// Mob mob5 = new Mob(name);
+	// mob5.spawnAt(posX, posY);
+	// mob5.setNiveau(lvl);
+	// mob5.setPanneauGame(panGame);
+	// EntityList.add(mob5);
+	// MobList.add(mob5);
     }
 
     public void addPlayer(Player player) {

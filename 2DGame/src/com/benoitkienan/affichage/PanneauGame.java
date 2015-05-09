@@ -151,13 +151,13 @@ public class PanneauGame extends JPanel implements MouseListener {
 	g2.setColor(Color.green);
 	for (Mob mob : MobList) {
 	    // Dessin du path
-	    if (mob.getPath() != null) {
-		if (mob.shortestPath.size() > 0) {
-		    for (int i = 0; i < mob.shortestPath.size(); i++) {
-			g2.fillRect((int) (mob.getPath().get(i).getX() * cellSizeX), (int) (mob.getPath().get(i).getY() * cellSizeY), (int) cellSizeX / 4, (int) cellSizeY / 4);
-		    }
-		}
-	    }
+	    /*
+	     * if (mob.getPath() != null) { if (mob.shortestPath.size() > 0) {
+	     * for (int i = 0; i < mob.shortestPath.size(); i++) {
+	     * g2.fillRect((int) (mob.getPath().get(i).getX() * cellSizeX),
+	     * (int) (mob.getPath().get(i).getY() * cellSizeY), (int) cellSizeX
+	     * / 2, (int) cellSizeY / 2); } } }
+	     */
 	    // Fin dessin path
 
 	    g2.drawImage(rotate(mob.getImage(), (int) cellSizeX, (int) cellSizeY, mob.getRotationWithVectors()), (int) (mob.getPosX() - cellSizeX / 2), (int) (mob.getPosY() - cellSizeY / 2), (int) cellSizeX, (int) cellSizeY, this);

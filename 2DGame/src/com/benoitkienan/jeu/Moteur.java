@@ -1,6 +1,7 @@
 package com.benoitkienan.jeu;
 
 import java.awt.image.BufferedImage;
+import java.util.ConcurrentModificationException;
 
 import com.benoitkienan.affichage.PanneauGame;
 import com.benoitkienan.entities.EntitiesManager;
@@ -45,32 +46,36 @@ public class Moteur {
     public void runIA() {
 	for (Mob mob : entitiesManager.getMobList()) {
 	    mob.spawnRandom();
-	    mob.goToNearestPlayer(entitiesManager.getPlayerList(), lvl.getArray());
+	    // mob.goToNearestPlayer(entitiesManager.getPlayerList(),
+	    // lvl.getArray());
 	    mob.nuke(lvl.getArray(), 50);
 
 	}
 
 	while (true) {
-	    for (Mob mob : entitiesManager.getMobList()) {
-		mob.setNiveau(lvl);
-		mob.collideEntites(entitiesManager.getEntityList());
-		mob.applyPhysics();
-
-		mob.getNearestPlayer(entitiesManager.getPlayerList());
-		if (mob.isInSearchZone()) {
-		    mob.goToNearestPlayer(entitiesManager.getPlayerList(), lvl.getArray());
-		    mob.followPath();
-		}
-
-	    }
-	    panGame.setMobList(entitiesManager.getMobList());
-
 	    try {
-		Thread.sleep(20);
-	    } catch (InterruptedException e) {
+		for (Mob mob : entitiesManager.getMobList()) {
+		    mob.setNiveau(lvl);
+		    mob.collideEntites(entitiesManager.getEntityList());
+		    mob.applyPhysics();
+
+		    mob.getNearestPlayer(entitiesManager.getPlayerList());
+		    if (mob.isInSearchZone()) {
+			mob.goToNearestPlayer(entitiesManager.getPlayerList(), lvl.getArray());
+			mob.followPath();
+		    }
+
+		}
+		panGame.setMobList(entitiesManager.getMobList());
+
+		try {
+		    Thread.sleep(20);
+		} catch (InterruptedException e) {
+		    e.printStackTrace();
+		}
+	    } catch (ConcurrentModificationException e) {
 		e.printStackTrace();
 	    }
-
 	}
     }
 
@@ -87,24 +92,28 @@ public class Moteur {
 
 	    if (panGame.getClicGauche() == true) {
 		try {
-
 		    if (hudItems[toolSelected].isWeapon()) { // TIR
-
 			long new_temps = System.currentTimeMillis();
-			if ((new_temps - temps) > 1000) { // Intervalle entre chaque tir : 1 sec
+			if ((new_temps - temps) > 1000) { // Intervalle entre
+			    // chaque tir : 1 sec
 			    temps = new_temps;
 			    entitiesManager.getPlayerList().get(0).shoot(panGame.getRealPointeurX(), panGame.getRealPointeurY(), entitiesManager.getEntityList(), lvl, panGame);
 
 			}
 
-		    } else {
+		    } else if (hudItems[toolSelected].isTile()) {
+			lvl.getArray()[panGame.getPointeurX()][panGame.getPointeurY()] = hudItems[toolSelected].getTile();
 
-			if (hudItems[toolSelected].isTile()) {
-			    lvl.getArray()[panGame.getPointeurX()][panGame.getPointeurY()] = hudItems[toolSelected].getTile();
+		    } else if (hudItems[toolSelected].isSpawner()) {
+			long new_temps2 = System.currentTimeMillis();
+			if ((new_temps2 - temps) > 1000) {
+			    entitiesManager.addMob("Roger", (int) (panGame.getPointeurX() * panGame.cellSizeX), (int) (panGame.getPointeurY() * panGame.cellSizeY), lvl, panGame);
+			    temps = new_temps2;
 			}
-
-			panGame.setNiveau(lvl);
 		    }
+
+		    panGame.setNiveau(lvl);
+
 		} catch (ArrayIndexOutOfBoundsException e) {
 		    e.printStackTrace();
 		}
@@ -202,13 +211,13 @@ public class Moteur {
 	    double posYTir = panGame.getRealPointeurY();
 
 	    double angle = player.getRotationWithMouse(posXTir, posYTir); // On
-									  // prend
-									  // l'angle
-									  // en
-									  // radian
+	    // prend
+	    // l'angle
+	    // en
+	    // radian
 
 	    Balle balle = new Balle(posXPlayer, posYPlayer, 1, 10.0); // Nouvelle
-								      // balle
+	    // balle
 
 	    Tile[][] tableau = lvl.getArray();
 
@@ -246,7 +255,7 @@ public class Moteur {
 		    balle.setPosY(balle.getPosY() + Math.sin(angle));
 
 		} catch (Exception e) { // Si on a un outofbound on consid�re
-					// que c'est un mur
+		    // que c'est un mur
 		    System.out.println("Impact en x=" + x + " et y=" + y);
 		    break;
 		}

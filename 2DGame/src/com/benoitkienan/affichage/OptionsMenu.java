@@ -44,6 +44,7 @@ public class OptionsMenu extends JPanel {
 
 	this.setBackground(Color.black);
 	this.setOpaque(false);
+	this.setVisible(false);
 
 	play.addActionListener(new ActionListener() {
 	    public void actionPerformed(ActionEvent a) {

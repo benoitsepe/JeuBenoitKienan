@@ -13,6 +13,7 @@ public class Item {
     String name;
     Tile tile;
     Arme arme;
+    Entity entity;
     BufferedImage itemImg;
 
     public Item() {
@@ -26,9 +27,12 @@ public class Item {
 	itemImg = tile.getImg();
     }
 
-    public Item(Entity entity) {
-	name = entity.getName();
-	isSpawner = true;
+    // Items spéciaux
+    public Item(String name) {
+	this.name = name;
+	if (name == "spawner") {
+	    isSpawner = true;
+	}
     }
 
     public Item(Arme arme) {
@@ -44,6 +48,10 @@ public class Item {
 
     public boolean isWeapon() {
 	return isWeapon;
+    }
+
+    public boolean isSpawner() {
+	return isSpawner;
     }
 
     public Tile getTile() {
