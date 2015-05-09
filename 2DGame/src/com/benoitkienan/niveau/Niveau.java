@@ -1,4 +1,4 @@
-package com.benoitkienan.jeu;
+package com.benoitkienan.niveau;
 
 import java.awt.image.BufferedImage;
 import java.io.Serializable;

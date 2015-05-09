@@ -10,7 +10,7 @@ import javax.imageio.ImageIO;
 
 import com.benoitkienan.affichage.PanneauGame;
 import com.benoitkienan.gun.Balle;
-import com.benoitkienan.jeu.Niveau;
+import com.benoitkienan.niveau.Niveau;
 import com.benoitkienan.tiles.Tile;
 import com.benoitkienan.tiles.TileManager;
 
@@ -26,7 +26,7 @@ public class Player extends Entity implements KeyListener {
     char keyMinus = '-';
     char keyPlus = '+';
 
-    int speed = 100;
+    int speed = 10;
     double zoom = 0.4;
 
     public Player(String name) {

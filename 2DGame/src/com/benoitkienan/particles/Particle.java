@@ -11,7 +11,7 @@ import javax.imageio.ImageIO;
 
 import com.benoitkienan.affichage.PanneauGame;
 import com.benoitkienan.entities.Entity;
-import com.benoitkienan.jeu.Niveau;
+import com.benoitkienan.niveau.Niveau;
 import com.benoitkienan.tiles.TileManager;
 
 public class Particle {

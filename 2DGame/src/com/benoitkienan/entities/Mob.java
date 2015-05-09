@@ -94,7 +94,7 @@ public class Mob extends Entity {
 
     public void followPath() {
 	if (shortestPath != null) {
-	    if (shortestPath.size() != 0) {
+	    if (shortestPath.size() > 1) {
 		if (shortestPath.get(0).getX() > (int) (posX / panGame.cellSizeX) - xMin) {
 		    addForceX(speed);
 		} else if (shortestPath.get(0).getX() < (int) (posX / panGame.cellSizeX) - xMin) {
@@ -106,8 +106,14 @@ public class Mob extends Entity {
 		} else if (shortestPath.get(0).getY() > (int) (posY / panGame.cellSizeY) - yMin) {
 		    addForceY(speed);
 		}
+	    } else {
+		this.attack();
 	    }
 	}
+
+    }
+
+    public void attack() {
 
     }
 

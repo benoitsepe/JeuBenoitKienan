@@ -3,7 +3,7 @@ package com.benoitkienan.entities;
 import java.util.ArrayList;
 
 import com.benoitkienan.affichage.PanneauGame;
-import com.benoitkienan.jeu.Niveau;
+import com.benoitkienan.niveau.Niveau;
 
 public class EntitiesManager {
     ArrayList<Entity> EntityList = new ArrayList<Entity>();

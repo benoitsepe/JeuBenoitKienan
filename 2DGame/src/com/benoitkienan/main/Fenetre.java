@@ -126,13 +126,11 @@ public class Fenetre extends JFrame implements ActionListener {
 
 	if (e.getSource() == play) {
 	    this.dispose();
-	    com.benoitkienan.affichage.Fenetre fen = new com.benoitkienan.affichage.Fenetre("Pouet");
+	    com.benoitkienan.affichage.FenetreJeu fen = new com.benoitkienan.affichage.FenetreJeu("Pouet");
 	}
 
 	if (e.getSource() == editor) {
-	    // com.benoitkienan.editor.Fenetre fen = new
-	    // com.benoitkienan.editor.Fenetre("Pouet");
-
+	    com.benoitkienan.affichage.FenetreEditor fen = new com.benoitkienan.affichage.FenetreEditor("Pouet");
 	}
 
 	if (e.getSource() == multi) {

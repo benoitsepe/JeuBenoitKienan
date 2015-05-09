@@ -19,9 +19,10 @@ import javax.swing.JPanel;
 
 import CDIO.pathFinder.Node;
 
+import com.benoitkienan.entities.Entity;
 import com.benoitkienan.entities.Mob;
 import com.benoitkienan.entities.Player;
-import com.benoitkienan.jeu.Niveau;
+import com.benoitkienan.niveau.Niveau;
 
 public class PanneauGame extends JPanel implements MouseListener {
 
@@ -144,7 +145,6 @@ public class PanneauGame extends JPanel implements MouseListener {
 	for (int x = xMin; x < xMax; x++) {
 	    for (int y = yMin; y < yMax; y++) {
 		g2.drawImage(lvl.getArray()[x][y].getImg(), x * (int) cellSizeX, y * (int) cellSizeY, (int) cellSizeX, (int) cellSizeY, this);
-		// System.out.println("["+x+"]["+y+"]:"+lvl.getArray()[x][y].getName());
 	    }
 	}
 
@@ -161,10 +161,11 @@ public class PanneauGame extends JPanel implements MouseListener {
 	    // Fin dessin path
 
 	    g2.drawImage(rotate(mob.getImage(), (int) cellSizeX, (int) cellSizeY, mob.getRotationWithVectors()), (int) (mob.getPosX() - cellSizeX / 2), (int) (mob.getPosY() - cellSizeY / 2), (int) cellSizeX, (int) cellSizeY, this);
-
+	    g2.draw(mob.getHitbox());
 	}
 
 	for (Player player : PlayerList) {
+	    g2.draw(player.getHitbox());
 	    g2.drawImage(rotate(player.getImage(), (int) cellSizeX, (int) cellSizeY, player.getRotationWithMouse(realPointeurX, realPointeurY)), (int) (player.getPosX() - cellSizeX / 2), (int) (player.getPosY() - cellSizeY / 2), (int) cellSizeX, (int) cellSizeY, this);
 	    // player.getRotationWithMouse(realPointeurX, realPointeurY);
 	    // g2.drawImage(player.getImage(), (int) (player.getPosX() -
@@ -174,16 +175,21 @@ public class PanneauGame extends JPanel implements MouseListener {
 	}
 
 	// Dessin de vecteurs
-	// for(Entity ent : EntityList){
-	// if((int)ent.vectorX!=0 || (int)ent.vectorY!=0){
-	// ((Graphics2D) g2).setStroke(new BasicStroke(5));
-	// g2.setColor(Color.BLUE);
-	// g2.drawLine((int)(ent.getPosX()+cellSizeX/2),
-	// (int)(ent.getPosY()+cellSizeY/2),
-	// (int)((ent.getPosX()+cellSizeX/2)+ent.vectorX*10),
-	// (int)((ent.getPosY()+cellSizeY/2)+ent.vectorY*10));
-	// }
-	// }
+	for (Player ent : PlayerList) {
+	    if ((int) ent.getVectorX() != 0 || (int) ent.getVectorY() != 0) {
+		((Graphics2D) g2).setStroke(new BasicStroke(10));
+		g2.setColor(Color.WHITE);
+		g2.drawLine((int) (ent.getPosX()), (int) (ent.getPosY()), (int) ((ent.getPosX()) + ent.getVectorX() * 10), (int) ((ent.getPosY()) + ent.getVectorY() * 10));
+	    }
+	}
+
+	for (Mob ent : MobList) {
+	    if ((int) ent.getVectorX() != 0 || (int) ent.getVectorY() != 0) {
+		((Graphics2D) g2).setStroke(new BasicStroke(10));
+		g2.setColor(Color.WHITE);
+		g2.drawLine((int) (ent.getPosX()), (int) (ent.getPosY()), (int) ((ent.getPosX()) + ent.getVectorX() * 10), (int) ((ent.getPosY()) + ent.getVectorY() * 10));
+	    }
+	}
 
 	g2.setColor(Color.RED);
 	g2.setStroke(new BasicStroke(10));

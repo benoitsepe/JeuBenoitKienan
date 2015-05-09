@@ -14,11 +14,11 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
 import com.benoitkienan.entities.Player;
-import com.benoitkienan.jeu.IOLevel;
 import com.benoitkienan.jeu.Moteur;
-import com.benoitkienan.jeu.Niveau;
+import com.benoitkienan.main.IOLevel;
+import com.benoitkienan.niveau.Niveau;
 
-public class Fenetre extends JFrame {
+public class FenetreJeu extends JFrame {
     MenusBar menuBar = new MenusBar();
     ToolBar toolBar = new ToolBar();
     BorderLayout bl = new BorderLayout();
@@ -30,12 +30,11 @@ public class Fenetre extends JFrame {
     Hud hud = new Hud();
     OptionsMenu options = new OptionsMenu();
     Moteur mot = new Moteur(panGame);
-    PanelThread panThread = new PanelThread(this, panGame, hud);
     char touche;
     JLayeredPane mainPan = new JLayeredPane();
     int guiSize = 1;
 
-    public Fenetre(String title) {
+    public FenetreJeu(String title) {
 
 	this.setTitle(title);
 	this.setSize(1280, 720);
@@ -114,6 +113,23 @@ public class Fenetre extends JFrame {
 
 	}
     }
+    
+    public void goPanel() {
+
+	while (true) {
+
+	    hud.repaint();
+	    panGame.repaint();
+
+	    try {
+		Thread.sleep(5);
+	    } catch (InterruptedException e) {
+		e.printStackTrace();
+	    }
+
+	}
+    }
+    
 
     class fenThread implements Runnable {
 	public void run() {
@@ -135,7 +151,7 @@ public class Fenetre extends JFrame {
 
     class refreshPanel implements Runnable {
 	public void run() {
-	    panThread.goPanel();
+	    goPanel();
 	}
     }
 

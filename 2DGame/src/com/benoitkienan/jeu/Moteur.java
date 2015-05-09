@@ -10,6 +10,7 @@ import com.benoitkienan.entities.Mob;
 import com.benoitkienan.entities.Player;
 import com.benoitkienan.gun.Balle;
 import com.benoitkienan.items.Item;
+import com.benoitkienan.niveau.Niveau;
 import com.benoitkienan.tiles.Tile;
 import com.benoitkienan.tiles.TileManager;
 

@@ -1,7 +1,7 @@
 package com.benoitkienan.entities;
 
 import java.awt.Color;
-import java.awt.Rectangle;
+import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -10,7 +10,7 @@ import java.util.Random;
 import javax.imageio.ImageIO;
 
 import com.benoitkienan.affichage.PanneauGame;
-import com.benoitkienan.jeu.Niveau;
+import com.benoitkienan.niveau.Niveau;
 import com.benoitkienan.tiles.Tile;
 import com.benoitkienan.tiles.TileManager;
 
@@ -155,9 +155,18 @@ public class Entity {
     public void collideEntites(ArrayList<Entity> entList) {
 	for (Entity ent : entList) {
 	    if (ent != this) {
-		if (checkCollision((int) ent.getPosX(), (int) ent.getPosY(), (int) (panGame.cellSizeX), (int) (panGame.cellSizeY))) {
-		    setVectorX((getVectorX() > 0) ? (getVectorX() + ent.getVectorX() + 1) : (getVectorX() + ent.getVectorX() - 1));
-		    setVectorY((getVectorY() > 0) ? (getVectorY() + ent.getVectorY() + 1) : (getVectorY() + ent.getVectorY() - 1));
+		if (checkCollision((ent.getPosX() + ent.getVectorX()), (ent.getPosY() + ent.getVectorY()), (panGame.cellSizeX), (panGame.cellSizeY))) {
+
+		    this.addForceX((getVectorX() > 0) ? ent.getVectorX() : ent.getVectorX());
+		    this.addForceY((getVectorY() > 0) ? ent.getVectorY() : ent.getVectorY());
+
+		    // setVectorX((getVectorX() > 0) ? (getVectorX() +
+		    // ent.getVectorX() + 0.1) : (getVectorX() +
+		    // ent.getVectorX() - 0.1));
+		    // setVectorY((getVectorY() > 0) ? (getVectorY() +
+		    // ent.getVectorY() + 0.1) : (getVectorY() +
+		    // ent.getVectorY() - 0.1));
+
 		}
 	    }
 	}
@@ -172,16 +181,16 @@ public class Entity {
      * @param sy
      *            hauteur hitbox � tester
      */
-    public boolean checkCollision(int x, int y, int sx, int sy) {
-	Rectangle r1 = new Rectangle((int) (posX - panGame.cellSizeX / 2), (int) (posY - panGame.cellSizeY / 2), (int) (panGame.cellSizeX), (int) (panGame.cellSizeY));
-	Rectangle r2 = new Rectangle((int) (x - panGame.cellSizeX / 2), (int) (y - panGame.cellSizeY), sx, sy);
+    public boolean checkCollision(double x, double y, double sx, double sy) {
+	Rectangle2D.Double r1 = new Rectangle2D.Double((posX - panGame.cellSizeX / 2), (posY - panGame.cellSizeY / 2), (panGame.cellSizeX), (panGame.cellSizeY));
+	Rectangle2D.Double r2 = new Rectangle2D.Double((x - panGame.cellSizeX / 2), (y - panGame.cellSizeY / 2), sx, sy);
 
 	return r1.intersects(r2);
     }
 
     public boolean checkCollisionEntity(Entity ent) {
-	Rectangle r1 = new Rectangle((int) (posX - panGame.cellSizeX / 2), (int) (posY - panGame.cellSizeY / 2), (int) (panGame.cellSizeX), (int) (panGame.cellSizeY));
-	Rectangle r2 = new Rectangle((int) (ent.getPosX() - panGame.cellSizeX / 2), (int) (ent.getPosY() - panGame.cellSizeY / 2), (int) (panGame.cellSizeX), (int) (panGame.cellSizeY));
+	Rectangle2D.Double r1 = new Rectangle2D.Double((posX - panGame.cellSizeX / 2), (posY - panGame.cellSizeY / 2), (panGame.cellSizeX), (panGame.cellSizeY));
+	Rectangle2D.Double r2 = new Rectangle2D.Double((ent.getPosX() - panGame.cellSizeX / 2), (ent.getPosY() - panGame.cellSizeY / 2), (panGame.cellSizeX), (panGame.cellSizeY));
 	return r1.intersects(r2);
     }
 
@@ -189,8 +198,8 @@ public class Entity {
 	niveau = niv;
     }
 
-    public Rectangle getHitbox() {
-	Rectangle r1 = new Rectangle((int) (posX - panGame.cellSizeX / 2), (int) (posY - panGame.cellSizeY / 2), (int) (panGame.cellSizeX), (int) (panGame.cellSizeY));
+    public Rectangle2D.Double getHitbox() {
+	Rectangle2D.Double r1 = new Rectangle2D.Double((posX - panGame.cellSizeX / 2), (int) (posY - panGame.cellSizeY / 2), (panGame.cellSizeX), (panGame.cellSizeY));
 	return r1;
     }
 

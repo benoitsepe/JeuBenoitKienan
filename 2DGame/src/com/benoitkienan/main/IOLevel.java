@@ -1,4 +1,4 @@
-package com.benoitkienan.jeu;
+package com.benoitkienan.main;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -13,6 +13,8 @@ import java.io.ObjectOutputStream;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.filechooser.FileNameExtensionFilter;
+
+import com.benoitkienan.niveau.Niveau;
 
 public class IOLevel {
     ObjectInputStream ois;
