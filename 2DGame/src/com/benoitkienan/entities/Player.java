@@ -26,6 +26,8 @@ public class Player extends Entity implements KeyListener {
     char keyMinus = '-';
     char keyPlus = '+';
 
+    ArrayList<Thread> listBalle = new ArrayList<Thread>();
+
     int speed = 10;
     double zoom = 0.4;
 
@@ -115,43 +117,13 @@ public class Player extends Entity implements KeyListener {
 
     public void shoot(double posXTir, double posYTir, ArrayList<Entity> EntityList, Niveau lvl, PanneauGame panGame) {
 
-	double angle = getRotationWithMouse(posXTir, posYTir);
+	listBalle.add(new Thread(new Tirer(posXTir, posYTir, EntityList, lvl, panGame, this))); // On creer un nouveau Thread pour une balle, on ajoute à la liste
+	int index = listBalle.size() - 1; // On recupere l'index du thread inserer
+	listBalle.get(index).start(); // On lance le thread
 
-	Balle balle = new Balle(posX, posY, 1, 10.0); // Nouvelle
-						      // balle
-
-	boolean touche = false;
-
-	while (true) {
-
-	    Tile[][] arrayLvl = lvl.getArray();
-
-	    balle.setPosX(balle.getPosX() + Math.cos(angle));
-	    balle.setPosY(balle.getPosY() + Math.sin(angle));
-
-	    int x = (int) (balle.getPosX() / panGame.cellSizeX);
-	    int y = (int) (balle.getPosY() / panGame.cellSizeY);
-
-	    for (Entity entity : EntityList) {
-		if (entity.getHitbox().contains(new Point((int) balle.getPosX(), (int) balle.getPosY()))) {
-		    if (entity != this) {
-			System.out.println(entity.getName() + " a ete touche");
-			touche = true;
-			break;
-		    }
-		}
-	    }
-
-	    if (touche)
-		break;
-
-	    if (niveau.getArray()[x][y].isSolid()) {
-		System.out.println("[" + x + "][" + y + "] a recu un tir");
-		niveau.getArray()[x][y] = (new TileManager().grass);
-		break;
-	    }
-
-	}
+	/*
+	 * Normalement il ne devrait pas y avoir de probléme avec le nombre de balle qu'on peut mettre dans une liste, si sa consomme trop de memoire on peut virer le thread si il est mort
+	 */
 
     }
 
@@ -227,6 +199,75 @@ public class Player extends Entity implements KeyListener {
     }
 
     public void keyTyped(KeyEvent e) {
+
+    }
+
+    class Tirer implements Runnable {
+
+	double posXTir;
+	double posYTir;
+	ArrayList<Entity> EntityList;
+	Niveau lvl;
+	PanneauGame panGame;
+	Player player;
+
+	public Tirer(double posXTir, double posYTir, ArrayList<Entity> entityList, Niveau lvl, PanneauGame panGame, Player player) {
+	    this.posXTir = posXTir;
+	    this.posYTir = posYTir;
+	    this.EntityList = entityList;
+	    this.lvl = lvl;
+	    this.panGame = panGame;
+	    this.player = player;
+	}
+
+	public void run() {
+
+	    double angle = getRotationWithMouse(posXTir, posYTir);
+
+	    Balle balle = new Balle(posX, posY, 1, 10.0); // Nouvelle
+							  // balle
+
+	    boolean touche = false;
+
+	    while (true) {
+
+		Tile[][] arrayLvl = lvl.getArray();
+
+		balle.setPosX(balle.getPosX() + Math.cos(angle));
+		balle.setPosY(balle.getPosY() + Math.sin(angle));
+
+		int x = (int) (balle.getPosX() / panGame.cellSizeX);
+		int y = (int) (balle.getPosY() / panGame.cellSizeY);
+
+		for (Entity entity : EntityList) {
+		    if (entity.getHitbox().contains(new Point((int) balle.getPosX(), (int) balle.getPosY()))) {
+			if (entity != player) {
+			    System.out.println(entity.getName() + " a ete touche");
+			    touche = true;
+			    break;
+			}
+		    }
+		}
+
+		if (touche)
+		    break;
+
+		if (niveau.getArray()[x][y].isSolid()) {
+		    System.out.println("[" + x + "][" + y + "] a recu un tir");
+		    niveau.getArray()[x][y] = (new TileManager().grass);
+		    break;
+		}
+
+		try {
+		    Thread.sleep(50);
+		} catch (InterruptedException e) {
+		    // TODO Auto-generated catch block
+		    e.printStackTrace();
+		}
+
+	    }
+
+	}
 
     }
 
