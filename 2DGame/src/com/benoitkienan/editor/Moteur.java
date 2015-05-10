@@ -42,7 +42,7 @@ public class Moteur {
 	    
 	    
 	    if (panGame.getClicMiddle() == true) {
-		System.out.println("[" + panGame.getPointeurX() + "][" + panGame.getPointeurY() + "]:" + lvl.getArray()[panGame.getPointeurX()][panGame.getPointeurY()]);
+		System.out.println("[" + panGame.getPointeurX() + "][" + panGame.getPointeurY() + "]:" + lvl.getArray()[panGame.getPointeurX()][panGame.getPointeurY()].getName());
 		panGame.clicMiddle = false;
 	    }
 

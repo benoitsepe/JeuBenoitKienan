@@ -13,16 +13,19 @@ import java.awt.event.MouseWheelListener;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 import CDIO.pathFinder.Node;
 
-import com.benoitkienan.entities.Entity;
 import com.benoitkienan.entities.Mob;
 import com.benoitkienan.entities.Player;
 import com.benoitkienan.niveau.Niveau;
+import com.benoitkienan.tiles.Tile;
+import com.benoitkienan.tiles.TileManager;
 
 public class PanneauGame extends JPanel implements MouseListener {
 
@@ -37,7 +40,7 @@ public class PanneauGame extends JPanel implements MouseListener {
     BufferedImage blueBrick, redBrick, blackBrick, goldBrick;
     ArrayList<Mob> MobList = new ArrayList<Mob>();
     ArrayList<Player> PlayerList = new ArrayList<Player>();
-
+    
     double rotation = 0;
     AffineTransform rot = new AffineTransform();
     AffineTransform tx;
@@ -86,6 +89,9 @@ public class PanneauGame extends JPanel implements MouseListener {
 
 	cellSizeX = (1920 / lvl.getArraySizeX()) * 50;
 	cellSizeY = (1080 / lvl.getArraySizeY()) * 50;
+	
+
+	
     }
 
     public void paintComponent(Graphics g) {

@@ -19,14 +19,13 @@ import com.benoitkienan.main.IOLevel;
 import com.benoitkienan.niveau.Niveau;
 
 public class FenetreJeu extends JFrame {
+    PanneauGame panGame = new PanneauGame();
     MenusBar menuBar = new MenusBar();
-    ToolBar toolBar = new ToolBar();
     BorderLayout bl = new BorderLayout();
     Thread tPanel, tFen, tGame, tPhysics, tIA, tHud;
     IOLevel iolvl = new IOLevel();
     Math math;
     Niveau lvl;
-    PanneauGame panGame = new PanneauGame();
     Hud hud = new Hud();
     OptionsMenu options = new OptionsMenu();
     Moteur mot = new Moteur(panGame);
@@ -41,9 +40,9 @@ public class FenetreJeu extends JFrame {
 	this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	this.setLocationRelativeTo(null);
 	// mainPan.setLayout(bl);
+	mainPan.add(panGame, 100, 2);
 	mainPan.add(options, 105, 0);
 	mainPan.add(hud, 101, 1);
-	mainPan.add(panGame, 100, 2);
 	this.setContentPane(mainPan);
 	this.setResizable(true);
 	// this.setJMenuBar(menuBar);

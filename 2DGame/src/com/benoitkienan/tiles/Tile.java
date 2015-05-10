@@ -2,11 +2,12 @@ package com.benoitkienan.tiles;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.io.Serializable;
 
 import javax.imageio.ImageIO;
 
-public class Tile {
-    BufferedImage tileImg;
+public class Tile implements Serializable{
+    transient BufferedImage tileImg;
     boolean isSolid;
     String name;
 
@@ -20,9 +21,21 @@ public class Tile {
 	isSolid = solid;
 	this.name = name;
     }
-
+    
+    /**
+     * @return the tileImg
+     */
     public BufferedImage getImg() {
-	return tileImg;
+        return tileImg;
+    }
+
+
+
+    /**
+     * @param tileImg the tileImg to set
+     */
+    public void setTileImg(BufferedImage tileImg) {
+        this.tileImg = tileImg;
     }
 
     public boolean isSolid() {

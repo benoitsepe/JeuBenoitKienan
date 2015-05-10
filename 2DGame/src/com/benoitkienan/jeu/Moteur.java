@@ -1,7 +1,10 @@
 package com.benoitkienan.jeu;
 
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.ConcurrentModificationException;
+
+import javax.imageio.ImageIO;
 
 import com.benoitkienan.affichage.PanneauGame;
 import com.benoitkienan.entities.EntitiesManager;
@@ -33,6 +36,7 @@ public class Moteur {
 
 	tileManager = new TileManager();
 	entitiesManager = new EntitiesManager();
+
 
 	lvl.createRandomLvl();
 	panGame = pan;
@@ -87,34 +91,36 @@ public class Moteur {
 	while (true) {
 
 	    if (panGame.getClicMiddle() == true) {
-		System.out.println("[" + panGame.getPointeurX() + "][" + panGame.getPointeurY() + "]:" + lvl.getArray()[panGame.getPointeurX()][panGame.getPointeurY()]);
+		System.out.println("[" + panGame.getPointeurX() + "][" + panGame.getPointeurY() + "]:" + lvl.getArray()[panGame.getPointeurX()][panGame.getPointeurY()].getName());
 		panGame.clicMiddle = false;
 	    }
 
 	    if (panGame.getClicGauche() == true) {
 		try {
-		    if (hudItems[toolSelected].isWeapon()) { // TIR
-			long new_temps = System.currentTimeMillis();
-			if ((new_temps - temps) > 1000) { // Intervalle entre
-			    // chaque tir : 1 sec
-			    temps = new_temps;
-			    entitiesManager.getPlayerList().get(0).shoot(panGame.getRealPointeurX(), panGame.getRealPointeurY(), entitiesManager.getEntityList(), lvl, panGame);
+		    if(hudItems[toolSelected] != null){
 
+			if (hudItems[toolSelected].isWeapon()) { // TIR
+			    long new_temps = System.currentTimeMillis();
+			    if ((new_temps - temps) > 1000) { // Intervalle entre
+				// chaque tir : 1 sec
+				temps = new_temps;
+				entitiesManager.getPlayerList().get(0).shoot(panGame.getRealPointeurX(), panGame.getRealPointeurY(), entitiesManager.getEntityList(), lvl, panGame);
+
+			    }
+
+			} else if (hudItems[toolSelected].isTile()) {
+			    lvl.getArray()[panGame.getPointeurX()][panGame.getPointeurY()] = hudItems[toolSelected].getTile();
+
+			} else if (hudItems[toolSelected].isSpawner()) {
+			    long new_temps2 = System.currentTimeMillis();
+			    if ((new_temps2 - temps) > 1000) {
+				entitiesManager.addMob("Roger", (int) (panGame.getPointeurX() * panGame.cellSizeX), (int) (panGame.getPointeurY() * panGame.cellSizeY), lvl, panGame);
+				temps = new_temps2;
+			    }
 			}
 
-		    } else if (hudItems[toolSelected].isTile()) {
-			lvl.getArray()[panGame.getPointeurX()][panGame.getPointeurY()] = hudItems[toolSelected].getTile();
-
-		    } else if (hudItems[toolSelected].isSpawner()) {
-			long new_temps2 = System.currentTimeMillis();
-			if ((new_temps2 - temps) > 1000) {
-			    entitiesManager.addMob("Roger", (int) (panGame.getPointeurX() * panGame.cellSizeX), (int) (panGame.getPointeurY() * panGame.cellSizeY), lvl, panGame);
-			    temps = new_temps2;
-			}
+			panGame.setNiveau(lvl);
 		    }
-
-		    panGame.setNiveau(lvl);
-
 		} catch (ArrayIndexOutOfBoundsException e) {
 		    e.printStackTrace();
 		}

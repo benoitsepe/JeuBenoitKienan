@@ -1,28 +1,37 @@
 package com.benoitkienan.tiles;
 
+import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class TileManager {
+import javax.imageio.ImageIO;
+
+public class TileManager implements Serializable{
     ArrayList<Tile> TileList;
     public Tile grass, dirtBrick, redBrick, blackBrick, goldBrick, wood1, wood2, wood3;
 
     public TileManager() {
 
-	dirtBrick = new Tile("texture terre.png", false, "dirt");
-	redBrick = new Tile("redBrick.png", true, "redBrick");
+	dirtBrick = new Tile("dirt.png", false, "dirt");
 	blackBrick = new Tile("blackBrick.png", true, "blackBrick");
 	goldBrick = new Tile("goldBrick.png", true, "goldBrick");
-	grass = new Tile("texture gazon.png", false, "grass");
-	wood1 = new Tile("texture bois 2.png", true, "wood");
+	grass = new Tile("grass.png", false, "grass");
 
 	TileList = new ArrayList<Tile>();
 
 	TileList.add(dirtBrick);
-	TileList.add(redBrick);
 	TileList.add(blackBrick);
 	TileList.add(goldBrick);
 	TileList.add(grass);
-	TileList.add(wood1);
+	
+ 	for(Tile tile : TileList){
+		try {
+		    tile.setTileImg(ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("Pictures/" + tile.getName()+ ".png")));
+		} catch (IOException e) {
+		    e.printStackTrace();
+		}
+	}
+ 	
 
     }
 
