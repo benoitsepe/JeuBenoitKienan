@@ -117,9 +117,13 @@ public class Player extends Entity implements KeyListener {
 
     public void shoot(double posXTir, double posYTir, ArrayList<Entity> EntityList, Niveau lvl, PanneauGame panGame) {
 
-	listBalle.add(new Thread(new Tirer(posXTir, posYTir, EntityList, lvl, panGame, this)));
-	int index = listBalle.size() - 1;
-	listBalle.get(index).start();
+	listBalle.add(new Thread(new Tirer(posXTir, posYTir, EntityList, lvl, panGame, this))); // On creer un nouveau Thread pour une balle, on ajoute à la liste
+	int index = listBalle.size() - 1; // On recupere l'index du thread inserer
+	listBalle.get(index).start(); // On lance le thread
+
+	/*
+	 * Normalement il ne devrait pas y avoir de probléme avec le nombre de balle qu'on peut mettre dans une liste, si sa consomme trop de memoire on peut virer le thread si il est mort
+	 */
 
     }
 
@@ -252,6 +256,13 @@ public class Player extends Entity implements KeyListener {
 		    System.out.println("[" + x + "][" + y + "] a recu un tir");
 		    niveau.getArray()[x][y] = (new TileManager().grass);
 		    break;
+		}
+
+		try {
+		    Thread.sleep(50);
+		} catch (InterruptedException e) {
+		    // TODO Auto-generated catch block
+		    e.printStackTrace();
 		}
 
 	    }
