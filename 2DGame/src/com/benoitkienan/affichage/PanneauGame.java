@@ -4,7 +4,6 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Image;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -13,10 +12,9 @@ import java.awt.event.MouseWheelListener;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Hashtable;
 
-import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 import CDIO.pathFinder.Node;
@@ -24,6 +22,7 @@ import CDIO.pathFinder.Node;
 import com.benoitkienan.entities.Mob;
 import com.benoitkienan.entities.Player;
 import com.benoitkienan.niveau.Niveau;
+import com.benoitkienan.tiles.DisplayTileManager;
 import com.benoitkienan.tiles.Tile;
 import com.benoitkienan.tiles.TileManager;
 
@@ -37,26 +36,24 @@ public class PanneauGame extends JPanel implements MouseListener {
     public double cellSizeY;
     boolean clicGauche, clicDroit;
     public boolean clicMiddle;
-    BufferedImage blueBrick, redBrick, blackBrick, goldBrick;
     ArrayList<Mob> MobList = new ArrayList<Mob>();
     ArrayList<Player> PlayerList = new ArrayList<Player>();
-    
+
     double rotation = 0;
     AffineTransform rot = new AffineTransform();
     AffineTransform tx;
     AffineTransformOp op;
-    Image img;
-    Node node;
     Graphics2D g2;
     double zoom = 1;
     int width, height;
     int xMin, xMax, yMin, yMax;
-    BufferedImage blueBrickImg, redBrickImg, blackBrickImg, goldBrickImg, grassImg;
     int toolSelected = 0;
     int mouseX, mouseY;
     Player focusPlayer;
 
     Color exterior = Color.gray.darker();
+    DisplayTileManager displayTileManager = new DisplayTileManager();
+    Hashtable<String, BufferedImage> DisplayList = displayTileManager.getDisplayList();
 
     public PanneauGame() {
 
@@ -89,9 +86,7 @@ public class PanneauGame extends JPanel implements MouseListener {
 
 	cellSizeX = (1920 / lvl.getArraySizeX()) * 50;
 	cellSizeY = (1080 / lvl.getArraySizeY()) * 50;
-	
 
-	
     }
 
     public void paintComponent(Graphics g) {
@@ -151,7 +146,7 @@ public class PanneauGame extends JPanel implements MouseListener {
 
 	for (int x = xMin; x < xMax; x++) {
 	    for (int y = yMin; y < yMax; y++) {
-		g2.drawImage(lvl.getArray()[x][y].getImg(), x * (int) cellSizeX, y * (int) cellSizeY, (int) cellSizeX, (int) cellSizeY, this);
+		g2.drawImage(DisplayList.get(lvl.getArray()[x][y].getName()), x * (int) cellSizeX, y * (int) cellSizeY, (int) cellSizeX, (int) cellSizeY, this);
 	    }
 	}
 
@@ -214,20 +209,19 @@ public class PanneauGame extends JPanel implements MouseListener {
 	return newImage;
     }
 
-    
-    
     /**
      * @return the focusEntity
      */
     public Player getFocusEntity() {
-        return focusPlayer;
+	return focusPlayer;
     }
 
     /**
-     * @param focusEntity the focusEntity to set
+     * @param focusEntity
+     *            the focusEntity to set
      */
     public void setFocusEntity(Player focusEntity) {
-        this.focusPlayer = focusEntity;
+	this.focusPlayer = focusEntity;
     }
 
     public void setNiveau(Niveau niv) {

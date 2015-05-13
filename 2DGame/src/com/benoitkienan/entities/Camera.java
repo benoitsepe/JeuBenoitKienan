@@ -32,7 +32,7 @@ public class Camera extends Player implements KeyListener {
 	setVectorY(getVectorY() / 2);
 
     }
-    
+
     public void runPlayer() {
 	if (keyUpPressed == true) {
 	    this.addForceY(-speed);

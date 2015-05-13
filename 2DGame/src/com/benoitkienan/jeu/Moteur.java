@@ -37,7 +37,6 @@ public class Moteur {
 	tileManager = new TileManager();
 	entitiesManager = new EntitiesManager();
 
-
 	lvl.createRandomLvl();
 	panGame = pan;
 
@@ -97,11 +96,12 @@ public class Moteur {
 
 	    if (panGame.getClicGauche() == true) {
 		try {
-		    if(hudItems[toolSelected] != null){
+		    if (hudItems[toolSelected] != null) {
 
 			if (hudItems[toolSelected].isWeapon()) { // TIR
 			    long new_temps = System.currentTimeMillis();
-			    if ((new_temps - temps) > 1000) { // Intervalle entre
+			    if ((new_temps - temps) > 1000) { // Intervalle
+							      // entre
 				// chaque tir : 1 sec
 				temps = new_temps;
 				entitiesManager.getPlayerList().get(0).shoot(panGame.getRealPointeurX(), panGame.getRealPointeurY(), entitiesManager.getEntityList(), lvl, panGame);

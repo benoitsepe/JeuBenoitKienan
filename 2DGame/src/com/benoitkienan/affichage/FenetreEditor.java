@@ -16,9 +16,10 @@ import javax.swing.JMenuItem;
 import com.benoitkienan.editor.Moteur;
 import com.benoitkienan.main.IOLevel;
 import com.benoitkienan.niveau.Niveau;
+import com.benoitkienan.tiles.TileManager;
 
 public class FenetreEditor extends JFrame {
-    MenusBar menuBar = new MenusBar();
+    MenuBar menuBar = new MenuBar();
     ToolBar toolBar = new ToolBar();
     BorderLayout bl = new BorderLayout();
     Thread tPanel, tFen, tGame, tPhysics, tHud;
@@ -46,7 +47,6 @@ public class FenetreEditor extends JFrame {
 	this.setJMenuBar(menuBar);
 
 	this.addKeyListener(mot.camera);
-	
 
 	this.setVisible(true);
 	panGame.setBounds(0, 0, this.getWidth(), this.getHeight());
@@ -105,7 +105,7 @@ public class FenetreEditor extends JFrame {
 
 	}
     }
-    
+
     public void goPanel() {
 
 	while (true) {
@@ -120,7 +120,6 @@ public class FenetreEditor extends JFrame {
 
 	}
     }
-    
 
     class fenThread implements Runnable {
 	public void run() {
@@ -134,7 +133,6 @@ public class FenetreEditor extends JFrame {
 	}
     }
 
-
     class refreshPanel implements Runnable {
 	public void run() {
 	    goPanel();
@@ -147,7 +145,7 @@ public class FenetreEditor extends JFrame {
 	}
     }
 
-    class MenusBar extends JMenuBar {
+    class MenuBar extends JMenuBar {
 	IOLevel iolvl = new IOLevel();
 
 	JMenu fichier = new JMenu("Fichier");
@@ -158,7 +156,7 @@ public class FenetreEditor extends JFrame {
 	JMenu options = new JMenu("Options");
 	JMenuItem surprise = new JMenuItem("surprise");
 
-	public MenusBar() {
+	public MenuBar() {
 	    surprise.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent a) {
 		    System.out.println("SURPRISE");
@@ -168,7 +166,8 @@ public class FenetreEditor extends JFrame {
 	    ouvrir.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent a) {
 		    try {
-			mot.setNiveau(iolvl.openLvl("Pouet"));
+			mot.setNiveau(iolvl.openLvl());
+			mot.setTileManager(new TileManager());
 		    } catch (NullPointerException e) {
 			System.out.println("Ouverture annulée");
 		    }

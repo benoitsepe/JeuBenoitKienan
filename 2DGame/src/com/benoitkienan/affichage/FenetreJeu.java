@@ -112,7 +112,7 @@ public class FenetreJeu extends JFrame {
 
 	}
     }
-    
+
     public void goPanel() {
 
 	while (true) {
@@ -128,7 +128,6 @@ public class FenetreJeu extends JFrame {
 
 	}
     }
-    
 
     class fenThread implements Runnable {
 	public void run() {
@@ -181,7 +180,7 @@ public class FenetreJeu extends JFrame {
 	    ouvrir.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent a) {
 		    try {
-			mot.setNiveau(iolvl.openLvl("Pouet"));
+			mot.setNiveau(iolvl.openLvl());
 		    } catch (NullPointerException e) {
 			System.out.println("Ouverture annulée");
 		    }

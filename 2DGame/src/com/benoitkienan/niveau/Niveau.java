@@ -16,11 +16,11 @@ public class Niveau implements Serializable {
     Tile arrayLvl[][] = new Tile[arraySizeX][arraySizeY];
     BufferedImage blueBrickImg, redBrickImg, blackBrickImg, goldBrickImg, grassImg;
 
-    TileManager tileManager = new TileManager();
+    private TileManager tileManager = new TileManager();
     ArrayList<Tile> TileList;
 
     public Niveau() {
-	TileList = tileManager.getTileList();
+	TileList = getTileManager().getTileList();
     }
 
     public void createRandomLvl() {
@@ -43,14 +43,14 @@ public class Niveau implements Serializable {
 
 	for (int x = 0; x < arraySizeX; x++) {
 	    for (int y = 0; y < arraySizeY; y++) {
-		arrayLvl[x][y] = tileManager.grass;
+		arrayLvl[x][y] = getTileManager().grass;
 	    }
 	}
 
     }
 
     public void destroyTile(int x, int y) {
-	arrayLvl[x][y] = tileManager.grass;
+	arrayLvl[x][y] = getTileManager().grass;
     }
 
     public Tile[][] getArray() {
@@ -67,5 +67,13 @@ public class Niveau implements Serializable {
 
     public int getArraySizeY() {
 	return arraySizeY;
+    }
+
+    public TileManager getTileManager() {
+	return tileManager;
+    }
+
+    public void setTileManager(TileManager tileManager) {
+	this.tileManager = tileManager;
     }
 }

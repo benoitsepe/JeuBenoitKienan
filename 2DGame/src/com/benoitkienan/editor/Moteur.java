@@ -39,8 +39,7 @@ public class Moteur {
 
     public void runGame() {
 	while (true) {
-	    
-	    
+
 	    if (panGame.getClicMiddle() == true) {
 		System.out.println("[" + panGame.getPointeurX() + "][" + panGame.getPointeurY() + "]:" + lvl.getArray()[panGame.getPointeurX()][panGame.getPointeurY()].getName());
 		panGame.clicMiddle = false;
@@ -105,6 +104,10 @@ public class Moteur {
 
 	}
 
+    }
+
+    public void setTileManager(TileManager tileManager) {
+	this.lvl.setTileManager(tileManager);
     }
 
     public void setNiveau(Niveau niv) {

@@ -6,7 +6,7 @@ import java.io.Serializable;
 
 import javax.imageio.ImageIO;
 
-public class Tile implements Serializable{
+public class Tile implements Serializable {
     transient BufferedImage tileImg;
     boolean isSolid;
     String name;
@@ -21,21 +21,20 @@ public class Tile implements Serializable{
 	isSolid = solid;
 	this.name = name;
     }
-    
+
     /**
      * @return the tileImg
      */
     public BufferedImage getImg() {
-        return tileImg;
+	return tileImg;
     }
 
-
-
     /**
-     * @param tileImg the tileImg to set
+     * @param tileImg
+     *            the tileImg to set
      */
     public void setTileImg(BufferedImage tileImg) {
-        this.tileImg = tileImg;
+	this.tileImg = tileImg;
     }
 
     public boolean isSolid() {

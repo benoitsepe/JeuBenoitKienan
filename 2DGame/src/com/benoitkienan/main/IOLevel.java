@@ -27,13 +27,6 @@ public class IOLevel {
 
     public void saveLvl(Niveau saveNiv) {
 
-	// JFileChooser fc = new JFileChooser(path);
-	// FileNameExtensionFilter filter = new
-	// FileNameExtensionFilter(".potato", "potato");
-	// fc.setFileFilter(filter);
-	// fc.showSaveDialog(new JFrame());
-	// path=(fc.getSelectedFile().toString());
-
 	if (!path.endsWith(".potato"))
 	    path += ".potato";
 	System.out.println("Enregistrement de: " + path);
@@ -79,7 +72,7 @@ public class IOLevel {
 
     }
 
-    public Niveau openLvl(String name) {
+    public Niveau openLvl() {
 	JFileChooser fc = new JFileChooser(path);
 	FileNameExtensionFilter filter = new FileNameExtensionFilter(".potato", "potato");
 	fc.setFileFilter(filter);
