@@ -127,17 +127,17 @@ public class Player extends Entity implements KeyListener {
 												// balle,
 												// on
 												// ajoute
-												// �
+												// a
 												// la
 												// liste
 	int index = listBalle.size() - 1; // On recupere l'index du thread
 					  // inserer
 	listBalle.get(index).start(); // On lance le thread
 
+	Thread balle = listBalle.get(index);
+
 	/*
-	 * Normalement il ne devrait pas y avoir de probl�me avec le nombre de
-	 * balle qu'on peut mettre dans une liste, si sa consomme trop de
-	 * memoire on peut virer le thread si il est mort
+	 * Normalement il ne devrait pas y avoir de probleme avec le nombre de balle qu'on peut mettre dans une liste, si sa consomme trop de memoire on peut virer le thread si il est mort
 	 */
 
     }
@@ -244,6 +244,8 @@ public class Player extends Entity implements KeyListener {
 
 	    boolean touche = false;
 
+	    int compteur_sleep = 0;
+
 	    while (true) {
 
 		Tile[][] arrayLvl = lvl.getArray();
@@ -273,12 +275,18 @@ public class Player extends Entity implements KeyListener {
 		    break;
 		}
 
-		try {
-		    Thread.sleep(50);
-		} catch (InterruptedException e) {
-		    // TODO Auto-generated catch block
-		    e.printStackTrace();
+		if (compteur_sleep == 32) {
+
+		    try {
+			compteur_sleep = 0;
+			Thread.sleep(5);
+		    } catch (InterruptedException e) {
+
+			e.printStackTrace();
+		    }
 		}
+
+		compteur_sleep++;
 
 	    }
 
