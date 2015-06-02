@@ -26,7 +26,7 @@ public class Player extends Entity implements KeyListener {
     char keyMinus = '-';
     char keyPlus = '+';
 
-    ArrayList<Thread> listBalle = new ArrayList<Thread>();
+    ArrayList<TirerThread> listBalle = new ArrayList<TirerThread>();
 
     int speed = 10;
     double zoom = 0.4;
@@ -117,24 +117,24 @@ public class Player extends Entity implements KeyListener {
 
     public void shoot(double posXTir, double posYTir, ArrayList<Entity> EntityList, Niveau lvl, PanneauGame panGame) {
 
-	listBalle.add(new Thread(new Tirer(posXTir, posYTir, EntityList, lvl, panGame, this))); // On
-												// creer
-												// un
-												// nouveau
-												// Thread
-												// pour
-												// une
-												// balle,
-												// on
-												// ajoute
-												// a
-												// la
-												// liste
+	listBalle.add(new TirerThread(new Tirer(posXTir, posYTir, EntityList, lvl, panGame, this))); // On
+	// creer
+	// un
+	// nouveau
+	// Thread
+	// pour
+	// une
+	// balle,
+	// on
+	// ajoute
+	// a
+	// la
+	// liste
 	int index = listBalle.size() - 1; // On recupere l'index du thread
 					  // inserer
 	listBalle.get(index).start(); // On lance le thread
 
-	Thread balle = listBalle.get(index);
+	Balle balle = listBalle.get(index).getBalle();
 
 	/*
 	 * Normalement il ne devrait pas y avoir de probleme avec le nombre de balle qu'on peut mettre dans une liste, si sa consomme trop de memoire on peut virer le thread si il est mort
@@ -217,6 +217,23 @@ public class Player extends Entity implements KeyListener {
 
     }
 
+    class TirerThread extends Thread {
+	final Tirer tirer;
+
+	TirerThread(Tirer tire) {
+	    super(tire);
+	    this.tirer = tire;
+	}
+
+	Tirer getTire() {
+	    return tirer;
+	}
+
+	Balle getBalle() {
+	    return tirer.getBalle();
+	}
+    }
+
     class Tirer implements Runnable {
 
 	double posXTir;
@@ -226,21 +243,26 @@ public class Player extends Entity implements KeyListener {
 	PanneauGame panGame;
 	Player player;
 
-	public Tirer(double posXTir, double posYTir, ArrayList<Entity> entityList, Niveau lvl, PanneauGame panGame, Player player) {
+	private final Balle balle;
+
+	Tirer(double posXTir, double posYTir, ArrayList<Entity> entityList, Niveau lvl, PanneauGame panGame, Player player) {
 	    this.posXTir = posXTir;
 	    this.posYTir = posYTir;
 	    this.EntityList = entityList;
 	    this.lvl = lvl;
 	    this.panGame = panGame;
 	    this.player = player;
+	    balle = new Balle(posX, posY, 1, 10.0); // Nouvelle balle
+
+	}
+
+	public Balle getBalle() {
+	    return balle;
 	}
 
 	public void run() {
 
 	    double angle = getRotationWithMouse(posXTir, posYTir);
-
-	    Balle balle = new Balle(posX, posY, 1, 10.0); // Nouvelle
-							  // balle
 
 	    boolean touche = false;
 
